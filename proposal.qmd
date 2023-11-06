@@ -1,5 +1,5 @@
 ---
-title: "Proposal title"
+title: "Constellation Maps"
 subtitle: "Proposal"
 format: html
 editor: visual
@@ -14,18 +14,78 @@ library(tidyverse)
 ## Dataset
 
 ```{r}
-#| label: load-dataset
+#| label: load-pkgs
 #| message: false
+if (!require("pacman"))
+  install.packages("pacman")
+pacman::p_load(tidyverse, sf, s2,
+               nominatimlite, lutz, ggfx,
+               ggshadow
+               )
 ```
 
-A brief description of your dataset including its provenance, dimensions, etc. as well as the reason why you chose this dataset.
+```{r}
+#| label: load-dataset
+#| message: false
+#Load_Dataset
+load_celestial <- function(filename,
+                           url = "https://cdn.jsdelivr.net/gh/dieghernan/celestial_data@main/data/",
+                           cachedir = tempdir()) {
+  if (!dir.exists(cachedir)) {
+    stop(
+      "Please create ",
+      path.expand(cachedir),
+      " directory",
+      "first"
+    )
+  }
+  url <- file.path(url, filename)
+  local_path <- file.path(cachedir, filename)
+  if (!file.exists(local_path)) {
+    download.file(url, local_path, mode = "wb", quiet = TRUE)
+  }
+  celestial <- sf::st_read(local_path, quiet = TRUE)
+  return(celestial)
+}
+#Load_coordinate_labeller
+pretty_lonlat <- function(x, type, accuracy = 2) {
+  positive <- x >= 0
+  # Decompose
+  x <- abs(x)
+  D <- as.integer(x)
+  m <- (x - D) * 60
+  M <- as.integer(m)
+  S <- round((m - M) * 60, accuracy)
+  # Get label
+  if (type == "lon") {
+    lab <- ifelse(positive > 0, "E", "W")
+  } else {
+    lab <- ifelse(positive > 0, "N", "S")
+  }
+  # Compose
+  label <- paste0(D, "\u00b0 ", M, "' ", S, '\" ', lab)
+  return(label)
+}
+```
 
-Make sure to load the data and use inline code for some of this information.
+These datasets originally feature interactive and adaptable constellation maps, initially curated by Olaf Frohn. However, some issues related to date lines and certain packages were identified in these datasets, and they were subsequently resolved by Dieghernan. You can explore the repository [here.](https://github.com/dieghernan/celestial_data/tree/main)\
+The datasets are available in GeoJSON (`*.geojson`) and GeoPackage (`*.gpkg`) formats, representing celestial objects' positions as of the J2000 epoch. They are roughly categorized into five sections: `Asterisms`, `Constellations`, `DSOs` (Deep-Sky Objects), `Stars`, and the `Milky Way`. Each of these astronomical object categories is further subdivided into several subfiles.
 
-## Questions
+### Why did we choose this dataset?
 
-The two questions you want to answer.
+As we explored various topics for a captivating visualization project using a Shiny app, we stumbled upon a fascinating reference that showcased creating city maps, which you can find [here](https://prettymapp.streamlit.app/). Inspired by this, our interest evolved towards the idea of crafting a celestial map that would represent the skies above our location.\
+These datasets offer celestial visualizations based on longitude, latitude, and time parameters, granting us the ability to fashion dynamic and interactive sky maps.
+
+## High-level goal
+
+Develop a Shiny app that generates constellation maps integrating interactive elements, integrating both computational and visualization techniques.
+
+## Purpose
+
+\[Description\]
 
 ## Analysis plan
 
 -   A plan for answering each of the questions including the variables involved, variables to be created (if any), external data to be merged in (if any).
+
+## Weekly "plan of attack"
