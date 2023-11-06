@@ -11,6 +11,10 @@ editor: visual
 library(tidyverse)
 ```
 
+## High-level goal
+
+Develop a Shiny app that generates constellation maps integrating interactive elements, implementing both computational and visualization techniques.
+
 ## Dataset
 
 ```{r}
@@ -75,10 +79,6 @@ The datasets are available in GeoJSON (`*.geojson`) and GeoPackage (`*.gpkg`) fo
 
 As we explored various topics for a captivating visualization project using a Shiny app, we stumbled upon a fascinating reference that showcased creating city maps, which you can find [here](https://prettymapp.streamlit.app/). Inspired by this, our interest evolved towards the idea of crafting a celestial map that would represent the skies above our location.\
 These datasets offer celestial visualizations based on longitude, latitude, and time parameters, granting us the ability to fashion dynamic and interactive sky maps.
-
-## High-level goal
-
-Develop a Shiny app that generates constellation maps integrating interactive elements, integrating both computational and visualization techniques.
 
 ## Purpose
 
