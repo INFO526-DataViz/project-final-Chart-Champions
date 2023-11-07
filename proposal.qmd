@@ -82,7 +82,7 @@ These datasets offer celestial visualizations based on longitude, latitude, and 
 
 ## Purpose
 
-\[Description\]
+The primary objective of this project is to develop a Shiny app that not only generates interactive constellation maps but also prioritizes accessibility and personalization of these maps. By offering users the ability to input specific geographic locations, the app will provide personalized, contextually relevant constellation maps for each user. Individuals will be able to explore the night sky from different geographical locations by inputting latitude and longitudinal points to create visually provoking constellation maps. We hope to make stargazing more engaging and educational by personalizing the experience through various elements: color usage, map location, time zone, latitude/longitude location. Additionally, the app will be designed with a user-friendly interface to ensure accessibility with an aim to make it inclusive for people of all backgrounds and levels of astronomical knowledge.
 
 ## Analysis plan
 
@@ -110,7 +110,7 @@ Week 4: Creating the Star Map
 
 -   Add scatterplot of the constellations on top of the prepared spherical geom.
 
--   Experiment with different locations, and test custom inputs in the plotting functions
+-   Experiment with different locations, and test custom inputs in the plotting functions.
 
 Week 5-6: Shiny App Development
 
@@ -130,4 +130,4 @@ Week 7: Testing and reviewing
 
 -   Deploy the app.
 
--   Prepare presentation for the final showcase
+-   Prepare presentation for the final showcase.
