@@ -8,18 +8,6 @@ editor: visual
 ```{r}
 #| label: load-pkgs
 #| message: false
-library(tidyverse)
-```
-
-## High-level goal
-
-Develop a Shiny app that generates constellation maps integrating interactive elements, implementing both computational and visualization techniques.
-
-## Dataset
-
-```{r}
-#| label: load-pkgs
-#| message: false
 if (!require("pacman"))
   install.packages("pacman")
 pacman::p_load(tidyverse, sf, s2,
@@ -27,6 +15,12 @@ pacman::p_load(tidyverse, sf, s2,
                ggshadow
                )
 ```
+
+## High-level goal
+
+Develop a Shiny app that generates constellation maps integrating interactive elements, implementing both computational and visualization techniques.
+
+## Dataset
 
 ```{r}
 #| label: load-dataset
