@@ -131,3 +131,33 @@ Week 7: Testing and reviewing
 -   Deploy the app.
 
 -   Prepare presentation for the final showcase.
+
+## Repo Organization 
+
+-   .github: This directory contain files related to GitHub, such as workflows, issue templates, or other configurations.
+
+-   . \_extra:
+
+-   \_freeze:
+
+-   data: This folder contains data files or datasets that are used in the project.
+
+    -   README.md : A readme file that describes the datasets in more detail.
+
+-   images: This folder contains image files that are used in the project, such as illustrations, diagrams, or other visual assets.
+
+-   gitignore: This file specifies which files or directories should be ignored by version control.
+
+-   README.md: This file usually contains documentation or information about the project. It's often the first thing someone reads when they visit the project repository.
+
+-   \_quarto.yml: This is likely a configuration file
+
+-   about.qmd : This quarto document contains the information about team members.
+
+-   index.qmd : This quarto document contains the approach and analysis and results of the project.
+
+-   presentation.qmd : It contains the slides for the presentation.
+
+-   proposal.qmd : This quarto documents has the proposal of the project.
+
+-   project-final.Rproj : This is an RStudio project file, which helps organize R-related files and settings for the project.
