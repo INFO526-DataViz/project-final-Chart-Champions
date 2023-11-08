@@ -9,15 +9,7 @@ editor: visual
 
 #| label: load-pkgs
 #| message: false
-<<<<<<< HEAD
-=======
-if (!require("pacman"))
-  install.packages("pacman")
-pacman::p_load(tidyverse, sf, s2,
-               nominatimlite, lutz, ggfx,
-               ggshadow
-               )
->>>>>>> deb14c370a06ebc125ada2e865b1a2388595abaf
+#| 
 ```
 
 ## High-level goal
