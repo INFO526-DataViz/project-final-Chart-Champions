@@ -6,10 +6,10 @@ editor: visual
 
 This project was developed by **the Chart Champions** For [INFO 526 - Data Analysis & Visualization](https://datavizaz.org/) at the University of Arizona, taught by Dr. Greg Chism. The team is comprised of the following team members.
 
--   Team member 1: One sentence description of Team member 1 (e.g., year, major, etc.).
+-   Megan Hokama: Third-year Ph.D. student in Educational Psychology at University of Arizona.
 
--   Team member 2: One sentence description of Team member 2 (e.g., year, major, etc.).
+-   Sai Madhuri Kandula: First-year graduate student pursuing Data Science at University of Arizona.
 
--   Team member 3: One sentence description of Team member 3 (e.g., year, major, etc.).
+-   Visalakshi Prakash Iyer: First-year graduate student pursuing Data Science at University of Arizona.
 
--   Team member 4: One sentence description of Team member 4 (e.g., year, major, etc.).
+-   Kiwoon Hong : First-year graduate student pursuing Data Science at University of Arizona.
