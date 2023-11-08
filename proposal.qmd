@@ -1,5 +1,5 @@
 ---
-title: "Proposal title"
+title: "Constellation Maps"
 subtitle: "Proposal"
 format: html
 editor: visual
@@ -9,23 +9,123 @@ editor: visual
 
 #| label: load-pkgs
 #| message: false
+<<<<<<< HEAD
+=======
+if (!require("pacman"))
+  install.packages("pacman")
+pacman::p_load(tidyverse, sf, s2,
+               nominatimlite, lutz, ggfx,
+               ggshadow
+               )
+>>>>>>> deb14c370a06ebc125ada2e865b1a2388595abaf
 ```
+
+## High-level goal
+
+Develop a Shiny app that generates constellation maps integrating interactive elements, implementing both computational and visualization techniques.
 
 ## Dataset
 
 ```{r}
 #| label: load-dataset
 #| message: false
+#Load_Dataset
+load_celestial <- function(filename,
+                           url = "https://cdn.jsdelivr.net/gh/dieghernan/celestial_data@main/data/",
+                           cachedir = tempdir()) {
+  if (!dir.exists(cachedir)) {
+    stop(
+      "Please create ",
+      path.expand(cachedir),
+      " directory",
+      "first"
+    )
+  }
+  url <- file.path(url, filename)
+  local_path <- file.path(cachedir, filename)
+  if (!file.exists(local_path)) {
+    download.file(url, local_path, mode = "wb", quiet = TRUE)
+  }
+  celestial <- sf::st_read(local_path, quiet = TRUE)
+  return(celestial)
+}
+#Load_coordinate_labeller
+pretty_lonlat <- function(x, type, accuracy = 2) {
+  positive <- x >= 0
+  # Decompose
+  x <- abs(x)
+  D <- as.integer(x)
+  m <- (x - D) * 60
+  M <- as.integer(m)
+  S <- round((m - M) * 60, accuracy)
+  # Get label
+  if (type == "lon") {
+    lab <- ifelse(positive > 0, "E", "W")
+  } else {
+    lab <- ifelse(positive > 0, "N", "S")
+  }
+  # Compose
+  label <- paste0(D, "\u00b0 ", M, "' ", S, '\" ', lab)
+  return(label)
+}
 ```
 
-A brief description of your dataset including its provenance, dimensions, etc. as well as the reason why you chose this dataset.
+These datasets originally feature interactive and adaptable constellation maps, initially curated by Olaf Frohn. However, some issues related to date lines and certain packages were identified in these datasets, and they were subsequently resolved by Dieghernan. You can explore the repository [here.](https://github.com/dieghernan/celestial_data/tree/main)\
+The datasets are available in GeoJSON (`*.geojson`) and GeoPackage (`*.gpkg`) formats, representing celestial objects' positions as of the J2000 epoch. They are roughly categorized into five sections: `Asterisms`, `Constellations`, `DSOs` (Deep-Sky Objects), `Stars`, and the `Milky Way`. Each of these astronomical object categories is further subdivided into several subfiles.
 
-Make sure to load the data and use inline code for some of this information.
+### Why did we choose this dataset?
 
-## Questions
+As we explored various topics for a captivating visualization project using a Shiny app, we stumbled upon a fascinating reference that showcased creating city maps, which you can find [here](https://prettymapp.streamlit.app/). Inspired by this, our interest evolved towards the idea of crafting a celestial map that would represent the skies above our location.\
+These datasets offer celestial visualizations based on longitude, latitude, and time parameters, granting us the ability to fashion dynamic and interactive sky maps.
 
-The two questions you want to answer.
+## Purpose
+
+The primary objective of this project is to develop a Shiny app that not only generates interactive constellation maps but also prioritizes accessibility and personalization of these maps. By offering users the ability to input specific geographic locations, the app will provide personalized, contextually relevant constellation maps for each user. Individuals will be able to explore the night sky from different geographical locations by inputting latitude and longitudinal points to create visually provoking constellation maps. We hope to make stargazing more engaging and educational by personalizing the experience through various elements: color usage, map location, time zone, latitude/longitude location. Additionally, the app will be designed with a user-friendly interface to ensure accessibility with an aim to make it inclusive for people of all backgrounds and levels of astronomical knowledge.
 
 ## Analysis plan
 
 -   A plan for answering each of the questions including the variables involved, variables to be created (if any), external data to be merged in (if any).
+
+## Weekly "plan of attack"
+
+Week 1-2: Understanding the Basics
+
+-   Understand the basics of spatial manipulation with libraries like `sf` and `s2`.
+
+-   Get familiarized with visualization using `ggfx`, and `ggshadow`.
+
+-   Test out apps with Shiny and its usage for rendering real-time maps.
+
+Week 3: Creating the basis for celestial maps
+
+-   Create base functions for themes, loading datasets, parsing, and cleaning.
+
+-   Since the maps need to be custom, we will also make functions that will work on variability. Some of the variables for the map will be background color, location input, glow intensity, names of the stars on the celestial map, and custom text on the map's footer.
+
+Week 4: Creating the Star Map
+
+-   Create basic maps using sf object and sperical geoms using s2.
+
+-   Add scatterplot of the constellations on top of the prepared spherical geom.
+
+-   Experiment with different locations, and test custom inputs in the plotting functions.
+
+Week 5-6: Shiny App Development
+
+-   Integrate star map code into a shiny app .
+
+-   Work on the GUI elements to provide dynamic rendering.
+
+-   Create workflow that provides size, theme, and customization of maps.
+
+-   Create download functionality for the maps.
+
+Week 7: Testing and reviewing
+
+-   Test different parameters to identify edge cases.
+
+-   Refine the app based on feedback.
+
+-   Deploy the app.
+
+-   Prepare presentation for the final showcase.
