@@ -132,13 +132,13 @@ Week 7: Testing and reviewing
 
 -   Prepare presentation for the final showcase.
 
-## Repo Organization 
+## Repo Organization
 
 -   .github: This directory contain files related to GitHub, such as workflows, issue templates, or other configurations.
 
--   . \_extra:
+-   . \_extra: Contains code, notes and other files used during experimentation. Contents of this folder is not a part of the final output.
 
--   \_freeze:
+-   \_freeze: The folder created to store files generated during project render.
 
 -   data: This folder contains data files or datasets that are used in the project.
 
