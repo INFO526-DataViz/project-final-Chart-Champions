@@ -13,3 +13,5 @@ This project was developed by **the Chart Champions** For [INFO 526 - Data Analy
 -   Visalakshi Prakash Iyer: First-year graduate student pursuing Data Science at University of Arizona.
 
 -   Kiwoon Hong : First-year graduate student pursuing Data Science at University of Arizona.
+
+-   Tejashwini Kasa: First-year graduate student pursuing Data Science at University of Arizona.
