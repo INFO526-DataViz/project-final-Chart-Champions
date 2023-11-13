@@ -5,18 +5,30 @@ format: html
 editor: visual
 ---
 
-```{r}
+```{r, echo=FALSE}
 
-#| label: load-pkgs
-#| message: false
-#| 
+if(!require(pacman))
+  install.packages("pacman")
+
+pacman::p_load(formattable)
 ```
+
+## High-level goal
+
+Develop a Shiny app that generates constellation maps that utilizes interactive elements, incorporating computational and visualization techniques.
+
+## Goal & Motivation
+
+The primary objective of this project is to develop a Shiny app that not only generates interactive constellation maps but also prioritizes accessibility and personalization of these maps. By offering users the ability to input specific geographic locations, the app will provide personalized, contextually relevant constellation maps for each user. Individuals will be able to explore the night sky from different geographical locations by inputting latitude and longitudinal points to create visually provoking constellation maps. We hope to make stargazing more engaging and educational by personalizing the experience through various elements: color usage, map location, time zone, latitude/longitude location. Additionally, the app will be designed with a user-friendly interface to ensure accessibility with an aim to make it inclusive for people of all backgrounds and levels of astronomical knowledge. This will be achieved by using colorblind accessible palettes (avoiding bright and low-contrast colors) and providing annotations to provide readability and context for a wide range of users, including astronomy beginners.
 
 ## Dataset
 
-```{r}
-#| label: load-dataset
-#| message: false
+The datasets are available in GeoJSON (`*.geojson`) and GeoPackage (`*.gpkg`) formats, representing celestial objects' positions as of the J2000 epoch. They are roughly categorized into five sections: `Asterisms`, `Constellations`, `DSOs` (Deep-Sky Objects), `Stars`, and the `Milky Way`. Each of these astronomical object categories is further subdivided into several subfiles.
+
+We will be using three of the available data: the milkyway, the constellation lines, and the stars.
+
+```{r, echo = FALSE}
+
 #Load_Dataset
 load_celestial <- function(filename,
                            url = "https://cdn.jsdelivr.net/gh/dieghernan/celestial_data@main/data/",
@@ -56,25 +68,54 @@ pretty_lonlat <- function(x, type, accuracy = 2) {
   label <- paste0(D, "\u00b0 ", M, "' ", S, '\" ', lab)
   return(label)
 }
+
+mw <- load_celestial("mw.min.geojson")
+
+const <- load_celestial("constellations.lines.min.geojson") 
+
+stars <- load_celestial("stars.8.min.geojson")
+```
+
+### Milky Way
+
+| `id`: Milky Way outlines in 5 brightness steps (ol1-ol5).
+
+```{r}
+
+mw  |> formattable()
+```
+
+### Stars
+
+| `id`: Short designator
+| `mag`: Apparent magnitude, 999 if n.a.
+| `bv`: b-v color index.
+| `br`: Relative brightness to magnitude 0, computed as \$100\^{-1 \* mag / 5}\$
+| `name`: Proper name
+
+```{r, echo = FALSE}
+
+stars |> filter(!is.na(name)) |> head(10) |> formattable()
+```
+
+### Constellation lines
+
+| 89 constellation line objects
+| `id`: 3-letter designator
+| `rank`: 1-3 for differential name display by size/brightness
+| `name`: full IAU name
+
+```{r, echo=FALSE}
+
+const |> head(10) |> formattable()
 ```
 
 These datasets originally feature interactive and adaptable constellation maps, initially curated by Olaf Frohn. However, some issues related to date lines and certain packages were identified in these datasets, and they were subsequently resolved by Dieghernan. You can explore the repository [here.](https://github.com/dieghernan/celestial_data/tree/main)
-
-\
-The datasets are available in GeoJSON (`*.geojson`) and GeoPackage (`*.gpkg`) formats, representing celestial objects' positions as of the J2000 epoch. They are roughly categorized into five sections: `Asterisms`, `Constellations`, `DSOs` (Deep-Sky Objects), `Stars`, and the `Milky Way`. Each of these astronomical object categories is further subdivided into several subfiles.
 
 ### Why did we choose this dataset?
 
 As we explored various topics for a captivating visualization project using a Shiny app, we stumbled upon a fascinating reference that showcased creating city maps, which you can find [here](https://prettymapp.streamlit.app/). Inspired by this, our interest evolved towards the idea of crafting a celestial map that would represent the skies above our location.\
 These datasets offer celestial visualizations based on longitude, latitude, and time parameters, granting us the ability to fashion dynamic and interactive sky maps.
-
-## Purpose
-
-The primary objective of this project is to develop a Shiny app that not only generates interactive constellation maps but also prioritizes accessibility and personalization of these maps. By offering users the ability to input specific geographic locations, the app will provide personalized, contextually relevant constellation maps for each user. Individuals will be able to explore the night sky from different geographical locations by inputting latitude and longitudinal points to create visually provoking constellation maps. We hope to make stargazing more engaging and educational by personalizing the experience through various elements: color usage, map location, time zone, latitude/longitude location. Additionally, the app will be designed with a user-friendly interface to ensure accessibility with an aim to make it inclusive for people of all backgrounds and levels of astronomical knowledge. This will be achieved by using colorblind accessible palettes (avoiding bright and low-contrast colors) and providing annotations to provide readibility and context for a wide range of users, including astronomy beginners.
-
-## High-level goal
-
-Develop a Shiny app that generates constellation maps that utilizes interactive elements, incorporating computational and visualization techniques.
 
 ## Weekly "plan of attack"
 
@@ -104,10 +145,10 @@ Develop a Shiny app that generates constellation maps that utilizes interactive 
 |                                               |                                      | -   Create workflow that provides size, theme, and customization of maps.                                                                                                                                                                                                  |
 |                                               |                                      |                                                                                                                                                                                                                                                                            |
 |                                               |                                      | -   Create download functionality for the maps.                                                                                                                                                                                                                            |
-+-----------------------------------------------+--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Week 7: Testing and reviewing                 | Kiwoon Hong, Sai Madhuri Kandula     | -   Test different parameters to identify edge cases.                                                                                                                                                                                                                      |
 |                                               |                                      |                                                                                                                                                                                                                                                                            |
-|                                               |                                      | -   Refine the app based on feedback.                                                                                                                                                                                                                                      |
+|                                               |                                      | -   Test different parameters to identify edge cases.                                                                                                                                                                                                                      |
++-----------------------------------------------+--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Week 7: Testing and reviewing                 | Kiwoon Hong, Sai Madhuri Kandula     | -   Refine the app based on feedback.                                                                                                                                                                                                                                      |
 |                                               |                                      |                                                                                                                                                                                                                                                                            |
 |                                               |                                      | -   Deploy the app.                                                                                                                                                                                                                                                        |
 |                                               |                                      |                                                                                                                                                                                                                                                                            |
