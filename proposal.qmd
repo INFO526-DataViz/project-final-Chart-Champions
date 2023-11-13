@@ -79,6 +79,7 @@ stars <- load_celestial("stars.8.min.geojson")
 ### Milky Way
 
 | `id`: Milky Way outlines in 5 brightness steps (ol1-ol5).
+| `geometry`: geomtry lines for milky way
 
 ```{r}
 
@@ -92,6 +93,7 @@ mw  |> formattable()
 | `bv`: b-v color index.
 | `br`: Relative brightness to magnitude 0, computed as \$100\^{-1 \* mag / 5}\$
 | `name`: Proper name
+| `geometry`: around 40k stars point objects
 
 ```{r, echo = FALSE}
 
@@ -100,7 +102,7 @@ stars |> filter(!is.na(name)) |> head(10) |> formattable()
 
 ### Constellation lines
 
-| 89 constellation line objects
+| `geometry`: 89 constellation line objects
 | `id`: 3-letter designator
 | `rank`: 1-3 for differential name display by size/brightness
 | `name`: full IAU name
@@ -157,30 +159,30 @@ These datasets offer celestial visualizations based on longitude, latitude, and 
 
 ## Repo Organization
 
--   .github: This directory contain files related to GitHub, such as workflows, issue templates, or other configurations.
+-   `.github`: This directory contain files related to GitHub, such as workflows, issue templates, or other configurations.
 
--   . \_extra: Contains code, notes and other files used during experimentation. Contents of this folder is not a part of the final output.
+-   `_extra`: Contains code, notes and other files used during experimentation. Contents of this folder is not a part of the final output.
 
--   \_freeze: The folder created to store files generated during project render.
+-   `_freeze`: The folder created to store files generated during project render.
 
--   data: This folder contains data files or datasets that are used in the project.
+-   `data/`: This folder contains data files or datasets that are used in the project.
 
-    -   README.md : A readme file that describes the datasets in more detail.
+    -   `README.md` : A readme file that describes the datasets in more detail.
 
--   images: This folder contains image files that are used in the project, such as illustrations, diagrams, or other visual assets.
+-   `images`: This folder contains image files that are used in the project, such as illustrations, diagrams, or other visual assets.
 
--   gitignore: This file specifies which files or directories should be ignored by version control.
+-   `.gitignore`: This file specifies which files or directories should be ignored by version control.
 
--   README.md: This file usually contains documentation or information about the project. It's often the first thing someone reads when they visit the project repository.
+-   `README.md`: This file usually contains documentation or information about the project. It's often the first thing someone reads when they visit the project repository.
 
--   \_quarto.yml: This is likely a configuration file
+-   `_quarto.yml`: This is likely a configuration file
 
--   about.qmd : This quarto document contains the information about team members.
+-   `about.qmd` : This quarto document contains the information about team members.
 
--   index.qmd : This quarto document contains the approach and analysis and results of the project.
+-   `index.qmd` : This quarto document contains the approach and analysis and results of the project.
 
--   presentation.qmd : It contains the slides for the presentation.
+-   `presentation.qmd` : It contains the slides for the presentation.
 
--   proposal.qmd : This quarto documents has the proposal of the project.
+-   `proposal.qmd` : This quarto documents has the proposal of the project.
 
--   project-final.Rproj : This is an RStudio project file, which helps organize R-related files and settings for the project.
+-   `project-final.Rproj` : This is an RStudio project file, which helps organize R-related files and settings for the project.

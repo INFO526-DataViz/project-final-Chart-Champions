@@ -1,0 +1,77 @@
+---
+title: "Visalakshi Code book"
+editor: visual
+---
+
+```{r}
+
+# Spatial manipulation
+
+
+## Wrange data and dates
+
+
+## Visualization
+
+
+if(!require(pacman))
+  install.packages("pacman")
+
+pacman::p_load(sf, s2, nominatimlite,
+               dplyr, lubridate, lutz,
+               ggplot2, ggfx, ggshadow)
+```
+
+```{r}
+
+geo_lite("Madrid Spain", full_results = T) |>
+  
+```
+
+```{r}
+
+load_celestial <- function(filename,
+                           url = "https://cdn.jsdelivr.net/gh/dieghernan/celestial_data@main/data/",
+                           cachedir = tempdir()) {
+  if (!dir.exists(cachedir)) {
+    stop(
+      "Please create ",
+      path.expand(cachedir),
+      " directory",
+      "first"
+    )
+  }
+
+  url <- file.path(url, filename)
+  local_path <- file.path(cachedir, filename)
+
+
+  if (!file.exists(local_path)) {
+    download.file(url, local_path, mode = "wb", quiet = TRUE)
+  }
+
+  celestial <- sf::st_read(local_path, quiet = TRUE)
+
+  return(celestial)
+}
+```
+
+```{r}
+
+mw <- load_celestial("mw.min.geojson")
+```
+
+```{r}
+load_celestial("mw.min.geojson") |>
+  formattable::formattable()
+```
+
+```{r}
+
+load_celestial("constellations.lines.min.geojson") |> formattable::formattable()
+```
+
+```{r}
+
+
+```
