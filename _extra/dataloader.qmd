@@ -19,7 +19,8 @@ if(!require(pacman))
 
 pacman::p_load(sf, s2, nominatimlite,
                dplyr, lubridate, lutz,
-               ggplot2, ggfx, ggshadow)
+               ggplot2, ggfx, ggshadow,
+               formattable)
 ```
 
 ```{r}
@@ -63,12 +64,12 @@ mw <- load_celestial("mw.min.geojson")
 
 ```{r}
 load_celestial("mw.min.geojson") |>
-  formattable::formattable()
+  formattable()
 ```
 
 ```{r}
 
-load_celestial("constellations.lines.min.geojson") |> formattable::formattable()
+load_celestial("constellations.lines.min.geojson") |> formattable()
 ```
 
 ```{r}
