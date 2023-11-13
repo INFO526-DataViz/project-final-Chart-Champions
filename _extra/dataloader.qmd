@@ -25,7 +25,7 @@ pacman::p_load(sf, s2, nominatimlite,
 
 ```{r}
 
-geo_lite("Madrid Spain", full_results = T) |>
+geo_lite("Madrid Spain", full_results = T) 
   
 ```
 
@@ -70,4 +70,5 @@ mw <- load_celestial("mw.min.geojson")
 ```{r}
 
 # load_celestial("constellations.lines.min.geojson") |> formattable()
+
 ```
