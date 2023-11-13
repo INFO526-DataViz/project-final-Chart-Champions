@@ -78,57 +78,41 @@ Develop a Shiny app that generates constellation maps that utilizes interactive 
 
 ## Weekly "plan of attack"
 
-Week 1-2: Understanding the Basics
-
-| Team members assigned: Megan Hokama, Tejashwini Kasa
-
--   Understand the basics of spatial manipulation with libraries like `sf` and `s2`.
-
--   Get familiarized with visualization using `ggfx`, and `ggshadow`.
-
--   Test out apps with Shiny and its usage for rendering real-time maps.
-
-Week 3: Creating the basis for celestial maps
-
-| Team members assigned: Kiwoon Hong, Visalakshi Iyer
-
--   Create base functions for themes, loading datasets, parsing, and cleaning.
-
--   Since the maps need to be custom, we will also make functions that will work on variability. Some of the variables for the map will be background color, location input, glow intensity, names of the stars on the celestial map, and custom text on the map's footer.
-
-Week 4: Creating the Star Map
-
-| Team members assigned: Sai Madhuri Kandula, Tejashwini Kasa
-
--   Create basic maps using sf object and sperical geoms using s2.
-
--   Add scatterplot of the constellations on top of the prepared spherical geom.
-
--   Experiment with different locations, and test custom inputs in the plotting functions.
-
-Week 5-6: Shiny App Development
-
-| Team members assigned: Megan Hokama, Visalakshi Iyer
-
--   Integrate star map code into a shiny app .
-
--   Work on the GUI elements to provide dynamic rendering.
-
--   Create workflow that provides size, theme, and customization of maps.
-
--   Create download functionality for the maps.
-
-Week 7: Testing and reviewing
-
-| Team members assigned: Kiwoon Hong, Sai Madhuri Kandula
-
--   Test different parameters to identify edge cases.
-
--   Refine the app based on feedback.
-
--   Deploy the app.
-
--   Prepare presentation for the final showcase.
++-----------------------------------------------+--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Week                                          | Assigned Team members                | Weekly Tasks                                                                                                                                                                                                                                                               |
++===============================================+======================================+============================================================================================================================================================================================================================================================================+
+| Week 1-2: Understanding the Basics            | Megan Hokama, Tejashwini Kasa        | -   Understand the basics of spatial manipulation with libraries like `sf` and `s2`.                                                                                                                                                                                       |
+|                                               |                                      |                                                                                                                                                                                                                                                                            |
+|                                               |                                      | -   Get familiarized with visualization using `ggfx`, and `ggshadow`.                                                                                                                                                                                                      |
+|                                               |                                      |                                                                                                                                                                                                                                                                            |
+|                                               |                                      | -   Test out apps with Shiny and its usage for rendering real-time maps.                                                                                                                                                                                                   |
++-----------------------------------------------+--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Week 3: Creating the basis for celestial maps | Kiwoon Hong, Visalakshi Iyer         | -   Create base functions for themes, loading datasets, parsing, and cleaning.                                                                                                                                                                                             |
+|                                               |                                      |                                                                                                                                                                                                                                                                            |
+|                                               |                                      | -   Since the maps need to be custom, we will also make functions that will work on variability. Some of the variables for the map will be background color, location input, glow intensity, names of the stars on the celestial map, and custom text on the map's footer. |
++-----------------------------------------------+--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Week 4: Creating the Star Map                 | Sai Madhuri Kandula, Tejashwini Kasa | -   Create basic maps using sf object and sperical geoms using s2.                                                                                                                                                                                                         |
+|                                               |                                      |                                                                                                                                                                                                                                                                            |
+|                                               |                                      | -   Add scatterplot of the constellations on top of the prepared spherical geom.                                                                                                                                                                                           |
+|                                               |                                      |                                                                                                                                                                                                                                                                            |
+|                                               |                                      | -   Experiment with different locations, and test custom inputs in the plotting functions.                                                                                                                                                                                 |
++-----------------------------------------------+--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Week 5-6: Shiny App Development               | Megan Hokama, Visalakshi Iyer        | -   Integrate star map code into a shiny app .                                                                                                                                                                                                                             |
+|                                               |                                      |                                                                                                                                                                                                                                                                            |
+|                                               |                                      | -   Work on the GUI elements to provide dynamic rendering.                                                                                                                                                                                                                 |
+|                                               |                                      |                                                                                                                                                                                                                                                                            |
+|                                               |                                      | -   Create workflow that provides size, theme, and customization of maps.                                                                                                                                                                                                  |
+|                                               |                                      |                                                                                                                                                                                                                                                                            |
+|                                               |                                      | -   Create download functionality for the maps.                                                                                                                                                                                                                            |
++-----------------------------------------------+--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Week 7: Testing and reviewing                 | Kiwoon Hong, Sai Madhuri Kandula     | -   Test different parameters to identify edge cases.                                                                                                                                                                                                                      |
+|                                               |                                      |                                                                                                                                                                                                                                                                            |
+|                                               |                                      | -   Refine the app based on feedback.                                                                                                                                                                                                                                      |
+|                                               |                                      |                                                                                                                                                                                                                                                                            |
+|                                               |                                      | -   Deploy the app.                                                                                                                                                                                                                                                        |
+|                                               |                                      |                                                                                                                                                                                                                                                                            |
+|                                               |                                      | -   Prepare presentation for the final showcase.                                                                                                                                                                                                                           |
++-----------------------------------------------+--------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 ## Repo Organization
 
