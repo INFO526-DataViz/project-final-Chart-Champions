@@ -12,10 +12,6 @@ editor: visual
 #| 
 ```
 
-## High-level goal
-
-Develop a Shiny app that generates constellation maps integrating interactive elements, implementing both computational and visualization techniques.
-
 ## Dataset
 
 ```{r}
@@ -74,7 +70,11 @@ These datasets offer celestial visualizations based on longitude, latitude, and 
 
 ## Purpose
 
-The primary objective of this project is to develop a Shiny app that not only generates interactive constellation maps but also prioritizes accessibility and personalization of these maps. By offering users the ability to input specific geographic locations, the app will provide personalized, contextually relevant constellation maps for each user. Individuals will be able to explore the night sky from different geographical locations by inputting latitude and longitudinal points to create visually provoking constellation maps. We hope to make stargazing more engaging and educational by personalizing the experience through various elements: color usage, map location, time zone, latitude/longitude location. Additionally, the app will be designed with a user-friendly interface to ensure accessibility with an aim to make it inclusive for people of all backgrounds and levels of astronomical knowledge.
+The primary objective of this project is to develop a Shiny app that not only generates interactive constellation maps but also prioritizes accessibility and personalization of these maps. By offering users the ability to input specific geographic locations, the app will provide personalized, contextually relevant constellation maps for each user. Individuals will be able to explore the night sky from different geographical locations by inputting latitude and longitudinal points to create visually provoking constellation maps. We hope to make stargazing more engaging and educational by personalizing the experience through various elements: color usage, map location, time zone, latitude/longitude location. Additionally, the app will be designed with a user-friendly interface to ensure accessibility with an aim to make it inclusive for people of all backgrounds and levels of astronomical knowledge. This will be achieved by using colorblind accessible palettes (avoiding bright and low-contrast colors) and providing annotations to provide readibility and context for a wide range of users, including astronomy beginners.
+
+## High-level goal
+
+Develop a Shiny app that generates constellation maps that utilizes interactive elements, incorporating computational and visualization techniques.
 
 ## Weekly "plan of attack"
 
