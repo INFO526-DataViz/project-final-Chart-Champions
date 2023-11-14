@@ -5,12 +5,12 @@ format: html
 editor: visual
 ---
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, message=FALSE}
 
 if(!require(pacman))
   install.packages("pacman")
 
-pacman::p_load(formattable)
+pacman::p_load(formattable, dplyr)
 ```
 
 ## High-level goal
@@ -78,8 +78,9 @@ stars <- load_celestial("stars.8.min.geojson")
 
 ### Milky Way
 
-| `id`: Milky Way outlines in 5 brightness steps (ol1-ol5).
-| `geometry`: geomtry lines for milky way
+> `id`: Milky Way outlines in 5 brightness steps (ol1-ol5).
+>
+> `geometry`: geometry lines for milky way
 
 ```{r}
 
@@ -88,24 +89,33 @@ mw  |> formattable()
 
 ### Stars
 
-| `id`: Short designator
-| `mag`: Apparent magnitude, 999 if n.a.
-| `bv`: b-v color index.
-| `br`: Relative brightness to magnitude 0, computed as \$100\^{-1 \* mag / 5}\$
-| `name`: Proper name
-| `geometry`: around 40k stars point objects
+> `id`: Short designator
+>
+> `mag`: Apparent magnitude, 999 if n.a.
+>
+> `bv`: b-v color index.
+>
+> `br`: Relative brightness to magnitude 0, computed as \$100\^{-1 \* mag / 5}\$
+>
+> `name`: Proper name
+>
+> `geometry`: around 40k stars point objects
 
 ```{r, echo = FALSE}
 
 stars |> filter(!is.na(name)) |> head(10) |> formattable()
+
 ```
 
 ### Constellation lines
 
-| `geometry`: 89 constellation line objects
-| `id`: 3-letter designator
-| `rank`: 1-3 for differential name display by size/brightness
-| `name`: full IAU name
+> `geometry`: 89 constellation line objects
+>
+> `id`: 3-letter designator
+>
+> `rank`: 1-3 for differential name display by size/brightness
+>
+> `name`: full IAU name
 
 ```{r, echo=FALSE}
 
