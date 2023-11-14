@@ -185,7 +185,7 @@ These datasets offer celestial visualizations based on longitude, latitude, and 
 
 -   `README.md`: This file usually contains documentation or information about the project. It's often the first thing someone reads when they visit the project repository.
 
--   `_quarto.yml`: This is likely a configuration file
+-   `_quarto.yml`: This is a configuration file.
 
 -   `about.qmd` : This quarto document contains the information about team members.
 
