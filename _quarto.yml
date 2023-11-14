@@ -6,7 +6,7 @@ website:
   navbar:
     right:
       - icon: github
-        href: https://github.com/INFO526-DataViz/project-01
+        href: https://github.com/INFO526-DataViz/project-final-Chart-Champions/
     left:
       - text: Project
         href: index.qmd
