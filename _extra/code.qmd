@@ -1,16 +1,77 @@
+## Constellation_Demo
+
 ```{r}
 #| label: load-pkgs
 #| message: false
+#| warning: false
 
-suppressWarnings(library(tidyverse))
-library(knitr)
-library(lubridate)
+if(!require(pacman))
+  install.packages("pacman")
+
+pacman::p_load(knitr, formattable, tidyverse, # General packages
+               lubridate, lutz, # range data and dates  
+               sf, s2, nominatimlite, # Spatial manipulation
+               ggfx,ggshadow # Visualization
+               )
 
 ```
 
 ## Dataset Setup
 
 ```{r}
+#| label: Dataset_Setup
+#| message: false
+
+###Load data from specific repo
+load_celestial <- function(filename,
+                           url = "https://cdn.jsdelivr.net/gh/dieghernan/celestial_data@main/data/",
+                           cachedir = tempdir()) {
+  if (!dir.exists(cachedir)) {
+    stop(
+      "Please create ",
+      path.expand(cachedir),
+      " directory",
+      "first"
+    )
+  }
+
+  url <- file.path(url, filename)
+  local_path <- file.path(cachedir, filename)
+
+
+  if (!file.exists(local_path)) {
+    download.file(url, local_path, mode = "wb", quiet = TRUE)
+  }
+
+  celestial <- sf::st_read(local_path, quiet = TRUE)
+
+  return(celestial)
+}
+
+
+#labeller that returns a decimal longitude or latitude coordinate
+pretty_lonlat <- function(x, type, accuracy = 2) {
+  positive <- x >= 0
+
+  # Decompose
+  x <- abs(x)
+  D <- as.integer(x)
+  m <- (x - D) * 60
+  M <- as.integer(m)
+  S <- round((m - M) * 60, accuracy)
+
+  # Get label
+  if (type == "lon") {
+    lab <- ifelse(positive > 0, "E", "W")
+  } else {
+    lab <- ifelse(positive > 0, "N", "S")
+  }
+
+
+  # Compose
+  label <- paste0(D, "\u00b0 ", M, "' ", S, '\" ', lab)
+  return(label)
+}
 
 
 ```
