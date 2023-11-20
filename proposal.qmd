@@ -21,6 +21,13 @@ Develop a Shiny app that generates constellation maps that utilizes interactive 
 
 The primary objective of this project is to develop a Shiny app that not only generates interactive constellation maps but also prioritizes accessibility and personalization of these maps. By offering users the ability to input specific geographic locations, the app will provide personalized, contextually relevant constellation maps for each user. Individuals will be able to explore the night sky from different geographical locations by inputting latitude and longitudinal points to create visually provoking constellation maps. We hope to make stargazing more engaging and educational by personalizing the experience through various elements: color usage, map location, time zone, latitude/longitude location. Additionally, the app will be designed with a user-friendly interface to ensure accessibility with an aim to make it inclusive for people of all backgrounds and levels of astronomical knowledge. This will be achieved by using colorblind accessible palettes (avoiding bright and low-contrast colors) and providing annotations to provide readability and context for a wide range of users, including astronomy beginners.
 
+## Analysis Plan
+
+-   Develop a Shiny app for personalized constellation maps with user input.
+-   Enhance user engagement in stargazing from various locations time zones and even user bases.
+-   Prioritize accessibility through a user-friendly interface and colorblind-friendly design.
+-   Provide contextual annotations for users with different levels of astronomical knowledge.
+
 ## Dataset
 
 The datasets are available in GeoJSON (`*.geojson`) and GeoPackage (`*.gpkg`) formats, representing celestial objects' positions as of the J2000 epoch. They are roughly categorized into five sections: `Asterisms`, `Constellations`, `DSOs` (Deep-Sky Objects), `Stars`, and the `Milky Way`. Each of these astronomical object categories is further subdivided into several subfiles.
@@ -189,7 +196,7 @@ These datasets offer celestial visualizations based on longitude, latitude, and 
 
 -   `README.md`: This file usually contains documentation or information about the project. It's often the first thing someone reads when they visit the project repository.
 
--   `_quarto.yml`: This is likely a configuration file
+-   `_quarto.yml`: This is a configuration file.
 
 -   `about.qmd` : This quarto document contains the information about team members.
 
