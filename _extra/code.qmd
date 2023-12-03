@@ -188,14 +188,14 @@ sf_spherical_cut <- function(x, the_buff, the_crs = sf::st_crs(x), flip = NULL) 
 #| message: false
 
 # Input place
-desired_place <- "Madrid, Spain"
+desired_place <- "Seoul, Korea"
 
 # Input time
 desired_date <- make_datetime(
-  year = 2015,
-  month = 9,
-  day = 22,
-  hour = 3,
+  year = 2023,
+  month = 12,
+  day = 1,
+  hour = 1,
   min = 45
 )
 
@@ -293,7 +293,7 @@ hemisphere_sf <- hemisphere_s2 %>%
 
 ## Plot - Milky way
 ```{r}
-#| label: Input
+#| label: Plot - Milky way
 #| message: false
 mw <- load_celestial("mw.min.geojson")
 
@@ -321,9 +321,9 @@ ggplot(mw_end) +
 
 ```
 
-## Plot - constellations
+## Plot - Constellations
 ```{r}
-#| label: Input
+#| label: Plot - Constellations
 #| message: false
 
 const <- load_celestial("constellations.lines.min.geojson")
@@ -350,9 +350,9 @@ ggplot(const_end) +
 
 ```
 
-## Plot - constellations
+## Plot - Stars
 ```{r}
-#| label: Input
+#| label: Plot - Stars
 #| message: false
 stars <- load_celestial("stars.6.min.geojson")
 
@@ -379,5 +379,140 @@ ggplot(stars_end) +
   scale_size_continuous(range = c(0.5, 6)) +
   scale_alpha_continuous(range = c(0.1, 0.8))
 
+
+```
+
+## Include graticules
+```{r}
+#| label: Include graticules
+#| message: false
+grat <- st_graticule(
+  ndiscr = 5000,
+  lat = seq(-90, 90, 10),
+  lon = seq(-180, 180, 30)
+)
+
+ggplot(grat) +
+  geom_sf() +
+  coord_sf(expand = FALSE)
+
+
+# Cut to buffer, we dont flip this one (it is not an object of the space)
+grat_end <- sf_spherical_cut(
+  x = grat,
+  the_buff = hemisphere_s2,
+  # Change the crs
+  the_crs = target_crs
+)
+
+
+ggplot(grat_end) +
+  geom_sf() +
+  coord_sf(expand = FALSE)
+
+```
+
+## Visualization 1 - Create the corresponding labels
+```{r}
+#| label: Visualization 1
+#| message: false
+lat_lab <- pretty_lonlat(desired_loc[1], type = "lat")
+lon_lab <- pretty_lonlat(desired_loc[2], type = "lon")
+
+pretty_labs <- paste(lat_lab, "/", lon_lab)
+
+cat(pretty_labs)
+#> 40° 25' 0.14" N / 3° 42' 12.9" W
+
+# Create final caption to put on bottom
+
+pretty_time <- paste(
+  # Pretty Day
+  scales::label_date(
+    format = "%d %b %Y",
+    locale = "en"
+  )(desired_date_tz),
+  # Pretty Hour
+  format(desired_date_tz, format = "%H:%M", usetz = TRUE)
+)
+
+cat(pretty_time)
+#> 22 Sep 2015 03:45 CEST
+
+# Our final caption
+caption <- toupper(paste0(
+  "Star Map\n",
+  desired_place, "\n",
+  pretty_time, "\n",
+  pretty_labs
+))
+
+
+cat(caption)
+#> STAR MAP
+#> MADRID, SPAIN
+#> 22 SEP 2015 03:45 CEST
+#> 40° 25' 0.14" N / 3° 42' 12.9" W
+
+```
+
+## Visualization 1 - Create the corresponding labels
+```{r}
+#| label: Visualization 1
+#| message: false
+# Prepare MULTILINESTRING
+
+const_end_lines <- const_end %>%
+  st_cast("MULTILINESTRING") %>%
+  st_coordinates() %>%
+  as.data.frame()
+
+
+ggplot() +
+  # Graticules
+  geom_sf(data = grat_end, color = "grey60", linewidth = 0.25, alpha = 0.3) +
+  # A blurry Milky Way
+  with_blur(
+    geom_sf(
+      data = mw_end, aes(fill = fill), alpha = 0.1, color = NA,
+      show.legend = FALSE
+    ),
+    sigma = 8
+  ) +
+  scale_fill_identity() +
+  # Glowing stars
+  geom_glowpoint(
+    data = stars_end, aes(
+      alpha = br, size =
+        br, geometry = geometry
+    ),
+    color = "white", show.legend = FALSE, stat = "sf_coordinates"
+  ) +
+  scale_size_continuous(range = c(0.05, 0.75)) +
+  scale_alpha_continuous(range = c(0.1, 0.5)) +
+  # Glowing constellations
+  geom_glowpath(
+    data = const_end_lines, aes(X, Y, group = interaction(L1, L2)),
+    color = "white", size = 0.5, alpha = 0.8, shadowsize = 0.4, shadowalpha = 0.01,
+    shadowcolor = "white", linejoin = "round", lineend = "round"
+  ) +
+  # Border of the sphere
+  geom_sf(data = hemisphere_sf, fill = NA, color = "white", linewidth = 1.25) +
+  # Caption
+  labs(caption = caption) +
+  # And end with theming
+  theme_void() +
+  theme(
+    text = element_text(colour = "white"),
+    panel.border = element_blank(),
+    plot.background = element_rect(fill = "#191d29", color = "#191d29"),
+    plot.margin = margin(20, 20, 20, 20),
+    plot.caption = element_text(
+      hjust = 0.5, face = "bold",
+      size = rel(1),
+      lineheight = rel(1.2),
+      margin = margin(t = 40, b = 20)
+    )
+  )
 
 ```
