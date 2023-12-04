@@ -18,7 +18,7 @@ pacman::p_load(knitr, formattable, tidyverse, # General packages
                )
 ```
 
-## Load data, Set labeller
+## Load data, Set labeler
 
 ```{r}
 #| label: Helper Fuctions 1
@@ -184,346 +184,435 @@ sf_spherical_cut <- function(x, the_buff, the_crs = sf::st_crs(x), flip = NULL) 
 
 ```
 
-## Input - Place, Time
+## Data Input & Transformation (Location, Time, Buffers)
+
+### Location and Time
 
 ```{r}
-#| label: Input
-#| message: false
 
-# Input place
-desired_place <- "Seoul, Korea"
-
-# Input time
-desired_date <- make_datetime(
-  year = 2023,
-  month = 12,
-  day = 1,
-  hour = 1,
-  min = 45
-)
-
-# Geocode place with nominatimlite
-desired_place_geo <- geo_lite(desired_place, full_results = TRUE)
-
-desired_place_geo %>%
-  select(address, lat, lon)
-#> # A tibble: 1 × 3
-#>   address                                                                                    lat   lon
-#>   <chr>                                                                                    <dbl> <dbl>
-#> 1 Madrid, Área metropolitana de Madrid y Corredor del Henares, Comunidad de Madrid, España  40.4 -3.70
-
-# And get the coordinates
-desired_loc <- desired_place_geo %>%
-  select(lat, lon) %>%
-  unlist()
-
-desired_loc
-#>       lat       lon 
-#> 40.416705 -3.703582
+get_buffered_lat_lon_time <- function(place_, year_, month_, day_, hour_, min_) {
+  # Input place
+  desired_place <- place_    # "Seoul, Korea"
+  
+  
+  # Geocode place with nominatimlite
+  desired_place_geo <- geo_lite(desired_place, full_results = TRUE)
+  
+  desired_place_geo_df <- desired_place_geo |>
+    select(address, lat, lon)
+  #> # A tibble: 1 × 3
+  #>   address                                                                                    lat   lon
+  #>   <chr>                                                                                    <dbl> <dbl>
+  #> 1 Madrid, Área metropolitana de Madrid y Corredor del Henares, Comunidad de Madrid, España  40.4 -3.70
+  
+  # And get the coordinates
+  desired_loc <- desired_place_geo %>%
+    select(lat, lon) %>%
+    unlist()
+  
+  # >>>>>>>> time conversion <<<<<<<<<<<
+  
+   # Input time
+  desired_date <- make_datetime(
+    year = year_,  # 2023
+    month = month_,  # 12
+    day = day_,     # 1 
+    hour = hour_,   # 12
+    min = min_      # 13
+  )
+  
+  # Get tz
+  get_tz <- tz_lookup_coords(desired_loc[1], desired_loc[2], warn = FALSE)
+  
+  get_tz
+  #> [1] "Europe/Madrid"
+  
+  # Force it to be local time
+  desired_date_tz <- force_tz(desired_date, get_tz)
+  
+  desired_date_tz
+  #> [1] "2015-09-22 03:45:00 CEST"
+  
+  return (list(desired_loc=desired_loc, desired_date_tz=desired_date_tz))
+  
+}
 
 ```
 
-## Time conversion
+### Buffers and Projections
 
 ```{r}
-#| label: Time conversion
-#| message: false
 
-desired_date
-#> [1] "2015-09-22 03:45:00 UTC"
-
-# Get tz
-get_tz <- tz_lookup_coords(desired_loc[1], desired_loc[2], warn = FALSE)
-
-get_tz
-#> [1] "Europe/Madrid"
-
-# Force it to be local time
-desired_date_tz <- force_tz(desired_date, get_tz)
-
-desired_date_tz
-#> [1] "2015-09-22 03:45:00 CEST"
-
-```
-
-## Create buffers and projections
-
-```{r}
-#| label: Create buffers and projections
-#| message: false
-
-# Get the rotation and prepare buffer and projection
-
-# Get right degrees
-lon_prj <- get_mst(desired_date_tz, desired_loc[2])
-lat_prj <- desired_loc[1]
-
-c(lon_prj, lat_prj)
-#>      lon      lat 
-#> 23.15892 40.41670
-
-# Create proj4string w/ Airy projection
-
-target_crs <- paste0("+proj=airy +x_0=0 +y_0=0 +lon_0=", lon_prj, " +lat_0=", lat_prj)
-
-
-target_crs
-#> [1] "+proj=airy +x_0=0 +y_0=0 +lon_0=23.1589164999314 +lat_0=40.4167047"
-
-# We need to flip celestial objects to get the impression of see from the Earth
-# to the sky, instead of from the sky to the Earth
-# https://stackoverflow.com/a/75064359/7877917
-# Flip matrix for affine transformation
-
-flip_matrix <- matrix(c(-1, 0, 0, 1), 2, 2)
-
-
-# And create an s2 buffer of the visible hemisphere at the given location
-hemisphere_s2 <- s2_buffer_cells(
-  as_s2_geography(
-    paste0("POINT(", lon_prj, " ", lat_prj, ")")
-  ),
-  9800000,
-  max_cells = 5000
-)
-
-# This one is for plotting
-hemisphere_sf <- hemisphere_s2 %>%
-  st_as_sf() %>%
-  st_transform(crs = target_crs) %>%
-  st_make_valid()
-
-
-```
-
-## Plot - Milky way
-
-```{r}
-#| label: Plot - Milky way
-#| message: false
-mw <- load_celestial("mw.min.geojson")
-
-# Add colors to MW to use on fill
-cols <- colorRampPalette(c("white", "yellow"))(5)
-mw$fill <- factor(cols, levels = cols)
-
-ggplot(mw) +
-  geom_sf(aes(fill = fill)) +
-  scale_fill_identity()
-
-
-# Cut to buffer
-mw_end <- sf_spherical_cut(mw,
-  the_buff = hemisphere_s2,
-  # Change the crs
-  the_crs = target_crs,
-  flip = flip_matrix
-)
-
-
-ggplot(mw_end) +
-  geom_sf(aes(fill = fill)) +
-  scale_fill_identity()
-
-```
-
-## Plot - Constellations
-
-```{r}
-#| label: Plot - Constellations
-#| message: false
-
-const <- load_celestial("constellations.lines.min.geojson")
-
-ggplot(const) +
-  geom_sf() +
-  coord_sf(expand = FALSE)
-
-
-# Cut to buffer
-
-const_end <- sf_spherical_cut(const,
-  the_buff = hemisphere_s2,
-  # Change the crs
-  the_crs = target_crs,
-  flip = flip_matrix
-)
-
-
-ggplot(const_end) +
-  geom_sf() +
-  coord_sf(expand = FALSE)
-
-
-```
-
-## Plot - Stars
-
-```{r}
-#| label: Plot - Stars
-#| message: false
-stars <- load_celestial("stars.6.min.geojson")
-
-ggplot(stars) +
-  # We use relative brightness (br) as aes
-  geom_sf(aes(size = br, alpha = br), shape = 16) +
-  scale_size_continuous(range = c(0.5, 6)) +
-  scale_alpha_continuous(range = c(0.1, 0.8)) +
-  coord_sf(expand = FALSE)
-
-
-# Cut to buffer
-
-stars_end <- sf_spherical_cut(stars,
-  the_buff = hemisphere_s2,
-  # Change the crs
-  the_crs = target_crs,
-  flip = flip_matrix
-)
-
-ggplot(stars_end) +
-  # We use relative brightness (br) as aes
-  geom_sf(aes(size = br, alpha = br), shape = 16) +
-  scale_size_continuous(range = c(0.5, 6)) +
-  scale_alpha_continuous(range = c(0.1, 0.8))
-
-
-```
-
-## Include graticules
-
-```{r}
-#| label: Include graticules
-#| message: false
-grat <- st_graticule(
-  ndiscr = 5000,
-  lat = seq(-90, 90, 10),
-  lon = seq(-180, 180, 30)
-)
-
-ggplot(grat) +
-  geom_sf() +
-  coord_sf(expand = FALSE)
-
-
-# Cut to buffer, we dont flip this one (it is not an object of the space)
-grat_end <- sf_spherical_cut(
-  x = grat,
-  the_buff = hemisphere_s2,
-  # Change the crs
-  the_crs = target_crs
-)
-
-
-ggplot(grat_end) +
-  geom_sf() +
-  coord_sf(expand = FALSE)
-
-```
-
-## Visualization 1 - Create the corresponding labels
-
-```{r}
-#| label: Visualization 1
-#| message: false
-lat_lab <- pretty_lonlat(desired_loc[1], type = "lat")
-lon_lab <- pretty_lonlat(desired_loc[2], type = "lon")
-
-pretty_labs <- paste(lat_lab, "/", lon_lab)
-
-cat(pretty_labs)
-#> 40° 25' 0.14" N / 3° 42' 12.9" W
-
-# Create final caption to put on bottom
-
-pretty_time <- paste(
-  # Pretty Day
-  scales::label_date(
-    format = "%d %b %Y",
-    locale = "en"
-  )(desired_date_tz),
-  # Pretty Hour
-  format(desired_date_tz, format = "%H:%M", usetz = TRUE)
-)
-
-cat(pretty_time)
-#> 22 Sep 2015 03:45 CEST
-
-# Our final caption
-caption <- toupper(paste0(
-  "Star Map\n",
-  desired_place, "\n",
-  pretty_time, "\n",
-  pretty_labs
-))
-
-
-cat(caption)
-#> STAR MAP
-#> MADRID, SPAIN
-#> 22 SEP 2015 03:45 CEST
-#> 40° 25' 0.14" N / 3° 42' 12.9" W
-
-```
-
-## Visualization 1 - Create the corresponding labels
-
-```{r}
-#| label: Visualization 1
-#| message: false
-# Prepare MULTILINESTRING
-
-const_end_lines <- const_end %>%
-  st_cast("MULTILINESTRING") %>%
-  st_coordinates() %>%
-  as.data.frame()
-
-
-ggplot() +
-  # Graticules
-  geom_sf(data = grat_end, color = "grey60", linewidth = 0.25, alpha = 0.3) +
-  # A blurry Milky Way
-  with_blur(
-    geom_sf(
-      data = mw_end, aes(fill = fill), alpha = 0.1, color = NA,
-      show.legend = FALSE
+get_airy_projection_rotation <- function(desired_date_tz, desired_loc) {
+  
+
+  # Get the rotation and prepare buffer and projection
+  
+  # Get right degrees
+  lon_prj <- get_mst(desired_date_tz, desired_loc[2])
+  lat_prj <- desired_loc[1]
+  
+  # c(lon_prj, lat_prj)
+  #>      lon      lat 
+  #> 23.15892 40.41670
+  
+  # Create proj4string w/ Airy projection
+  
+  target_crs <- paste0("+proj=airy +x_0=0 +y_0=0 +lon_0=", lon_prj, " +lat_0=", lat_prj)
+  
+  
+  # target_crs
+  #> [1] "+proj=airy +x_0=0 +y_0=0 +lon_0=23.1589164999314 +lat_0=40.4167047"
+  
+  # We need to flip celestial objects to get the impression of see from the Earth
+  # to the sky, instead of from the sky to the Earth
+  # https://stackoverflow.com/a/75064359/7877917
+  # Flip matrix for affine transformation
+  
+  flip_matrix <- matrix(c(-1, 0, 0, 1), 2, 2)
+  
+  
+  # And create an s2 buffer of the visible hemisphere at the given location
+  hemisphere_s2 <- s2_buffer_cells(
+    as_s2_geography(
+      paste0("POINT(", lon_prj, " ", lat_prj, ")")
     ),
-    sigma = 8
-  ) +
-  scale_fill_identity() +
-  # Glowing stars
-  geom_glowpoint(
-    data = stars_end, aes(
-      alpha = br, size =
-        br, geometry = geometry
-    ),
-    color = "white", show.legend = FALSE, stat = "sf_coordinates"
-  ) +
-  scale_size_continuous(range = c(0.05, 0.75)) +
-  scale_alpha_continuous(range = c(0.1, 0.5)) +
-  # Glowing constellations
-  geom_glowpath(
-    data = const_end_lines, aes(X, Y, group = interaction(L1, L2)),
-    color = "white", size = 0.5, alpha = 0.8, shadowsize = 0.4, shadowalpha = 0.01,
-    shadowcolor = "white", linejoin = "round", lineend = "round"
-  ) +
-  # Border of the sphere
-  geom_sf(data = hemisphere_sf, fill = NA, color = "white", linewidth = 1.25) +
-  # Caption
-  labs(caption = caption) +
-  # And end with theming
-  theme_void() +
-  theme(
-    text = element_text(colour = "white"),
-    panel.border = element_blank(),
-    plot.background = element_rect(fill = "#191d29", color = "#191d29"),
-    plot.margin = margin(20, 20, 20, 20),
-    plot.caption = element_text(
-      hjust = 0.5, face = "bold",
-      size = rel(1),
-      lineheight = rel(1.2),
-      margin = margin(t = 40, b = 20)
-    )
+    9800000,
+    max_cells = 5000
+  )
+  
+  # This one is for plotting
+  hemisphere_sf <- hemisphere_s2 %>%
+    st_as_sf() %>%
+    st_transform(crs = target_crs) %>%
+    st_make_valid()
+  
+  return (list(target_crs = target_crs, hemisphere_s2 = hemisphere_s2, flip_matrix = flip_matrix))
+  
+}
+
+```
+
+### Generate Caption
+
+```{r}
+
+get_plot_caption <- function(desired_loc, desired_place, desired_date_tz) {
+  
+  lat_lab <- pretty_lonlat(desired_loc[1], type = "lat")
+  lon_lab <- pretty_lonlat(desired_loc[2], type = "lon")
+
+  pretty_labs <- paste(lat_lab, "/", lon_lab)
+  
+  # cat(pretty_labs)
+  #> 40° 25' 0.14" N / 3° 42' 12.9" W
+  
+  # Create final caption to put on bottom
+  
+  pretty_time <- paste(
+    # Pretty Day
+    scales::label_date(
+      format = "%d %b %Y",
+      locale = "en"
+    )(desired_date_tz),
+    # Pretty Hour
+    format(desired_date_tz, format = "%H:%M", usetz = TRUE)
+  )
+  
+  # cat(pretty_time)
+  #> 22 Sep 2015 03:45 CEST
+  
+  # Our final caption
+  caption <- toupper(paste0(
+    "Star Map\n",
+    desired_place, "\n",
+    pretty_time, "\n",
+    pretty_labs
+  ))
+
+
+  # cat(caption)
+  #> STAR MAP
+  #> MADRID, SPAIN
+  #> 22 SEP 2015 03:45 CEST
+  #> 40° 25' 0.14" N / 3° 42' 12.9" W
+  
+  return (caption)
+}
+
+
+```
+
+## Create Plots
+
+### Graticules
+
+```{r}
+
+get_graticules_viz <- function(target_crs, hemisphere_s2) {
+  grat <- st_graticule(
+    ndiscr = 5000,
+    lat = seq(-90, 90, 10),
+    lon = seq(-180, 180, 30)
   )
 
+  grat_flat <- ggplot(grat) +
+    geom_sf() +
+    coord_sf(expand = FALSE)
+  
+  
+  # Cut to buffer, we dont flip this one (it is not an object of the space)
+  grat_end <- sf_spherical_cut(
+    x = grat,
+    the_buff = hemisphere_s2,
+    # Change the crs
+    the_crs = target_crs
+  )
+  
+  
+  grat_sf <- ggplot(grat_end) +
+    geom_sf() +
+    coord_sf(expand = FALSE)
+  
+  return (list(grat_flat=grat_flat, grat_sf=grat_sf, grat_end = grat_end))
+}
+
+
+```
+
+### Stars
+
+```{r}
+
+get_starts_viz <- function(target_crs, hemisphere_s2, flip_matrix) {
+  
+  stars <- load_celestial("stars.6.min.geojson")
+
+  stars_flat <- ggplot(stars) +
+    # We use relative brightness (br) as aes
+    geom_sf(aes(size = br, alpha = br), shape = 16) +
+    scale_size_continuous(range = c(0.5, 6)) +
+    scale_alpha_continuous(range = c(0.1, 0.8)) +
+    coord_sf(expand = FALSE)
+  
+  
+  # Cut to buffer
+  
+  stars_end <- sf_spherical_cut(stars,
+    the_buff = hemisphere_s2,
+    # Change the crs
+    the_crs = target_crs,
+    flip = flip_matrix
+  )
+  
+  stars_sf <- ggplot(stars_end) +
+    # We use relative brightness (br) as aes
+    geom_sf(aes(size = br, alpha = br), shape = 16) +
+    scale_size_continuous(range = c(0.5, 6)) +
+    scale_alpha_continuous(range = c(0.1, 0.8))
+  
+  return (list(stars_flat = stars_flat, stars_sf = stars_sf, stars_end = stars_end))
+
+}
+
+```
+
+### Milky Way
+
+```{r}
+
+get_milkyway_viz <- function(target_crs, hemisphere_s2, flip_matrix) {
+  
+  mw <- load_celestial("mw.min.geojson")
+
+  # Add colors to MW to use on fill
+  cols <- colorRampPalette(c("white", "yellow"))(5)
+  mw$fill <- factor(cols, levels = cols)
+  
+  mw_flat <- ggplot(mw) +
+    geom_sf(aes(fill = fill)) +
+    scale_fill_identity()
+  
+  
+  # Cut to buffer
+  mw_end <- sf_spherical_cut(mw,
+    the_buff = hemisphere_s2,
+    # Change the crs
+    the_crs = target_crs,
+    flip = flip_matrix
+  )
+  
+  
+  mw_sf <- ggplot(mw_end) +
+    geom_sf(aes(fill = fill)) +
+    scale_fill_identity()
+  
+  return (list(mw_flat = mw_flat, mw_sf = mw_sf, mw_end = mw_end))
+  
+}
+```
+
+### Constellations
+
+```{r}
+
+get_constellation_viz <- function(target_crs, hemisphere_s2, flip_matrix) {
+  const <- load_celestial("constellations.lines.min.geojson")
+
+  const_flat <- ggplot(const) +
+    geom_sf() +
+    coord_sf(expand = FALSE)
+  
+  
+  # Cut to buffer
+  
+  const_end <- sf_spherical_cut(const,
+    the_buff = hemisphere_s2,
+    # Change the crs
+    the_crs = target_crs,
+    flip = flip_matrix
+  )
+  
+  
+  const_sf <- ggplot(const_end) +
+  geom_sf() +
+  coord_sf(expand = FALSE)
+  
+  return (list(const_flat = const_flat, const_sf = const_sf, const_end = const_end))
+}
+```
+
+### Final Plot (Celestial Map)
+
+```{r}
+
+plot_celestial_map <- function(grat_end, const_end, mw_end, stars_end, hemisphere_s2, caption) {
+  
+  # Prepare MULTILINESTRING
+  const_end_lines <- const_end %>%
+    st_cast("MULTILINESTRING") %>%
+    st_coordinates() %>%
+    as.data.frame()
+  
+  # This one is for plotting
+  hemisphere_sf <- hemisphere_s2 %>%
+    st_as_sf() %>%
+    st_transform(crs = target_crs) %>%
+    st_make_valid()
+  
+  
+  celestial_map_plot <- ggplot() +
+    # Graticules
+    geom_sf(data = grat_end, color = "grey60", linewidth = 0.25, alpha = 0.3) +
+    # A blurry Milky Way
+    with_blur(
+      geom_sf(
+        data = mw_end, aes(fill = fill), alpha = 0.1, color = NA,
+        show.legend = FALSE
+      ),
+      sigma = 8
+    ) +
+    scale_fill_identity() +
+    # Glowing stars
+    geom_glowpoint(
+      data = stars_end, aes(
+        alpha = br, size =
+          br, geometry = geometry
+      ),
+      color = "white", show.legend = FALSE, stat = "sf_coordinates"
+    ) +
+    scale_size_continuous(range = c(0.05, 0.75)) +
+    scale_alpha_continuous(range = c(0.1, 0.5)) +
+    # Glowing constellations
+    geom_glowpath(
+      data = const_end_lines, aes(X, Y, group = interaction(L1, L2)),
+      color = "white", size = 0.5, alpha = 0.8, shadowsize = 0.4, shadowalpha = 0.01,
+      shadowcolor = "white", linejoin = "round", lineend = "round"
+    ) +
+    # Border of the sphere
+    geom_sf(data = hemisphere_sf, fill = NA, color = "white", linewidth = 1.25) +
+    # Caption
+    labs(caption = caption) +
+    # And end with theming
+    theme_void() +
+    theme(
+      text = element_text(colour = "white"),
+      panel.border = element_blank(),
+      plot.background = element_rect(fill = "#191d29", color = "#191d29"),
+      plot.margin = margin(20, 20, 20, 20),
+      plot.caption = element_text(
+        hjust = 0.5, face = "bold",
+        size = rel(1),
+        lineheight = rel(1.2),
+        margin = margin(t = 40, b = 20)
+      )
+    )
+  
+  return (celestial_map_plot)
+}
+```
+
+## Testing
+
+```{r}
+
+desired_place = "Seoul, Korea"
+year_ <- 2023
+month_ <- 12
+day_ <- 1
+hour_ <- 12
+min_ <- 13
+
+lat_lon_time <- get_buffered_lat_lon_time(desired_place, year_, month_, day_, hour_, min_)
+lat_lon_time
+
+crs_s2_flip <- get_airy_projection_rotation(lat_lon_time$desired_date_tz, lat_lon_time$desired_loc)
+crs_s2_flip
+
+plot_caption <- get_plot_caption(lat_lon_time$desired_loc, "Seoul, Korea", lat_lon_time$desired_date_tz)
+
+cat(plot_caption)
+```
+
+```{r}
+
+graticules <- get_graticules_viz(crs_s2_flip$target_crs, crs_s2_flip$hemisphere_s2)
+
+graticules$grat_flat
+graticules$grat_sf
+```
+
+```{r}
+
+milkyway <- get_milkyway_viz(crs_s2_flip$target_crs, crs_s2_flip$hemisphere_s2, crs_s2_flip$flip_matrix)
+
+milkyway$mw_flat
+milkyway$mw_sf
+```
+
+```{r}
+
+constellation <- get_constellation_viz(crs_s2_flip$target_crs, 
+                                       crs_s2_flip$hemisphere_s2, crs_s2_flip$flip_matrix)
+
+constellation$const_flat
+constellation$const_sf
+```
+
+```{r}
+
+stars <- get_starts_viz(crs_s2_flip$target_crs, crs_s2_flip$hemisphere_s2, crs_s2_flip$flip_matrix)
+
+stars$stars_flat
+stars$stars_sf
+```
+
+```{r}
+
+plot_celestial_map(grat_end = graticules$grat_end, 
+                   const_end = constellation$const_end, 
+                   mw_end = milkyway$mw_end, 
+                   stars_end = stars$stars_end,
+                   hemisphere_s2 = crs_s2_flip$hemisphere_s2, 
+                   caption = plot_caption)
 ```

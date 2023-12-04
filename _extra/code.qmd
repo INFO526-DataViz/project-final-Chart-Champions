@@ -3,6 +3,7 @@
 Author: @KiwoonHong
 
 ## Load packages
+
 ```{r}
 #| label: load-pkgs
 #| message: false
@@ -19,7 +20,8 @@ pacman::p_load(knitr, formattable, tidyverse, # General packages
 
 ```
 
-## Helper Fuctions 1 - Load data, Set labeller
+## Helper Functions 1 - Load data, Set labeller
+
 ```{r}
 #| label: Helper Fuctions 1
 #| message: false
@@ -78,7 +80,8 @@ pretty_lonlat <- function(x, type, accuracy = 2) {
 
 ```
 
-## Helper Fuctions 2 - Set degrees, Adjust time
+## Helper Functions 2 - Set degrees, Adjust time
+
 ```{r}
 #| label: Helper Fuctions 2
 #| message: false
@@ -129,6 +132,7 @@ get_mst <- function(dt, lng) {
 ```
 
 ## Helper Fuctions 3 - spherical cut
+
 ```{r}
 #| label: Helper Fuctions 3
 #| message: false
@@ -183,6 +187,7 @@ sf_spherical_cut <- function(x, the_buff, the_crs = sf::st_crs(x), flip = NULL) 
 ```
 
 ## Input - Place, Time
+
 ```{r}
 #| label: Input
 #| message: false
@@ -221,6 +226,7 @@ desired_loc
 ```
 
 ## Time conversion
+
 ```{r}
 #| label: Time conversion
 #| message: false
@@ -243,6 +249,7 @@ desired_date_tz
 ```
 
 ## Create buffers and projections
+
 ```{r}
 #| label: Create buffers and projections
 #| message: false
@@ -292,6 +299,7 @@ hemisphere_sf <- hemisphere_s2 %>%
 ```
 
 ## Plot - Milky way
+
 ```{r}
 #| label: Plot - Milky way
 #| message: false
@@ -322,6 +330,7 @@ ggplot(mw_end) +
 ```
 
 ## Plot - Constellations
+
 ```{r}
 #| label: Plot - Constellations
 #| message: false
@@ -351,6 +360,7 @@ ggplot(const_end) +
 ```
 
 ## Plot - Stars
+
 ```{r}
 #| label: Plot - Stars
 #| message: false
@@ -383,6 +393,7 @@ ggplot(stars_end) +
 ```
 
 ## Include graticules
+
 ```{r}
 #| label: Include graticules
 #| message: false
@@ -413,6 +424,7 @@ ggplot(grat_end) +
 ```
 
 ## Visualization 1 - Create the corresponding labels
+
 ```{r}
 #| label: Visualization 1
 #| message: false
@@ -457,6 +469,7 @@ cat(caption)
 ```
 
 ## Visualization 1 - Create the corresponding labels
+
 ```{r}
 #| label: Visualization 1
 #| message: false
