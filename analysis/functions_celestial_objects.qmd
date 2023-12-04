@@ -486,7 +486,7 @@ get_constellation_viz <- function(target_crs, hemisphere_s2, flip_matrix) {
 
 ```{r}
 
-plot_celestial_map <- function(grat_end, const_end, mw_end, stars_end, hemisphere_s2, caption) {
+plot_celestial_map <- function(grat_end, const_end, mw_end, stars_end, target_crs, hemisphere_s2, caption) {
   
   # Prepare MULTILINESTRING
   const_end_lines <- const_end %>%
@@ -613,6 +613,7 @@ plot_celestial_map(grat_end = graticules$grat_end,
                    const_end = constellation$const_end, 
                    mw_end = milkyway$mw_end, 
                    stars_end = stars$stars_end,
+                   target_crs = crs_s2_flip$target_crs,
                    hemisphere_s2 = crs_s2_flip$hemisphere_s2, 
                    caption = plot_caption)
 ```
