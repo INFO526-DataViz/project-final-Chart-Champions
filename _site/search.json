@@ -1,0 +1,51 @@
+[
+  {
+    "objectID": "proposal.html",
+    "href": "proposal.html",
+    "title": "Constellation Maps",
+    "section": "",
+    "text": "Develop a Shiny app that generates constellation maps that utilizes interactive elements, incorporating computational and visualization techniques."
+  },
+  {
+    "objectID": "proposal.html#high-level-goal",
+    "href": "proposal.html#high-level-goal",
+    "title": "Constellation Maps",
+    "section": "",
+    "text": "Develop a Shiny app that generates constellation maps that utilizes interactive elements, incorporating computational and visualization techniques."
+  },
+  {
+    "objectID": "proposal.html#goal-motivation",
+    "href": "proposal.html#goal-motivation",
+    "title": "Constellation Maps",
+    "section": "Goal & Motivation",
+    "text": "Goal & Motivation\nThe primary objective of this project is to develop a Shiny app that not only generates interactive constellation maps but also prioritizes accessibility and personalization of these maps. By offering users the ability to input specific geographic locations, the app will provide personalized, contextually relevant constellation maps for each user. Individuals will be able to explore the night sky from different geographical locations by inputting latitude and longitudinal points to create visually provoking constellation maps. We hope to make stargazing more engaging and educational by personalizing the experience through various elements: color usage, map location, time zone, latitude/longitude location. Additionally, the app will be designed with a user-friendly interface to ensure accessibility with an aim to make it inclusive for people of all backgrounds and levels of astronomical knowledge. This will be achieved by using colorblind accessible palettes (avoiding bright and low-contrast colors) and providing annotations to provide readability and context for a wide range of users, including astronomy beginners."
+  },
+  {
+    "objectID": "proposal.html#dataset",
+    "href": "proposal.html#dataset",
+    "title": "Constellation Maps",
+    "section": "Dataset",
+    "text": "Dataset\nThe datasets are available in GeoJSON (*.geojson) and GeoPackage (*.gpkg) formats, representing celestial objects’ positions as of the J2000 epoch. They are roughly categorized into five sections: Asterisms, Constellations, DSOs (Deep-Sky Objects), Stars, and the Milky Way. Each of these astronomical object categories is further subdivided into several subfiles.\nWe will be using three of the available data: the milkyway, the constellation lines, and the stars.\n\nMilky Way\n\n\n\n\n\n\n\n\nColumn Name\nData Type\nDescription\n\n\n\n\nID\nString\nMilky Way outlines in 5 brightness steps (ol1-ol5).\n\n\nGeometry\nLine Object\ngeometry lines for milky way\n\n\n\n\\(100^{-1 * mag / 5}\\)\n\nmw  |&gt; formattable()\n\n\n\n\n\n\nid\n\n\ngeometry\n\n\n\n\n\n\nol1\n\n\nMULTIPOLYGON (((178.558 -74…\n\n\n\n\nol2\n\n\nMULTIPOLYGON (((-176.662 -6…\n\n\n\n\nol3\n\n\nMULTIPOLYGON (((-174.067 -6…\n\n\n\n\nol4\n\n\nMULTIPOLYGON (((-158.721 -6…\n\n\n\n\nol5\n\n\nMULTIPOLYGON (((161.333 -59…\n\n\n\n\n\n\n\n\n\nStars\n\n\n\n\n\n\n\n\nColumn Name\nData Type\nDescription\n\n\n\n\nID\nInteger\nShort designator\n\n\nMag\nDouble\nApparent magnitude, 999 if n.a.\n\n\nBV\nFloat\nb-v color index.\n\n\nBR\nFloat\nRelative brightness to magnitude 0, computed as $100^{-1 * mag / 5}$\n\n\nName\nString\nProper star name\n\n\nGeometry\nPoint Object\naround 40k stars point objects\n\n\n\n\n\n\n\n\n\n\nid\n\n\nmag\n\n\nbv\n\n\nbr\n\n\nname\n\n\ngeometry\n\n\n\n\n\n\n677\n\n\n2.07\n\n\n-0.038\n\n\n0.1486\n\n\nAlpheratz\n\n\nPOINT (2.0969 29.0904)\n\n\n\n\n746\n\n\n2.28\n\n\n0.380\n\n\n0.1225\n\n\nCaph\n\n\nPOINT (2.2945 59.1498)\n\n\n\n\n1067\n\n\n2.83\n\n\n-0.190\n\n\n0.0738\n\n\nAlgenib\n\n\nPOINT (3.309 15.1836)\n\n\n\n\n1415\n\n\n6.11\n\n\n-0.151\n\n\n0.0036\n\n\nPearce’s Star\n\n\nPOINT (4.4294 51.4331)\n\n\n\n\n1562\n\n\n3.56\n\n\n1.214\n\n\n0.0377\n\n\nDeneb Kaitos Shemali\n\n\nPOINT (4.857 -8.8239)\n\n\n\n\n2081\n\n\n2.40\n\n\n1.083\n\n\n0.1096\n\n\nAnkaa\n\n\nPOINT (6.571 -42.306)\n\n\n\n\n2920\n\n\n3.69\n\n\n-0.196\n\n\n0.0334\n\n\nFulu\n\n\nPOINT (9.2429 53.8969)\n\n\n\n\n3179\n\n\n2.24\n\n\n1.170\n\n\n0.1271\n\n\nShedar\n\n\nPOINT (10.1268 56.5373)\n\n\n\n\n3419\n\n\n2.04\n\n\n1.019\n\n\n0.1528\n\n\nDiphda\n\n\nPOINT (10.8974 -17.9866)\n\n\n\n\n3455\n\n\n4.77\n\n\n0.998\n\n\n0.0124\n\n\nAlnitham\n\n\nPOINT (11.0475 -10.6096)\n\n\n\n\n\n\n\n\n\nConstellation lines\n\n\n\n\n\n\n\n\nColumn Name\nData Type\nDescription\n\n\n\n\nGeometry\nLine Object\n89 constellation line objects\n\n\nID\nString\n3-letter designator\n\n\nRank\nInteger\n1-3 for differential name display by size/brightness\n\n\nName\nString\nfull IAU name\n\n\n\n\n\n\n\n\n\n\nid\n\n\nrank\n\n\nname\n\n\ngeometry\n\n\n\n\n\n\nAnd\n\n\n1\n\n\nAndromeda\n\n\nMULTILINESTRING ((14.3017 2…\n\n\n\n\nAnt\n\n\n3\n\n\nAntlia\n\n\nMULTILINESTRING ((142.3113 …\n\n\n\n\nAps\n\n\n3\n\n\nApus\n\n\nMULTILINESTRING ((-138.0345…\n\n\n\n\nAqr\n\n\n2\n\n\nAquarius\n\n\nMULTILINESTRING ((-48.081 -…\n\n\n\n\nAql\n\n\n1\n\n\nAquila\n\n\nMULTILINESTRING ((-63.4351 …\n\n\n\n\nAra\n\n\n3\n\n\nAra\n\n\nMULTILINESTRING ((-98.6514 …\n\n\n\n\nAri\n\n\n1\n\n\nAries\n\n\nMULTILINESTRING ((42.496 27…\n\n\n\n\nAur\n\n\n1\n\n\nAuriga\n\n\nMULTILINESTRING ((89.8822 4…\n\n\n\n\nBoo\n\n\n1\n\n\nBoötes\n\n\nMULTILINESTRING ((-153.1844…\n\n\n\n\nCae\n\n\n3\n\n\nCaelum\n\n\nMULTILINESTRING ((67.7087 -…\n\n\n\n\n\n\n\nThese datasets originally feature interactive and adaptable constellation maps, initially curated by Olaf Frohn. However, some issues related to date lines and certain packages were identified in these datasets, and they were subsequently resolved by Dieghernan. You can explore the repository here.\n\n\nWhy did we choose this dataset?\nAs we explored various topics for a captivating visualization project using a Shiny app, we stumbled upon a fascinating reference that showcased creating city maps, which you can find here. Inspired by this, our interest evolved towards the idea of crafting a celestial map that would represent the skies above our location.\nThese datasets offer celestial visualizations based on longitude, latitude, and time parameters, granting us the ability to fashion dynamic and interactive sky maps."
+  },
+  {
+    "objectID": "proposal.html#weekly-plan-of-attack",
+    "href": "proposal.html#weekly-plan-of-attack",
+    "title": "Constellation Maps",
+    "section": "Weekly “plan of attack”",
+    "text": "Weekly “plan of attack”\n\n\n\n\n\n\n\n\nWeek\nAssigned Team members\nWeekly Tasks\n\n\n\n\nWeek 1-2: Understanding the Basics\nMegan Hokama, Tejashwini Kasa\n\nUnderstand the basics of spatial manipulation with libraries like sf and s2.\nGet familiarized with visualization using ggfx, and ggshadow.\nTest out apps with Shiny and its usage for rendering real-time maps.\n\n\n\nWeek 3: Creating the basis for celestial maps\nKiwoon Hong, Visalakshi Iyer\n\nCreate base functions for themes, loading datasets, parsing, and cleaning.\nSince the maps need to be custom, we will also make functions that will work on variability. Some of the variables for the map will be background color, location input, glow intensity, names of the stars on the celestial map, and custom text on the map’s footer.\n\n\n\nWeek 4: Creating the Star Map\nSai Madhuri Kandula, Tejashwini Kasa\n\nCreate basic maps using sf object and sperical geoms using s2.\nAdd scatterplot of the constellations on top of the prepared spherical geom.\nExperiment with different locations, and test custom inputs in the plotting functions.\n\n\n\nWeek 5-6: Shiny App Development\nMegan Hokama, Visalakshi Iyer\n\nIntegrate star map code into a shiny app .\nWork on the GUI elements to provide dynamic rendering.\nCreate workflow that provides size, theme, and customization of maps.\nCreate download functionality for the maps.\nTest different parameters to identify edge cases.\n\n\n\nWeek 7: Testing and reviewing\nKiwoon Hong, Sai Madhuri Kandula\n\nRefine the app based on feedback.\nDeploy the app.\nPrepare presentation for the final showcase."
+  },
+  {
+    "objectID": "proposal.html#repo-organization",
+    "href": "proposal.html#repo-organization",
+    "title": "Constellation Maps",
+    "section": "Repo Organization",
+    "text": "Repo Organization\n\n.github: This directory contain files related to GitHub, such as workflows, issue templates, or other configurations.\n_extra: Contains code, notes and other files used during experimentation. Contents of this folder is not a part of the final output.\n_freeze: The folder created to store files generated during project render.\ndata/: This folder contains data files or datasets that are used in the project.\n\nREADME.md : A readme file that describes the datasets in more detail.\n\nimages: This folder contains image files that are used in the project, such as illustrations, diagrams, or other visual assets.\n.gitignore: This file specifies which files or directories should be ignored by version control.\nREADME.md: This file usually contains documentation or information about the project. It’s often the first thing someone reads when they visit the project repository.\n_quarto.yml: This is a configuration file.\nabout.qmd : This quarto document contains the information about team members.\nindex.qmd : This quarto document contains the approach and analysis and results of the project.\npresentation.qmd : It contains the slides for the presentation.\nproposal.qmd : This quarto documents has the proposal of the project.\nproject-final.Rproj : This is an RStudio project file, which helps organize R-related files and settings for the project."
+  },
+  {
+    "objectID": "proposal.html#analysis-plan",
+    "href": "proposal.html#analysis-plan",
+    "title": "Constellation Maps",
+    "section": "Analysis Plan",
+    "text": "Analysis Plan\n\nDevelop a Shiny app for personalized constellation maps with user input.\nEnhance user engagement in stargazing from various locations time zones and even user bases.\nPrioritize accessibility through a user-friendly interface and colorblind-friendly design.\nProvide contextual annotations for users with different levels of astronomical knowledge."
+  }
+]

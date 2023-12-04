@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.353">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Project Title - Constellation Maps</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Project Title</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html" rel="" target="">
+ <span class="menu-text">Project</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./proposal.html" rel="" target="" aria-current="page">
+ <span class="menu-text">Proposal</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./presentation.html" rel="" target="">
+ <span class="menu-text">Presentation</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/INFO526-DataViz/project-final-Chart-Champions/" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#high-level-goal" id="toc-high-level-goal" class="nav-link active" data-scroll-target="#high-level-goal">High-level goal</a></li>
+  <li><a href="#goal-motivation" id="toc-goal-motivation" class="nav-link" data-scroll-target="#goal-motivation">Goal &amp; Motivation</a></li>
+  <li><a href="#analysis-plan" id="toc-analysis-plan" class="nav-link" data-scroll-target="#analysis-plan">Analysis Plan</a></li>
+  <li><a href="#dataset" id="toc-dataset" class="nav-link" data-scroll-target="#dataset">Dataset</a>
+  <ul class="collapse">
+  <li><a href="#milky-way" id="toc-milky-way" class="nav-link" data-scroll-target="#milky-way">Milky Way</a></li>
+  <li><a href="#stars" id="toc-stars" class="nav-link" data-scroll-target="#stars">Stars</a></li>
+  <li><a href="#constellation-lines" id="toc-constellation-lines" class="nav-link" data-scroll-target="#constellation-lines">Constellation lines</a></li>
+  <li><a href="#why-did-we-choose-this-dataset" id="toc-why-did-we-choose-this-dataset" class="nav-link" data-scroll-target="#why-did-we-choose-this-dataset">Why did we choose this dataset?</a></li>
+  </ul></li>
+  <li><a href="#weekly-plan-of-attack" id="toc-weekly-plan-of-attack" class="nav-link" data-scroll-target="#weekly-plan-of-attack">Weekly “plan of attack”</a></li>
+  <li><a href="#repo-organization" id="toc-repo-organization" class="nav-link" data-scroll-target="#repo-organization">Repo Organization</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Constellation Maps</h1>
+<p class="subtitle lead">Proposal</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="high-level-goal" class="level2">
+<h2 class="anchored" data-anchor-id="high-level-goal">High-level goal</h2>
+<p>Develop a Shiny app that generates constellation maps that utilizes interactive elements, incorporating computational and visualization techniques.</p>
+</section>
+<section id="goal-motivation" class="level2">
+<h2 class="anchored" data-anchor-id="goal-motivation">Goal &amp; Motivation</h2>
+<p>The primary objective of this project is to develop a Shiny app that not only generates interactive constellation maps but also prioritizes accessibility and personalization of these maps. By offering users the ability to input specific geographic locations, the app will provide personalized, contextually relevant constellation maps for each user. Individuals will be able to explore the night sky from different geographical locations by inputting latitude and longitudinal points to create visually provoking constellation maps. We hope to make stargazing more engaging and educational by personalizing the experience through various elements: color usage, map location, time zone, latitude/longitude location. Additionally, the app will be designed with a user-friendly interface to ensure accessibility with an aim to make it inclusive for people of all backgrounds and levels of astronomical knowledge. This will be achieved by using colorblind accessible palettes (avoiding bright and low-contrast colors) and providing annotations to provide readability and context for a wide range of users, including astronomy beginners.</p>
+</section>
+<section id="analysis-plan" class="level2">
+<h2 class="anchored" data-anchor-id="analysis-plan">Analysis Plan</h2>
+<ul>
+<li>Develop a Shiny app for personalized constellation maps with user input.</li>
+<li>Enhance user engagement in stargazing from various locations time zones and even user bases.</li>
+<li>Prioritize accessibility through a user-friendly interface and colorblind-friendly design.</li>
+<li>Provide contextual annotations for users with different levels of astronomical knowledge.</li>
+</ul>
+</section>
+<section id="dataset" class="level2">
+<h2 class="anchored" data-anchor-id="dataset">Dataset</h2>
+<p>The datasets are available in GeoJSON (<code>*.geojson</code>) and GeoPackage (<code>*.gpkg</code>) formats, representing celestial objects’ positions as of the J2000 epoch. They are roughly categorized into five sections: <code>Asterisms</code>, <code>Constellations</code>, <code>DSOs</code> (Deep-Sky Objects), <code>Stars</code>, and the <code>Milky Way</code>. Each of these astronomical object categories is further subdivided into several subfiles.</p>
+<p>We will be using three of the available data: the milkyway, the constellation lines, and the stars.</p>
+<section id="milky-way" class="level3">
+<h3 class="anchored" data-anchor-id="milky-way">Milky Way</h3>
+<table class="table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 65%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Column Name</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ID</td>
+<td>String</td>
+<td>Milky Way outlines in 5 brightness steps (ol1-ol5).</td>
+</tr>
+<tr class="even">
+<td>Geometry</td>
+<td>Line Object</td>
+<td>geometry lines for milky way</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math inline">\(100^{-1 * mag / 5}\)</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>mw  <span class="sc">|&gt;</span> <span class="fu">formattable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<table class="table table-condensed">
+<thead>
+<tr>
+<th style="text-align:right;">
+id
+</th>
+<th style="text-align:right;">
+geometry
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+ol1
+</td>
+<td style="text-align:right;">
+MULTIPOLYGON (((178.558 -74…
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+ol2
+</td>
+<td style="text-align:right;">
+MULTIPOLYGON (((-176.662 -6…
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+ol3
+</td>
+<td style="text-align:right;">
+MULTIPOLYGON (((-174.067 -6…
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+ol4
+</td>
+<td style="text-align:right;">
+MULTIPOLYGON (((-158.721 -6…
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+ol5
+</td>
+<td style="text-align:right;">
+MULTIPOLYGON (((161.333 -59…
+</td>
+</tr>
+</tbody>
+
+</table>
+</div>
+</div>
+</section>
+<section id="stars" class="level3">
+<h3 class="anchored" data-anchor-id="stars">Stars</h3>
+<table class="table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 70%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Column Name</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ID</td>
+<td>Integer</td>
+<td>Short designator</td>
+</tr>
+<tr class="even">
+<td>Mag</td>
+<td>Double</td>
+<td>Apparent magnitude, 999 if n.a.</td>
+</tr>
+<tr class="odd">
+<td>BV</td>
+<td>Float</td>
+<td>b-v color index.</td>
+</tr>
+<tr class="even">
+<td>BR</td>
+<td>Float</td>
+<td>Relative brightness to magnitude 0, computed as $100^{-1 * mag / 5}$</td>
+</tr>
+<tr class="odd">
+<td>Name</td>
+<td>String</td>
+<td>Proper star name</td>
+</tr>
+<tr class="even">
+<td>Geometry</td>
+<td>Point Object</td>
+<td>around 40k stars point objects</td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div class="cell-output-display">
+
+<table class="table table-condensed">
+<thead>
+<tr>
+<th style="text-align:right;">
+id
+</th>
+<th style="text-align:right;">
+mag
+</th>
+<th style="text-align:right;">
+bv
+</th>
+<th style="text-align:right;">
+br
+</th>
+<th style="text-align:right;">
+name
+</th>
+<th style="text-align:right;">
+geometry
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+677
+</td>
+<td style="text-align:right;">
+2.07
+</td>
+<td style="text-align:right;">
+-0.038
+</td>
+<td style="text-align:right;">
+0.1486
+</td>
+<td style="text-align:right;">
+Alpheratz
+</td>
+<td style="text-align:right;">
+POINT (2.0969 29.0904)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+746
+</td>
+<td style="text-align:right;">
+2.28
+</td>
+<td style="text-align:right;">
+0.380
+</td>
+<td style="text-align:right;">
+0.1225
+</td>
+<td style="text-align:right;">
+Caph
+</td>
+<td style="text-align:right;">
+POINT (2.2945 59.1498)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1067
+</td>
+<td style="text-align:right;">
+2.83
+</td>
+<td style="text-align:right;">
+-0.190
+</td>
+<td style="text-align:right;">
+0.0738
+</td>
+<td style="text-align:right;">
+Algenib
+</td>
+<td style="text-align:right;">
+POINT (3.309 15.1836)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1415
+</td>
+<td style="text-align:right;">
+6.11
+</td>
+<td style="text-align:right;">
+-0.151
+</td>
+<td style="text-align:right;">
+0.0036
+</td>
+<td style="text-align:right;">
+Pearce’s Star
+</td>
+<td style="text-align:right;">
+POINT (4.4294 51.4331)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+1562
+</td>
+<td style="text-align:right;">
+3.56
+</td>
+<td style="text-align:right;">
+1.214
+</td>
+<td style="text-align:right;">
+0.0377
+</td>
+<td style="text-align:right;">
+Deneb Kaitos Shemali
+</td>
+<td style="text-align:right;">
+POINT (4.857 -8.8239)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2081
+</td>
+<td style="text-align:right;">
+2.40
+</td>
+<td style="text-align:right;">
+1.083
+</td>
+<td style="text-align:right;">
+0.1096
+</td>
+<td style="text-align:right;">
+Ankaa
+</td>
+<td style="text-align:right;">
+POINT (6.571 -42.306)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+2920
+</td>
+<td style="text-align:right;">
+3.69
+</td>
+<td style="text-align:right;">
+-0.196
+</td>
+<td style="text-align:right;">
+0.0334
+</td>
+<td style="text-align:right;">
+Fulu
+</td>
+<td style="text-align:right;">
+POINT (9.2429 53.8969)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3179
+</td>
+<td style="text-align:right;">
+2.24
+</td>
+<td style="text-align:right;">
+1.170
+</td>
+<td style="text-align:right;">
+0.1271
+</td>
+<td style="text-align:right;">
+Shedar
+</td>
+<td style="text-align:right;">
+POINT (10.1268 56.5373)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3419
+</td>
+<td style="text-align:right;">
+2.04
+</td>
+<td style="text-align:right;">
+1.019
+</td>
+<td style="text-align:right;">
+0.1528
+</td>
+<td style="text-align:right;">
+Diphda
+</td>
+<td style="text-align:right;">
+POINT (10.8974 -17.9866)
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+3455
+</td>
+<td style="text-align:right;">
+4.77
+</td>
+<td style="text-align:right;">
+0.998
+</td>
+<td style="text-align:right;">
+0.0124
+</td>
+<td style="text-align:right;">
+Alnitham
+</td>
+<td style="text-align:right;">
+POINT (11.0475 -10.6096)
+</td>
+</tr>
+</tbody>
+
+</table>
+</div>
+</div>
+</section>
+<section id="constellation-lines" class="level3">
+<h3 class="anchored" data-anchor-id="constellation-lines">Constellation lines</h3>
+<table class="table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 65%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Column Name</th>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Geometry</td>
+<td>Line Object</td>
+<td>89 constellation line objects</td>
+</tr>
+<tr class="even">
+<td>ID</td>
+<td>String</td>
+<td>3-letter designator</td>
+</tr>
+<tr class="odd">
+<td>Rank</td>
+<td>Integer</td>
+<td>1-3 for differential name display by size/brightness</td>
+</tr>
+<tr class="even">
+<td>Name</td>
+<td>String</td>
+<td>full IAU name</td>
+</tr>
+</tbody>
+</table>
+<div class="cell">
+<div class="cell-output-display">
+
+<table class="table table-condensed">
+<thead>
+<tr>
+<th style="text-align:right;">
+id
+</th>
+<th style="text-align:right;">
+rank
+</th>
+<th style="text-align:right;">
+name
+</th>
+<th style="text-align:right;">
+geometry
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+And
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+Andromeda
+</td>
+<td style="text-align:right;">
+MULTILINESTRING ((14.3017 2…
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Ant
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+Antlia
+</td>
+<td style="text-align:right;">
+MULTILINESTRING ((142.3113 …
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Aps
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+Apus
+</td>
+<td style="text-align:right;">
+MULTILINESTRING ((-138.0345…
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Aqr
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+Aquarius
+</td>
+<td style="text-align:right;">
+MULTILINESTRING ((-48.081 -…
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Aql
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+Aquila
+</td>
+<td style="text-align:right;">
+MULTILINESTRING ((-63.4351 …
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Ara
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+Ara
+</td>
+<td style="text-align:right;">
+MULTILINESTRING ((-98.6514 …
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Ari
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+Aries
+</td>
+<td style="text-align:right;">
+MULTILINESTRING ((42.496 27…
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Aur
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+Auriga
+</td>
+<td style="text-align:right;">
+MULTILINESTRING ((89.8822 4…
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Boo
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+Boötes
+</td>
+<td style="text-align:right;">
+MULTILINESTRING ((-153.1844…
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+Cae
+</td>
+<td style="text-align:right;">
+3
+</td>
+<td style="text-align:right;">
+Caelum
+</td>
+<td style="text-align:right;">
+MULTILINESTRING ((67.7087 -…
+</td>
+</tr>
+</tbody>
+
+</table>
+</div>
+</div>
+<p>These datasets originally feature interactive and adaptable constellation maps, initially curated by Olaf Frohn. However, some issues related to date lines and certain packages were identified in these datasets, and they were subsequently resolved by Dieghernan. You can explore the repository <a href="https://github.com/dieghernan/celestial_data/tree/main">here.</a></p>
+</section>
+<section id="why-did-we-choose-this-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="why-did-we-choose-this-dataset">Why did we choose this dataset?</h3>
+<p>As we explored various topics for a captivating visualization project using a Shiny app, we stumbled upon a fascinating reference that showcased creating city maps, which you can find <a href="https://prettymapp.streamlit.app/">here</a>. Inspired by this, our interest evolved towards the idea of crafting a celestial map that would represent the skies above our location.<br>
+These datasets offer celestial visualizations based on longitude, latitude, and time parameters, granting us the ability to fashion dynamic and interactive sky maps.</p>
+</section>
+</section>
+<section id="weekly-plan-of-attack" class="level2">
+<h2 class="anchored" data-anchor-id="weekly-plan-of-attack">Weekly “plan of attack”</h2>
+<table class="table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 10%">
+<col style="width: 75%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Week</th>
+<th>Assigned Team members</th>
+<th>Weekly Tasks</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Week 1-2: Understanding the Basics</td>
+<td>Megan Hokama, Tejashwini Kasa</td>
+<td><ul>
+<li><p>Understand the basics of spatial manipulation with libraries like <code>sf</code> and <code>s2</code>.</p></li>
+<li><p>Get familiarized with visualization using <code>ggfx</code>, and <code>ggshadow</code>.</p></li>
+<li><p>Test out apps with Shiny and its usage for rendering real-time maps.</p></li>
+</ul></td>
+</tr>
+<tr class="even">
+<td>Week 3: Creating the basis for celestial maps</td>
+<td>Kiwoon Hong, Visalakshi Iyer</td>
+<td><ul>
+<li><p>Create base functions for themes, loading datasets, parsing, and cleaning.</p></li>
+<li><p>Since the maps need to be custom, we will also make functions that will work on variability. Some of the variables for the map will be background color, location input, glow intensity, names of the stars on the celestial map, and custom text on the map’s footer.</p></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td>Week 4: Creating the Star Map</td>
+<td>Sai Madhuri Kandula, Tejashwini Kasa</td>
+<td><ul>
+<li><p>Create basic maps using sf object and sperical geoms using s2.</p></li>
+<li><p>Add scatterplot of the constellations on top of the prepared spherical geom.</p></li>
+<li><p>Experiment with different locations, and test custom inputs in the plotting functions.</p></li>
+</ul></td>
+</tr>
+<tr class="even">
+<td>Week 5-6: Shiny App Development</td>
+<td>Megan Hokama, Visalakshi Iyer</td>
+<td><ul>
+<li><p>Integrate star map code into a shiny app .</p></li>
+<li><p>Work on the GUI elements to provide dynamic rendering.</p></li>
+<li><p>Create workflow that provides size, theme, and customization of maps.</p></li>
+<li><p>Create download functionality for the maps.</p></li>
+<li><p>Test different parameters to identify edge cases.</p></li>
+</ul></td>
+</tr>
+<tr class="odd">
+<td>Week 7: Testing and reviewing</td>
+<td>Kiwoon Hong, Sai Madhuri Kandula</td>
+<td><ul>
+<li><p>Refine the app based on feedback.</p></li>
+<li><p>Deploy the app.</p></li>
+<li><p>Prepare presentation for the final showcase.</p></li>
+</ul></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="repo-organization" class="level2">
+<h2 class="anchored" data-anchor-id="repo-organization">Repo Organization</h2>
+<ul>
+<li><p><code>.github</code>: This directory contain files related to GitHub, such as workflows, issue templates, or other configurations.</p></li>
+<li><p><code>_extra</code>: Contains code, notes and other files used during experimentation. Contents of this folder is not a part of the final output.</p></li>
+<li><p><code>_freeze</code>: The folder created to store files generated during project render.</p></li>
+<li><p><code>data/</code>: This folder contains data files or datasets that are used in the project.</p>
+<ul>
+<li><code>README.md</code> : A readme file that describes the datasets in more detail.</li>
+</ul></li>
+<li><p><code>images</code>: This folder contains image files that are used in the project, such as illustrations, diagrams, or other visual assets.</p></li>
+<li><p><code>.gitignore</code>: This file specifies which files or directories should be ignored by version control.</p></li>
+<li><p><code>README.md</code>: This file usually contains documentation or information about the project. It’s often the first thing someone reads when they visit the project repository.</p></li>
+<li><p><code>_quarto.yml</code>: This is a configuration file.</p></li>
+<li><p><code>about.qmd</code> : This quarto document contains the information about team members.</p></li>
+<li><p><code>index.qmd</code> : This quarto document contains the approach and analysis and results of the project.</p></li>
+<li><p><code>presentation.qmd</code> : It contains the slides for the presentation.</p></li>
+<li><p><code>proposal.qmd</code> : This quarto documents has the proposal of the project.</p></li>
+<li><p><code>project-final.Rproj</code> : This is an RStudio project file, which helps organize R-related files and settings for the project.</p></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
