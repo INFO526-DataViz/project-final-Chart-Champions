@@ -20,7 +20,7 @@
 
 A beautified celestial map for a given location that can be deployed for custom map generation
 
-![sample_celestial_map_output](imgs/sample_celestial_map_output){fig-alt="sample celestial map output" fig-align="center" width="75%"}
+![](imgs/sample_celestial_map_output.png){fig-alt="sample celestial map output" fig-align="center" width="75%"}
 
 ## Goal (Next Steps)
 
