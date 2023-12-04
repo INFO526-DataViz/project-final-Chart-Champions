@@ -20,6 +20,8 @@
 
 A beautified celestial map for a given location that can be deployed for custom map generation
 
+![sample_celestial_map_output](imgs/sample_celestial_map_output){fig-alt="sample celestial map output" fig-align="center" width="75%"}
+
 ## Goal (Next Steps)
 
 1.  Create a GUI using the scripts, function and additional parameters for customization using Shiny.
