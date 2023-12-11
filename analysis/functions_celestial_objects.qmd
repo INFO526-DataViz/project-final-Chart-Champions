@@ -526,7 +526,7 @@ plot_celestial_map <- function(grat_end, const_end, mw_end, stars_end, target_cr
     # Glowing constellations
     geom_glowpath(
       data = const_end_lines, aes(X, Y, group = interaction(L1, L2)),
-      color = "white", size = 0.5, alpha = 0.8, shadowsize = 0.4, shadowalpha = 0.01,
+      color = "white", size = 0.5, alpha =0.8, shadowsize = 0.4, shadowalpha = 0.01,
       shadowcolor = "white", linejoin = "round", lineend = "round"
     ) +
     # Border of the sphere
