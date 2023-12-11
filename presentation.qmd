@@ -1,9 +1,9 @@
 ---
-title: "Project title"
+title: "Constellation Maps"
 subtitle: "INFO 526 - Fall 2023 - Project Final"
-author: "Author names"
+author: "Megan Hokama, Sai Madhuri Kandula, Visalakshi Prakash Iyer, Kiwoon Hong, Tejashwini Kasa"
 title-slide-attributes:
-  data-background-image: images/watercolour_sys02_img34_teacup-ocean.jpg
+  data-background-image: images/andy-holmes-rCbdp8VCYhQ-unsplash.jpg
   data-background-size: stretch
   data-background-opacity: "0.7"
   data-slide-number: none
@@ -22,7 +22,9 @@ execute:
 
 # Load packages here
 pacman::p_load(tidymodels,
-               tidyverse)
+               tidyverse,
+               formattable, 
+               dplyr)
 
 ```
 
@@ -46,67 +48,80 @@ knitr::opts_chunk$set(
 #| label: load-data
 #| include: false
 # Load data here
-data(mtcars)
-mtcars$speed <- mtcars$hp / mtcars$wt
+load_celestial <- function(filename,
+                           url = "https://cdn.jsdelivr.net/gh/dieghernan/celestial_data@main/data/",
+                           cachedir = tempdir()) {
+  if (!dir.exists(cachedir)) {
+    stop(
+      "Please create ",
+      path.expand(cachedir),
+      " directory",
+      "first"
+    )
+  }
+  url <- file.path(url, filename)
+  local_path <- file.path(cachedir, filename)
+  if (!file.exists(local_path)) {
+    download.file(url, local_path, mode = "wb", quiet = TRUE)
+  }
+  celestial <- sf::st_read(local_path, quiet = TRUE)
+  return(celestial)
+}
 
-data("penguins")
+#Load_coordinate_labeller
+pretty_lonlat <- function(x, type, accuracy = 2) {
+  positive <- x >= 0
+  # Decompose
+  x <- abs(x)
+  D <- as.integer(x)
+  m <- (x - D) * 60
+  M <- as.integer(m)
+  S <- round((m - M) * 60, accuracy)
+  # Get label
+  if (type == "lon") {
+    lab <- ifelse(positive > 0, "E", "W")
+  } else {
+    lab <- ifelse(positive > 0, "N", "S")
+  }
+  # Compose
+  label <- paste0(D, "\u00b0 ", M, "' ", S, '\" ', lab)
+  return(label)
+}
 ```
 
-# Using Quarto for presentations
+# Background
 
-## Quarto
+## High-level Goal
 
--   The presentation is created using the Quarto CLI
+-   Develop a Shiny app that generates constellation maps that utilizes interactive elements, incorporating computational and visualization techniques.
 
--   `##` sets the start of a new slide
+## Goals & Motivations
 
-## Layouts
+-   Increasing engagement by personalizing the experience through various elements: color usage, map location, time zone, latitude/longitude location
 
-You can use plain text
+-   Aiming to increase inclusivity for people of all backgrounds and levels of astronomical knowledge by designing with a user-friendly interface to ensure accessibility with an
 
-::: columns
-::: {.column width="40%"}
--   or bullet points[^1]
-:::
+-   Providing annotations to provide readability and educational context for a wide range of users, including astronomy beginners
 
-::: {.column width="60%"}
-or in two columns
-:::
-:::
+## Dataset
 
-[^1]: And add footnotes
+-   The datasets are available in GeoJSON (`*.geojson`) and GeoPackage (`*.gpkg`) formats
 
--   like
+-   Represents celestial objects' positions as of the J2000 epoch
 
--   this
+-   Data used:
 
-## Code
+    -   `mw` = Milky Way dataset
 
-```{r, echo=FALSE}
-model <- lm(mpg ~ speed, data = mtcars) 
+    -   `constellations.lines` = Constellation Lines dataset
 
-model |> tidy()
+    -   `stars.8` = Stars dataset
 
-model |> glance()
-
-```
-
-## Plots
-
-```{r}
-penguins |>
-  mutate(species = ifelse(species == "Adelie", "Adelie", "Other")) |>
-  ggplot(aes(x = flipper_length_mm, y = body_mass_g, color = species)) +
-  geom_point()
-```
-
-## Plot and text
+## Analysis Approach
 
 ::: columns
 ::: {.column width="50%"}
 -   Some text
-
--   goes here
 :::
 
 ::: {.column width="50%"}

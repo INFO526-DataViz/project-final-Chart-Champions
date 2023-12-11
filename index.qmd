@@ -1,11 +1,23 @@
 ---
-title: "Project title"
+title: "Constellation Maps"
 subtitle: "INFO 526 - Project Final"
-author: "Team name"
+author: "Chart Champions"
 format: html
 editor: visual
 ---
 
 ## Abstract
 
-Add project abstract here.
+This project aims to develop a Shiny app that generates an interactive constellation maps, leveraging computational and visualization techniques. Utilizing the datasets are available in GeoJSON (`*.geojson`) and GeoPackage (`*.gpkg`) formats, we will be using three of the available data: the milkyway, the constellation lines, and the stars. The primary objective is to prioritize accessibility and personalization by allowing users to input specific geographic locations and time, resulting in contextually relevant and visually captivating constellation maps. The significance of this project is to enhance the appeal and educational value of stargazing by tailoring the experience through diverse elements such as color schemes, map locations, time zones, and latitude/longitude inputs. Furthermore, the app will be crafted with a user-friendly interface, aiming for inclusivity across diverse backgrounds and levels of astronomical expertise.
+
+## Introduction 
+
+## Approach
+
+## Results
+
+## Conclusion
+
+## Citations
+
+
