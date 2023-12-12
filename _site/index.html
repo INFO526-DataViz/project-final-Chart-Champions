@@ -70,6 +70,9 @@ ul.task-list li input[type="checkbox"] {
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    <img src="./images\constellationlogo.jpg" alt="" class="navbar-logo">
+    </a>
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">Charting Constellations</span>
     </a>
@@ -99,7 +102,7 @@ ul.task-list li input[type="checkbox"] {
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/INFO526-DataViz/project-final-Chart-Champions/" rel="" target=""><i class="bi bi-images/constellationlogo.jpg" role="img">
+    <a class="nav-link" href="https://github.com/INFO526-DataViz/project-final-Chart-Champions/" rel="" target=""><i class="bi bi-github" role="img">
 </i> 
  <span class="menu-text"></span></a>
   </li>  
@@ -168,15 +171,34 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="approach" class="level2">
 <h2 class="anchored" data-anchor-id="approach">Approach</h2>
+<section id="help-functions" class="level4">
+<h4 class="anchored" data-anchor-id="help-functions">Help functions</h4>
+<p>To create a visualization of the sky map, there are various preparations to be made. Initially, we established several helper functions to implement the sky map based on locations and time zones. The <code>load_celestial()</code> function loads the entire dataset essential for our needs, while <code>pretty_lonlat()</code> is responsible for converting coordinates into a specific format. Also, <code>get_mst()</code> computes the Mean Sidereal Time (MST) given a specific longitude. And <code>sf_spherical_cut()</code> cuts map into spherical.</p>
+</section>
+<section id="inputs" class="level4">
+<h4 class="anchored" data-anchor-id="inputs">Inputs</h4>
+<p>The input places and time zones are converted from natural language to coordinates, enabling mapping on the sky map. It operates in the Shiny app in a similar manner.</p>
+</section>
+<section id="celestial-bodies" class="level4">
+<h4 class="anchored" data-anchor-id="celestial-bodies">celestial bodies</h4>
+<p>And then, we incorporate each celestial body, including the Milky Way, constellations, and stars, whose information is stored in each GeoJSON dataset. We project each celestial body into a hemisphere by using the <code>sf_spherical_cut</code> function. When we finally add graticules into the hemisphere, we’re all set to visualize the sky map!</p>
+</section>
+<section id="apply-the-work-into-shiny-app" class="level4">
+<h4 class="anchored" data-anchor-id="apply-the-work-into-shiny-app">Apply the work into Shiny app</h4>
+<p>We utilized the same inputs (place, time zone) in the Shiny app. Additionally, we incorporated a checkbox for displaying the names of constellations and components that enable users to choose the color of the map. Finally we enabled users to download their sky map with their specified places and time zones</p>
+</section>
 </section>
 <section id="results" class="level2">
 <h2 class="anchored" data-anchor-id="results">Results</h2>
 </section>
 <section id="conclusion" class="level2">
 <h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<p>Constellations, as fundamental guides in locating stars, galaxies, and celestial bodies, play a crucial role in astronomical observation and research. Although telescopes are the main tool to naturally observe constellations, most of the public does not have access to this tool (Hintz et al., 2015). Alternatively, datasets have allowed us the ability to develop a Shiny app that visualizes constellations by offering a personalized and interactive experience. Through user-inputted geographic locations, the app not only facilitates stargazing engagement but also contributes to the broader educational curiosity of understanding the stars. This personalized approach not only benefits seasoned astronomers but also serves as an educational tool, engaging learners of all ages in the study of astronomy. However, it’s important to acknowledge the limitations of the current Shiny Constellation Map app, including the lack of detailed information about constellations and the potential complexity that may arise from feature-rich interfaces. Additionally, the reliance on incomplete or inaccurate data could pose challenges, leading to misidentifications. Despite these limitations, the Shiny app represents a significant step toward making an constellation app accessible, engaging, and educational for a diverse audience.</p>
 </section>
 <section id="citations" class="level2">
 <h2 class="anchored" data-anchor-id="citations">Citations</h2>
+<p>Hintz et al., 2015: https://files.eric.ed.gov/fulltext/EJ1101067.pdf</p>
+<p>Images: Unsplash Photos</p>
 
 
 </section>

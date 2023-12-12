@@ -130,7 +130,7 @@
     "href": "index.html#approach",
     "title": "Constellation Maps",
     "section": "Approach",
-    "text": "Approach"
+    "text": "Approach\n\nHelp functions\nTo create a visualization of the sky map, there are various preparations to be made. Initially, we established several helper functions to implement the sky map based on locations and time zones. The load_celestial() function loads the entire dataset essential for our needs, while pretty_lonlat() is responsible for converting coordinates into a specific format. Also, get_mst() computes the Mean Sidereal Time (MST) given a specific longitude. And sf_spherical_cut() cuts map into spherical.\n\n\nInputs\nThe input places and time zones are converted from natural language to coordinates, enabling mapping on the sky map. It operates in the Shiny app in a similar manner.\n\n\ncelestial bodies\nAnd then, we incorporate each celestial body, including the Milky Way, constellations, and stars, whose information is stored in each GeoJSON dataset. We project each celestial body into a hemisphere by using the sf_spherical_cut function. When we finally add graticules into the hemisphere, we’re all set to visualize the sky map!\n\n\nApply the work into Shiny app\nWe utilized the same inputs (place, time zone) in the Shiny app. Additionally, we incorporated a checkbox for displaying the names of constellations and components that enable users to choose the color of the map. Finally we enabled users to download their sky map with their specified places and time zones"
   },
   {
     "objectID": "index.html#results",
@@ -144,62 +144,62 @@
     "href": "index.html#conclusion",
     "title": "Constellation Maps",
     "section": "Conclusion",
-    "text": "Conclusion"
+    "text": "Conclusion\nConstellations, as fundamental guides in locating stars, galaxies, and celestial bodies, play a crucial role in astronomical observation and research. Although telescopes are the main tool to naturally observe constellations, most of the public does not have access to this tool (Hintz et al., 2015). Alternatively, datasets have allowed us the ability to develop a Shiny app that visualizes constellations by offering a personalized and interactive experience. Through user-inputted geographic locations, the app not only facilitates stargazing engagement but also contributes to the broader educational curiosity of understanding the stars. This personalized approach not only benefits seasoned astronomers but also serves as an educational tool, engaging learners of all ages in the study of astronomy. However, it’s important to acknowledge the limitations of the current Shiny Constellation Map app, including the lack of detailed information about constellations and the potential complexity that may arise from feature-rich interfaces. Additionally, the reliance on incomplete or inaccurate data could pose challenges, leading to misidentifications. Despite these limitations, the Shiny app represents a significant step toward making an constellation app accessible, engaging, and educational for a diverse audience."
   },
   {
     "objectID": "index.html#citations",
     "href": "index.html#citations",
     "title": "Constellation Maps",
     "section": "Citations",
-    "text": "Citations"
+    "text": "Citations\nHintz et al., 2015: https://files.eric.ed.gov/fulltext/EJ1101067.pdf\nImages: Unsplash Photos"
   },
   {
     "objectID": "presentation.html",
     "href": "presentation.html",
     "title": "Constellation Maps",
     "section": "",
-    "text": "Develop a Shiny app that generates constellation maps that utilizes interactive elements, incorporating computational and visualization techniques.\n\n\n\n\nIncreasing engagement by personalizing the experience through various elements: color usage, map location, time zone, latitude/longitude location\nAiming to increase inclusivity for people of all backgrounds and levels of astronomical knowledge by designing with a user-friendly interface to ensure accessibility\nProviding annotations to provide readability and educational context for a wide range of users, including astronomy beginners\n\n\n\n\n\nThe datasets are available in GeoJSON (*.geojson) and GeoPackage (*.gpkg) formats\nRepresents celestial objects’ positions as of the J2000 epoch\nData used:\n\nmw = Milky Way dataset\nconstellations.lines = Constellation Lines dataset\nstars.8 = Stars dataset\n\n\n\n\n\n\n\n\nDevelop a Shiny app for personalized constellation maps with user input\nEnhance user engagement in stargazing from various locations time zones and even user bases\nPrioritize accessibility through a user-friendly interface and colorblind-friendly design\nProvide contextual annotations for users with different levels of astronomical knowledge"
+    "text": "Develop a Shiny app that generates constellation maps that utilizes interactive elements, incorporating computational and visualization techniques.\n\n\n\n\n\n\n\n\n\nIncreasing engagement by personalizing the experience through various elements: color usage, map location, time zone, latitude/longitude location\nDesigning with a user-friendly interface to ensure accessibility for people of all backgrounds and levels of astronomical knowledge\nProviding annotations to provide readability and educational context for a wide range of users, including astronomy beginners\n\n\n\n\n\nThe datasets are available in GeoJSON (*.geojson) and GeoPackage (*.gpkg) formats\nRepresents celestial objects’ positions as of the J2000 epoch\nData used:\n\nmw = Milky Way dataset\nconstellations.lines = Constellation Lines dataset\nstars.8 = Stars dataset\n\n\n\n\n\n\n\n\nDevelop a Shiny app for personalized constellation maps with user input\nEnhance user engagement in stargazing from various locations time zones and even user bases\nPrioritize accessibility through a user-friendly interface and colorblind-friendly design\nProvide contextual annotations for users with different levels of astronomical knowledge"
   },
   {
     "objectID": "presentation.html#high-level-goal",
     "href": "presentation.html#high-level-goal",
     "title": "Constellation Maps",
-    "section": "High-level Goal",
-    "text": "High-level Goal\nDevelop a Shiny app that generates constellation maps that utilizes interactive elements, incorporating computational and visualization techniques."
+    "section": "",
+    "text": "Develop a Shiny app that generates constellation maps that utilizes interactive elements, incorporating computational and visualization techniques."
   },
   {
     "objectID": "presentation.html#goals-motivations",
     "href": "presentation.html#goals-motivations",
     "title": "Constellation Maps",
-    "section": "Goals & Motivations",
-    "text": "Goals & Motivations\n\nIncreasing engagement by personalizing the experience through various elements: color usage, map location, time zone, latitude/longitude location\nAiming to increase inclusivity for people of all backgrounds and levels of astronomical knowledge by designing with a user-friendly interface to ensure accessibility\nProviding annotations to provide readability and educational context for a wide range of users, including astronomy beginners"
+    "section": "",
+    "text": "Increasing engagement by personalizing the experience through various elements: color usage, map location, time zone, latitude/longitude location\nDesigning with a user-friendly interface to ensure accessibility for people of all backgrounds and levels of astronomical knowledge\nProviding annotations to provide readability and educational context for a wide range of users, including astronomy beginners"
   },
   {
     "objectID": "presentation.html#dataset",
     "href": "presentation.html#dataset",
     "title": "Constellation Maps",
-    "section": "Dataset",
-    "text": "Dataset\n\nThe datasets are available in GeoJSON (*.geojson) and GeoPackage (*.gpkg) formats\nRepresents celestial objects’ positions as of the J2000 epoch\nData used:\n\nmw = Milky Way dataset\nconstellations.lines = Constellation Lines dataset\nstars.8 = Stars dataset"
+    "section": "",
+    "text": "The datasets are available in GeoJSON (*.geojson) and GeoPackage (*.gpkg) formats\nRepresents celestial objects’ positions as of the J2000 epoch\nData used:\n\nmw = Milky Way dataset\nconstellations.lines = Constellation Lines dataset\nstars.8 = Stars dataset"
   },
   {
     "objectID": "presentation.html#analysis-approach",
     "href": "presentation.html#analysis-approach",
     "title": "Constellation Maps",
-    "section": "Analysis Approach",
-    "text": "Analysis Approach\n\n\n\nDevelop a Shiny app for personalized constellation maps with user input\nEnhance user engagement in stargazing from various locations time zones and even user bases\nPrioritize accessibility through a user-friendly interface and colorblind-friendly design\nProvide contextual annotations for users with different levels of astronomical knowledge"
+    "section": "",
+    "text": "Develop a Shiny app for personalized constellation maps with user input\nEnhance user engagement in stargazing from various locations time zones and even user bases\nPrioritize accessibility through a user-friendly interface and colorblind-friendly design\nProvide contextual annotations for users with different levels of astronomical knowledge"
   },
   {
     "objectID": "presentation.html#conclusion",
     "href": "presentation.html#conclusion",
     "title": "Constellation Maps",
     "section": "Conclusion",
-    "text": "Conclusion\n\nConstellations aid in locating stars, galaxies, and other celestial bodies, offering reference points for astronomical observation and research.\nObservations of constellations contribute to scientific discoveries, aiding in the understanding of star formation, stellar evolution, and the dynamics of galaxies.\nConstellations serve as educational tools, engaging learners of all ages in the study of astronomy and offer an accessible entry point for teaching basic astronomical concepts.\n\nIf you want to generate a table, make sure it is in the HTML format (instead of Markdown or other formats), e.g.,\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\n\n\n\n\nAdelie\nTorgersen\n39.1\n18.7\n181\n3750\nmale\n\n\nAdelie\nTorgersen\n39.5\n17.4\n186\n3800\nfemale\n\n\nAdelie\nTorgersen\n40.3\n18.0\n195\n3250\nfemale\n\n\nAdelie\nTorgersen\nNA\nNA\nNA\nNA\nNA\n\n\nAdelie\nTorgersen\n36.7\n19.3\n193\n3450\nfemale\n\n\nAdelie\nTorgersen\n39.3\n20.6\n190\n3650\nmale"
+    "text": "Conclusion\n\nConstellations aid in locating stars, galaxies, and other celestial bodies, offering reference points for astronomical observation and research.\nObservations of constellations contribute to scientific discoveries, aiding in the understanding of star formation, stellar evolution, and the dynamics of galaxies.\nConstellations serve as educational tools, engaging learners of all ages in the study of astronomy and offer an accessible entry point for teaching basic astronomical concepts."
   },
   {
     "objectID": "presentation.html#limitations",
     "href": "presentation.html#limitations",
     "title": "Constellation Maps",
     "section": "Limitations",
-    "text": "Limitations\n\nStarmap app doesn’t display any data like names and information about the constellations.\nSome starmap apps can become complex due to the abundance use of features, making the interface crowded, confusing the new users.\nSometimes due to incomplete or inaccurate data, might lead to misidentification of celestial objects or missing information about certain stars or constellations.\n\n\nImage credit: Danielle Navarro, Percolate."
+    "text": "Limitations\n\nStarmap app doesn’t display any data like names and information about the constellations.\nSome starmap apps can become complex due to the abundance use of features, making the interface crowded, confusing the new users.\nSometimes due to incomplete or inaccurate data, might lead to misidentification of celestial objects or missing information about certain stars or constellations."
   }
 ]

@@ -1,14 +1,9 @@
 
-
-if(!require(pacman))
-    install.packages("pacman")
-
-pacman::p_load(shiny,
-               ggplot2,
-               colourpicker,
-               shinyWidgets,
-               lubridate, 
-               )
+library(shiny)
+library(ggplot2)
+library(colourpicker)
+library(shinyWidgets)
+library(lubridate)
 
 
 source("plot_graphs.R")
@@ -17,7 +12,9 @@ source("plot_graphs.R")
 ui <- fluidPage(
 
     # Application title
-    titlePanel("Setting dynamic input"),
+  # div(id)
+    titlePanel("Constellation Maps"),
+    h4("Custom Stellar Plots"),
 
     sidebarLayout(
         sidebarPanel(
@@ -90,10 +87,11 @@ server <- function(input, output) {
         
         glow_intensity <- input$glow_intensity
         special_message <- input$special_message
+        show_const_name <- input$show_const_name
         
         
         rv$plot <- get_custom_celestial_map(desired_place, year_, month_, day_, hour_, min_, special_message,
-                                            bg_fill_col, glowint)
+                                            bg_fill_col, glowint, show_const_name)
         
     })  
     

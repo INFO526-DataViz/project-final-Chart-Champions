@@ -1,12 +1,13 @@
 
-if(!require(pacman))
-    install.packages("pacman")
-
-pacman::p_load(knitr, formattable, tidyverse, # General packages
-               lubridate, lutz, # range data and dates  
-               sf, s2, nominatimlite, # Spatial manipulation
-               ggfx, ggshadow # Visualization
-            )
+library(knitr)
+library(tidyverse) # General packages
+library(lubridate)
+library(lutz) # range data and dates
+library(sf)
+library(s2)
+library(nominatimlite) # Spatial manipulation
+library(ggfx)
+library(ggshadow) # Visualization
 
 source("data_transformation.R")
 
@@ -126,7 +127,8 @@ get_constellation_viz <- function(target_crs, hemisphere_s2, flip_matrix) {
     return (list(const_flat = const_flat, const_sf = const_sf, const_end = const_end))
 }
 
-plot_celestial_map <- function(grat_end, const_end, mw_end, stars_end, target_crs, hemisphere_s2, caption, glowint, bg_fill_col) {
+plot_celestial_map <- function(grat_end, const_end, mw_end, stars_end, 
+                               target_crs, hemisphere_s2, caption, glowint, bg_fill_col, plot_names) {
     
     # Prepare MULTILINESTRING
     const_end_lines <- const_end %>%
@@ -144,7 +146,9 @@ plot_celestial_map <- function(grat_end, const_end, mw_end, stars_end, target_cr
     celestial_map_plot <- ggplot() +
         # Graticules
         geom_sf(data = grat_end, color = "grey60", linewidth = 0.25, alpha = 0.3) +
-        geom_sf_text(data = const_end, aes(label = name), size = 5, color = "white", check_overlap = TRUE)+
+        {if (plot_names)
+          geom_sf_text(data = const_end, aes(label = name), size = 5, color = "white", check_overlap = TRUE)} +
+        
         # A blurry Milky Way
         with_blur(
             geom_sf(
@@ -193,7 +197,7 @@ plot_celestial_map <- function(grat_end, const_end, mw_end, stars_end, target_cr
 }
 
 get_custom_celestial_map <- function(desired_place, year_, month_, day_, hour_, min_, special_message="",
-                                     bg_fill_col = "#191d29", glowint=0.04) {
+                                     bg_fill_col = "#191d29", glowint=0.04, plot_names=FALSE) {
 
     lat_lon_time <- get_buffered_lat_lon_time(place_=desired_place, 
                                               year_=year_, month_=month_, 
@@ -219,7 +223,8 @@ get_custom_celestial_map <- function(desired_place, year_, month_, day_, hour_, 
                        hemisphere_s2 = crs_s2_flip$hemisphere_s2, 
                        caption = plot_caption,
                        bg_fill_col = bg_fill_col,
-                       glowint = glowint)
+                       glowint = glowint,
+                       plot_names=plot_names)
     
 }
 
