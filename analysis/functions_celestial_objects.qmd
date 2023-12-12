@@ -349,18 +349,24 @@ get_plot_caption <- function(desired_loc, desired_place, desired_date_tz) {
 
 ```{r}
 
+# plotting function to generate graticules for the map
 get_graticules_viz <- function(target_crs, hemisphere_s2) {
-  grat <- st_graticule(
+  grat <- st_graticule( 
+    # generate graticule, lat goes from east to west celestial pole
+    # lon goes from north to south celestial pole. 
+    # each have a decreament, increament value
     ndiscr = 5000,
     lat = seq(-90, 90, 10),
     lon = seq(-180, 180, 30)
   )
+  
+  # first make a flat graticule using sf
 
   grat_flat <- ggplot(grat) +
     geom_sf() +
     coord_sf(expand = FALSE)
   
-  
+  # then we make it sphericam using s2 geom
   # Cut to buffer, we dont flip this one (it is not an object of the space)
   grat_end <- sf_spherical_cut(
     x = grat,
@@ -384,9 +390,10 @@ get_graticules_viz <- function(target_crs, hemisphere_s2) {
 
 ```{r}
 
+# plotting function to generate stars on the map
 get_starts_viz <- function(target_crs, hemisphere_s2, flip_matrix) {
   
-  stars <- load_celestial("stars.6.min.geojson")
+  stars <- load_celestial("stars.6.min.geojson") #load stars data
 
   stars_flat <- ggplot(stars) +
     # We use relative brightness (br) as aes
@@ -421,9 +428,10 @@ get_starts_viz <- function(target_crs, hemisphere_s2, flip_matrix) {
 
 ```{r}
 
+# plotting function to generate milkyway on the map
 get_milkyway_viz <- function(target_crs, hemisphere_s2, flip_matrix) {
   
-  mw <- load_celestial("mw.min.geojson")
+  mw <- load_celestial("mw.min.geojson") # load the milkyway
 
   # Add colors to MW to use on fill
   cols <- colorRampPalette(c("white", "yellow"))(5)
@@ -456,6 +464,7 @@ get_milkyway_viz <- function(target_crs, hemisphere_s2, flip_matrix) {
 
 ```{r}
 
+# plotting function to generate constellation on the map
 get_constellation_viz <- function(target_crs, hemisphere_s2, flip_matrix) {
   const <- load_celestial("constellations.lines.min.geojson")
 
@@ -486,6 +495,7 @@ get_constellation_viz <- function(target_crs, hemisphere_s2, flip_matrix) {
 
 ```{r}
 
+
 plot_celestial_map <- function(grat_end, const_end, mw_end, stars_end, target_crs, hemisphere_s2, caption) {
   
   # Prepare MULTILINESTRING
@@ -494,7 +504,7 @@ plot_celestial_map <- function(grat_end, const_end, mw_end, stars_end, target_cr
     st_coordinates() %>%
     as.data.frame()
   
-  # This one is for plotting
+  # This one is for plotting, we need an sf object that would encapsulate the entire map
   hemisphere_sf <- hemisphere_s2 %>%
     st_as_sf() %>%
     st_transform(crs = target_crs) %>%
@@ -556,6 +566,7 @@ plot_celestial_map <- function(grat_end, const_end, mw_end, stars_end, target_cr
 
 ```{r}
 
+# these are the use defined variables
 desired_place = "Seoul, Korea"
 year_ <- 2023
 month_ <- 12
@@ -563,16 +574,21 @@ day_ <- 1
 hour_ <- 12
 min_ <- 13
 
+# we then transform them to get relevant objects that we pass as parameters for plot functions
+
 lat_lon_time <- get_buffered_lat_lon_time(desired_place, year_, month_, day_, hour_, min_)
 lat_lon_time
 
 crs_s2_flip <- get_airy_projection_rotation(lat_lon_time$desired_date_tz, lat_lon_time$desired_loc)
 crs_s2_flip
 
+# this one is to get a pretty plot caption
 plot_caption <- get_plot_caption(lat_lon_time$desired_loc, "Seoul, Korea", lat_lon_time$desired_date_tz)
 
 cat(plot_caption)
 ```
+
+Now below are the individual plots generated from each plotting functions that were previously defined.
 
 ```{r}
 
@@ -606,6 +622,8 @@ stars <- get_starts_viz(crs_s2_flip$target_crs, crs_s2_flip$hemisphere_s2, crs_s
 stars$stars_flat
 stars$stars_sf
 ```
+
+The above plots are encapsuated in a main plotting function, with colors and intensity defined. Later, these colors will also become user defined.
 
 ```{r}
 
