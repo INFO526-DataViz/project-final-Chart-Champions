@@ -126,7 +126,7 @@ get_constellation_viz <- function(target_crs, hemisphere_s2, flip_matrix) {
     return (list(const_flat = const_flat, const_sf = const_sf, const_end = const_end))
 }
 
-plot_celestial_map <- function(grat_end, const_end, mw_end, stars_end, target_crs, hemisphere_s2, caption, glowint, bg_fill_col) {
+plot_celestial_map <- function(grat_end, const_end, mw_end, stars_end, target_crs, hemisphere_s2, caption, glowint, bg_fill_col,show_const_name = FALSE) {
     
     # Prepare MULTILINESTRING
     const_end_lines <- const_end %>%
@@ -140,11 +140,18 @@ plot_celestial_map <- function(grat_end, const_end, mw_end, stars_end, target_cr
         st_transform(crs = target_crs) %>%
         st_make_valid()
     
+    # Create a text geom for constellation names if show_constellations is TRUE
+    const_text <- if (show_const_name) {
+      geom_sf_text(data = const_end, aes(label = name), size = 5, color = "white", check_overlap = TRUE)
+    } else {
+      NULL  # If show_constellations is FALSE, don't display constellation names
+    }
     
     celestial_map_plot <- ggplot() +
         # Graticules
         geom_sf(data = grat_end, color = "grey60", linewidth = 0.25, alpha = 0.3) +
-        geom_sf_text(data = const_end, aes(label = name), size = 5, color = "white", check_overlap = TRUE)+
+        # Constellation names
+        const_text + 
         # A blurry Milky Way
         with_blur(
             geom_sf(
@@ -193,7 +200,7 @@ plot_celestial_map <- function(grat_end, const_end, mw_end, stars_end, target_cr
 }
 
 get_custom_celestial_map <- function(desired_place, year_, month_, day_, hour_, min_, special_message="",
-                                     bg_fill_col = "#191d29", glowint=0.04) {
+                                     bg_fill_col = "#191d29", glowint=0.04, show_const_name = FALSE) {
 
     lat_lon_time <- get_buffered_lat_lon_time(place_=desired_place, 
                                               year_=year_, month_=month_, 
@@ -219,16 +226,17 @@ get_custom_celestial_map <- function(desired_place, year_, month_, day_, hour_, 
                        hemisphere_s2 = crs_s2_flip$hemisphere_s2, 
                        caption = plot_caption,
                        bg_fill_col = bg_fill_col,
-                       glowint = glowint)
+                       glowint = glowint,
+                       show_const_name = show_const_name)
     
 }
 
-get_default_celestial_map <- function() {
+get_default_celestial_map <- function(show_names = FALSE) {
     
     date__ <- lubridate::today()
     time__ <- lubridate::now()
     desired_place__ <- "Seoul, Korea"
     
     get_custom_celestial_map(desired_place = desired_place__, year_ = year(date__), month_=month(date__), 
-                             day_=day(date__), hour_=hour(time__), min_ = minute(time__))
+                             day_=day(date__), hour_=hour(time__), min_ = minute(time__), show_const_name = show_names)
 }

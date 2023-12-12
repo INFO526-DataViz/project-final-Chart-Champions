@@ -7,7 +7,7 @@ pacman::p_load(shiny,
                ggplot2,
                colourpicker,
                shinyWidgets,
-               lubridate, 
+               lubridate
                )
 
 
@@ -92,9 +92,17 @@ server <- function(input, output) {
         special_message <- input$special_message
         
         
-        rv$plot <- get_custom_celestial_map(desired_place, year_, month_, day_, hour_, min_, special_message,
-                                            bg_fill_col, glowint)
-        
+        if (input$show_const_name) {
+          rv$plot <- get_custom_celestial_map(
+            desired_place, year_, month_, day_, hour_, min_, special_message,
+            bg_fill_col, glowint, show_const_name = TRUE  # Pass an argument to indicate whether to show constellation names
+          )
+        } else {
+          rv$plot <- get_custom_celestial_map(
+            desired_place, year_, month_, day_, hour_, min_, special_message,
+            bg_fill_col, glowint, show_const_name = FALSE  # Pass an argument to indicate whether to hide constellation names
+          )
+        }
     })  
     
     
