@@ -187,6 +187,7 @@ ggplot() +
 
 ![](images/seoul_starmap.png){fig-align="center" width="200"}
 
+The shiny app is deployed here: <https://bag6d9-visalakshi-iyer.shinyapps.io/starmapapp/>
 
 ## Conclusion
 
