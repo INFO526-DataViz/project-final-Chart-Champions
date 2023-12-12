@@ -27,10 +27,11 @@ With these data files, we created a sky map and published an interactive Shiny a
 #| include: false
 
 # Load packages here
-pacman::p_load(tidymodels,
-               tidyverse,
-               formattable, 
-               dplyr)
+pacman::p_load(knitr, formattable, tidyverse, # General packages
+               lubridate, lutz, # range data and dates  
+               sf, s2, nominatimlite, # Spatial manipulation
+               ggfx,ggshadow,ggrepel # Visualization
+               )
 
 ```
 
