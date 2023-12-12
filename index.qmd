@@ -22,6 +22,79 @@ With these data files, we created a sky map and published an interactive Shiny a
 
 ## Approach
 
+```{r}
+#| label: load-packages
+#| include: false
+
+# Load packages here
+pacman::p_load(tidymodels,
+               tidyverse,
+               formattable, 
+               dplyr)
+
+```
+
+```{r}
+#| label: setup
+#| include: false
+
+# Plot theme
+ggplot2::theme_set(ggplot2::theme_minimal(base_size = 11))
+
+# For better figure resolution
+knitr::opts_chunk$set(
+  fig.retina = 3, 
+  dpi = 300, 
+  fig.width = 6, 
+  fig.asp = 0.618 
+  )
+```
+
+```{r}
+#| label: load-data
+#| include: false
+# Load data here
+load_celestial <- function(filename,
+                           url = "https://cdn.jsdelivr.net/gh/dieghernan/celestial_data@main/data/",
+                           cachedir = tempdir()) {
+  if (!dir.exists(cachedir)) {
+    stop(
+      "Please create ",
+      path.expand(cachedir),
+      " directory",
+      "first"
+    )
+  }
+  url <- file.path(url, filename)
+  local_path <- file.path(cachedir, filename)
+  if (!file.exists(local_path)) {
+    download.file(url, local_path, mode = "wb", quiet = TRUE)
+  }
+  celestial <- sf::st_read(local_path, quiet = TRUE)
+  return(celestial)
+}
+
+#Load_coordinate_labeller
+pretty_lonlat <- function(x, type, accuracy = 2) {
+  positive <- x >= 0
+  # Decompose
+  x <- abs(x)
+  D <- as.integer(x)
+  m <- (x - D) * 60
+  M <- as.integer(m)
+  S <- round((m - M) * 60, accuracy)
+  # Get label
+  if (type == "lon") {
+    lab <- ifelse(positive > 0, "E", "W")
+  } else {
+    lab <- ifelse(positive > 0, "N", "S")
+  }
+  # Compose
+  label <- paste0(D, "\u00b0 ", M, "' ", S, '\" ', lab)
+  return(label)
+}
+```
+
 #### Help functions
 
 To create a visualization of the sky map, there are various preparations to be made. Initially, we established several helper functions to implement the sky map based on locations and time zones. The `load_celestial()` function loads the entire dataset essential for our needs, while `pretty_lonlat()` is responsible for converting coordinates into a specific format. Also, `get_mst()` computes the Mean Sidereal Time (MST) given a specific longitude. And `sf_spherical_cut()` cuts map into spherical.
@@ -30,15 +103,89 @@ To create a visualization of the sky map, there are various preparations to be m
 
 The input places and time zones are converted from natural language to coordinates, enabling mapping on the sky map. It operates in the Shiny app in a similar manner.
 
-#### celestial bodies
+#### Celestial bodies
 
 And then, we incorporate each celestial body, including the Milky Way, constellations, and stars, whose information is stored in each GeoJSON dataset. We project each celestial body into a hemisphere by using the `sf_spherical_cut` function. When we finally add graticules into the hemisphere, we're all set to visualize the sky map!
+
+#### Graticules
+![](images/graticules-sf-cut.png){fig-align="center" width="50%"}
+
+#### Milky way
+
+![](images/mw-sf-cut.png){fig-align="center" width="50%"}
+
+#### Stars
+![](images/stars-sf-cut.png){fig-align="center" width="50%"}
+
+
+#### Constellations
+
+![](images/const-sf-cut.png){fig-align="center" width="50%"}
 
 #### Apply the work into Shiny app
 
 We utilized the same inputs (place, time zone) in the Shiny app. Additionally, we incorporated a checkbox for displaying the names of constellations and components that enable users to choose the color of the map. Finally we enabled users to download their sky map with their specified places and time zones
 
 ## Results
+
+We plotted all the functions together, and customized the background color, the glow intensity of the constellations, and provided a pretty caption at the footer
+
+```{r, echo=TRUE, eval=FALSE}
+
+#| code-fold: true
+#| code-summary: "Plot Function for Star Map"
+
+ggplot() +
+    # Graticules
+    geom_sf(data = grat_end, color = "grey60", linewidth = 0.25, alpha = 0.3) +
+    # A blurry Milky Way
+    with_blur(
+      geom_sf(
+        data = mw_end, aes(fill = fill), alpha = 0.1, color = NA,
+        show.legend = FALSE
+      ),
+      sigma = 8
+    ) +
+    scale_fill_identity() +
+    # Glowing stars
+    geom_glowpoint(
+      data = stars_end, aes(
+        alpha = br, size =
+          br, geometry = geometry
+      ),
+      color = "white", show.legend = FALSE, stat = "sf_coordinates"
+    ) +
+    scale_size_continuous(range = c(0.05, 0.75)) +
+    scale_alpha_continuous(range = c(0.1, 0.5)) +
+    # Glowing constellations
+    geom_glowpath(
+      data = const_end_lines, aes(X, Y, group = interaction(L1, L2)),
+      color = "white", size = 0.5, alpha =0.8, shadowsize = 0.4, shadowalpha = 0.01,
+      shadowcolor = "white", linejoin = "round", lineend = "round"
+    ) +
+    # Border of the sphere
+    geom_sf(data = hemisphere_sf, fill = NA, color = "white", linewidth = 1.25) +
+    # Caption
+    labs(caption = caption) +
+    # And end with theming
+    theme_void() +
+    theme(
+      text = element_text(colour = "white"),
+      panel.border = element_blank(),
+      plot.background = element_rect(fill = "#191d29", color = "#191d29"),
+      plot.margin = margin(20, 20, 20, 20),
+      plot.caption = element_text(
+        hjust = 0.5, face = "bold",
+        size = rel(1),
+        lineheight = rel(1.2),
+        margin = margin(t = 40, b = 20)
+      )
+    )
+```
+
+
+![](images/seoul_starmap.png){fig-align="center" width="200"}
+
 
 ## Conclusion
 
