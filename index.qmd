@@ -10,7 +10,15 @@ editor: visual
 
 This project aims to develop a Shiny app that generates an interactive constellation maps, leveraging computational and visualization techniques. Utilizing the datasets are available in GeoJSON (`*.geojson`) and GeoPackage (`*.gpkg`) formats, we will be using three of the available data: the milkyway, the constellation lines, and the stars. The primary objective is to prioritize accessibility and personalization by allowing users to input specific geographic locations and time, resulting in contextually relevant and visually captivating constellation maps. The significance of this project is to enhance the appeal and educational value of stargazing by tailoring the experience through diverse elements such as color schemes, map locations, time zones, and latitude/longitude inputs. Furthermore, the app will be crafted with a user-friendly interface, aiming for inclusivity across diverse backgrounds and levels of astronomical expertise.
 
-## Introduction 
+## Introduction
+
+Everyone has had the experience of wanting to know the name of the constellation currently visible in the sky. At least once, we've all heard the myths and stories of how constellations were named when we were young. Also, we might want to explore the sky in places or time zones where we have not experienced before.
+
+So, how can we observe the skies in different places and time zones? That is the main focus of this project. By utilizing geospatial data, celestial information, and a bit of astronomical knowledge, we can traverse space-time and behold the beauty of various constellations.
+
+The datasets consist of 63 files, including GeoJSON, GeoPackage, and CSV formats. These files are categorized into the Milky Way, the constellation lines, and the stars. Each file is intricately implemented, providing the framework for the sky map, coordinates, the Milky Way, constellations, and stars.
+
+With these data files, we created a sky map and published an interactive Shiny app, allowing users to input city, time, and accessible color preferences.
 
 ## Approach
 
@@ -19,5 +27,3 @@ This project aims to develop a Shiny app that generates an interactive constella
 ## Conclusion
 
 ## Citations
-
-
