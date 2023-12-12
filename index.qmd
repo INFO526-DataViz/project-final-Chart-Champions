@@ -26,4 +26,8 @@ With these data files, we created a sky map and published an interactive Shiny a
 
 ## Conclusion
 
+Constellations, as fundamental guides in locating stars, galaxies, and celestial bodies, play a crucial role in astronomical observation and research. Although telescopes are the main tool to naturally observe constellations, most of the public does not have access to this tool (Hintz et al., 2015). Alternatively, datasets have allowed us the ability to develop a Shiny app that visualizes constellations by offering a personalized and interactive experience. Through user-inputted geographic locations, the app not only facilitates stargazing engagement but also contributes to the broader educational curiosity of understanding the stars. This personalized approach not only benefits seasoned astronomers but also serves as an educational tool, engaging learners of all ages in the study of astronomy. However, it's important to acknowledge the limitations of the current Shiny Constellation Map app, including the lack of detailed information about constellations and the potential complexity that may arise from feature-rich interfaces. Additionally, the reliance on incomplete or inaccurate data could pose challenges, leading to misidentifications. Despite these limitations, the Shiny app represents a significant step toward making an constellation app accessible, engaging, and educational for a diverse audience.
+
 ## Citations
+
+Hintz et al., 2015: https://files.eric.ed.gov/fulltext/EJ1101067.pdf
