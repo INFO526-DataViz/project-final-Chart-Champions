@@ -30,7 +30,7 @@ The primary objective of this project is to develop a Shiny app that not only ge
 
 ## Dataset
 
-The datasets are available in GeoJSON (`*.geojson`) and GeoPackage (`*.gpkg`) formats, representing celestial objects' positions as of the J2000 epoch. They are roughly categorized into five sections: `Asterisms`, `Constellations`, `DSOs` (Deep-Sky Objects), `Stars`, and the `Milky Way`. Each of these astronomical object categories is further subdivided into several subfiles.
+The datasets are available in GeoJSON (`*.geojson`) and GeoPackage (`*.gpkg`) formats, representing celestial objects' positions as of the J2000 epoch. You can check out the dataset in [here](https://github.com/dieghernan/celestial_data). They are roughly categorized into five sections: `Asterisms`, `Constellations`, `DSOs` (Deep-Sky Objects), `Stars`, and the `Milky Way`. Each of these astronomical object categories is further subdivided into s
 
 We will be using three of the available data: the milkyway, the constellation lines, and the stars.
 
@@ -85,13 +85,10 @@ stars <- load_celestial("stars.8.min.geojson")
 
 ### Milky Way
 
-+-------------+-------------+-----------------------------------------------------+
 | Column Name | Data Type   | Description                                         |
-+=============+=============+=====================================================+
+|-------------|-------------|-----------------------------------------------------|
 | ID          | String      | Milky Way outlines in 5 brightness steps (ol1-ol5). |
-+-------------+-------------+-----------------------------------------------------+
 | Geometry    | Line Object | geometry lines for milky way                        |
-+-------------+-------------+-----------------------------------------------------+
 
 ```{r}
 
@@ -100,21 +97,14 @@ mw  |> formattable()
 
 ### Stars
 
-+-------------+--------------+----------------------------------------------------------------------+
 | Column Name | Data Type    | Description                                                          |
-+=============+==============+======================================================================+
+|-------------|--------------|----------------------------------------------------------------------|
 | ID          | Integer      | Short designator                                                     |
-+-------------+--------------+----------------------------------------------------------------------+
 | Mag         | Double       | Apparent magnitude, 999 if n.a.                                      |
-+-------------+--------------+----------------------------------------------------------------------+
 | BV          | Float        | b-v color index.                                                     |
-+-------------+--------------+----------------------------------------------------------------------+
 | BR          | Float        | Relative brightness to magnitude 0, computed as $100^{-1 * mag / 5}$ |
-+-------------+--------------+----------------------------------------------------------------------+
 | Name        | String       | Proper star name                                                     |
-+-------------+--------------+----------------------------------------------------------------------+
 | Geometry    | Point Object | around 40k stars point objects                                       |
-+-------------+--------------+----------------------------------------------------------------------+
 
 ```{r, echo = FALSE}
 
@@ -124,17 +114,12 @@ stars |> filter(!is.na(name)) |> head(10) |> formattable()
 
 ### Constellation lines
 
-+-------------+-------------+------------------------------------------------------+
 | Column Name | Data Type   | Description                                          |
-+=============+=============+======================================================+
+|-------------|-------------|------------------------------------------------------|
 | Geometry    | Line Object | 89 constellation line objects                        |
-+-------------+-------------+------------------------------------------------------+
 | ID          | String      | 3-letter designator                                  |
-+-------------+-------------+------------------------------------------------------+
 | Rank        | Integer     | 1-3 for differential name display by size/brightness |
-+-------------+-------------+------------------------------------------------------+
 | Name        | String      | full IAU name                                        |
-+-------------+-------------+------------------------------------------------------+
 
 ```{r, echo=FALSE}
 
