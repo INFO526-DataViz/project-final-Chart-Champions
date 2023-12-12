@@ -5,7 +5,7 @@ website:
   title: Charting Constellations
   navbar:
     right:
-      - icon: images/constellationlogo.jpg
+      - icon: github
         href: https://github.com/INFO526-DataViz/project-final-Chart-Champions/
     left:
       - text: Project
@@ -16,6 +16,8 @@ website:
         href: presentation.qmd
       - text: About
         href: about.qmd
+    logo: images\constellationlogo.jpg
+    favicon: images\constellationlogo.jpg
 
 format:
   html:

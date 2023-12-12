@@ -104,11 +104,13 @@ pretty_lonlat <- function(x, type, accuracy = 2) {
 
 Develop a Shiny app that generates constellation maps that utilizes interactive elements, incorporating computational and visualization techniques.
 
+![](images/constellationexample.jpg){fig-align="center" width="337"}
+
 ## Goals & Motivations
 
 -   Increasing engagement by personalizing the experience through various elements: color usage, map location, time zone, latitude/longitude location
 
--   Aiming to increase inclusivity for people of all backgrounds and levels of astronomical knowledge by designing with a user-friendly interface to ensure accessibility
+-   Designing with a user-friendly interface to ensure accessibility for people of all backgrounds and levels of astronomical knowledge
 
 -   Providing annotations to provide readability and educational context for a wide range of users, including astronomy beginners
 
@@ -156,15 +158,6 @@ penguins |>
 -   Observations of constellations contribute to scientific discoveries, aiding in the understanding of star formation, stellar evolution, and the dynamics of galaxies.
 -   Constellations serve as educational tools, engaging learners of all ages in the study of astronomy and offer an accessible entry point for teaching basic astronomical concepts.
 
-If you want to generate a table, make sure it is in the HTML format (instead of Markdown or other formats), e.g.,
-
-```{r}
-penguins |> 
-  head() |>
-  kableExtra::kable() |>
-  kableExtra::kable_styling()
-```
-
 ## Limitations
 
 -   Starmap app doesn't display any data like names and information about the constellations.
@@ -173,6 +166,6 @@ penguins |>
 
 -   Sometimes due to incomplete or inaccurate data, might lead to misidentification of celestial objects or missing information about certain stars or constellations.
 
-![Image credit: Danielle Navarro, Percolate.](images/watercolour_sys02_img34_teacup-ocean.png){fig-align="center" width="500"}
-
 # Thank you for listening! Any questions?
+
+![Credit: BBC](images/gifstars.gif){fig-align="center" width="348"}
