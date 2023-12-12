@@ -12,13 +12,22 @@ format:
     theme:  ['data/customtheming.scss']
     transition: slide
     background-transition: fade
-    logo: images\sparkle.png
+    logo: images\map-logo.png
     footer: "[🌠 Chart Champions](https://info526-dataviz.github.io/project-final-Chart-Champions/)"
     scrollable: true
+    code-fold: true
     style: |
       body {
         font-size: 12px; /* Set your desired font size here */
       }
+include-in-header:
+  - text: |
+      <style>
+      #title-slide .title, .subtitle, .quarto-title-author-name{
+        text-shadow: -2px 2px 20px #ffffff;
+        color: black;
+      }
+      </style>
   
 editor: visual
 execute:
@@ -114,11 +123,13 @@ Develop a Shiny app that generates constellation maps that utilizes interactive 
 
 -   Providing annotations to provide readability and educational context for a wide range of users, including astronomy beginners
 
-## Dataset
+## Dataset {.smaller}
+
+-   This dataset is a processed version of d3-celestial-plugin, an official GeoJSON library for obtaining spatial data on constellation objects.
 
 -   The datasets are available in GeoJSON (`*.geojson`) and GeoPackage (`*.gpkg`) formats
 
--   Represents celestial objects' positions as of the J2000 epoch
+-   Representation of these celestial objects' positions are according to the J2000 epoch. Which means that it is as of the Julian epoch that started on January 1, 2000, at 12:00 Terrestrial Time.
 
 -   Data used:
 
@@ -128,29 +139,129 @@ Develop a Shiny app that generates constellation maps that utilizes interactive 
 
     -   `stars.8` = Stars dataset
 
+# Execution
+
 ## Analysis Approach
 
-::: columns
-::: {.column width="50%"}
 -   Develop a Shiny app for personalized constellation maps with user input
 -   Enhance user engagement in stargazing from various locations time zones and even user bases
 -   Prioritize accessibility through a user-friendly interface and colorblind-friendly design
 -   Provide contextual annotations for users with different levels of astronomical knowledge
+
+## Helper Functions {.smaller}
+
+-   We first started by exploring the dataset objects and creating transformation functions for the data.
+
+-   For getting the celestial map of any geolocation, there were two requirements.
+
+::: {.columns .smaller}
+::: {.column .smaller width="50%"}
+-   First to get the time zone mapped to the local time zone of the desired place. This was done by getting projections through the `get_mst()` function where we convert the time and then derive the rotation of the objects in the dataset with the given date and time
 :::
 
-::: {.column width="50%"}
-```{r, warning=FALSE, fig.width=5.5}
-penguins |>
-  ggplot(aes(x = bill_length_mm, y = species, color = species)) +
-  geom_boxplot(linewidth = 0.75,
-               outlier.size = 2.5) +
-  theme_minimal(base_size = 15) +
-  theme(legend.key.size = unit(0.8, "cm"))
-```
+::: {.column .smaller width="50%"}
+-   Second, using the derived projections, we needed to map the objects in a spherical geom. This was done using the `sf` package.
 :::
+:::
+
+## Plotting Functions {.smaller}
+
+-   Every dataset for this project (milkyway, stars, constellations) contained sf (simple features) object that can be used directly to plot polygons on a spherical geom (s2). Here is a glimpse of one such dataset:
+
+```{r}
+
+load_celestial("mw.min.geojson")
+```
+
+## Plotting Functions {.smaller}
+
+-   Using the three datasets, we we able to create location based spherical maps for any given time. The plots are shown below
+
+::: {.panel-tabset .smaller}
+## Graticules
+
+![](images/graticules-sf-cut.png){fig-align="center" width="50%"}
+
+## MilkyWay
+
+![](images/mw-sf-cut.png){fig-align="center" width="50%"}
+
+## Stars
+
+![](images/stars-sf-cut.png){fig-align="center" width="50%"}
+
+## Constellations
+
+![](images/const-sf-cut.png){fig-align="center" width="50%"}
 :::
 
 # Results
+
+## Knitting them together {.smaller}
+
+::: {.columns .smaller}
+::: {.column width="60%"}
+-   We plotted all the functions together, and customized the background color, the glow intensity of the constellations, and provided a pretty caption at the footer
+
+```{r, echo=TRUE, eval=FALSE}
+
+#| code-fold: true
+#| code-summary: "Plot Function for Star Map"
+
+ggplot() +
+    # Graticules
+    geom_sf(data = grat_end, color = "grey60", linewidth = 0.25, alpha = 0.3) +
+    # A blurry Milky Way
+    with_blur(
+      geom_sf(
+        data = mw_end, aes(fill = fill), alpha = 0.1, color = NA,
+        show.legend = FALSE
+      ),
+      sigma = 8
+    ) +
+    scale_fill_identity() +
+    # Glowing stars
+    geom_glowpoint(
+      data = stars_end, aes(
+        alpha = br, size =
+          br, geometry = geometry
+      ),
+      color = "white", show.legend = FALSE, stat = "sf_coordinates"
+    ) +
+    scale_size_continuous(range = c(0.05, 0.75)) +
+    scale_alpha_continuous(range = c(0.1, 0.5)) +
+    # Glowing constellations
+    geom_glowpath(
+      data = const_end_lines, aes(X, Y, group = interaction(L1, L2)),
+      color = "white", size = 0.5, alpha =0.8, shadowsize = 0.4, shadowalpha = 0.01,
+      shadowcolor = "white", linejoin = "round", lineend = "round"
+    ) +
+    # Border of the sphere
+    geom_sf(data = hemisphere_sf, fill = NA, color = "white", linewidth = 1.25) +
+    # Caption
+    labs(caption = caption) +
+    # And end with theming
+    theme_void() +
+    theme(
+      text = element_text(colour = "white"),
+      panel.border = element_blank(),
+      plot.background = element_rect(fill = "#191d29", color = "#191d29"),
+      plot.margin = margin(20, 20, 20, 20),
+      plot.caption = element_text(
+        hjust = 0.5, face = "bold",
+        size = rel(1),
+        lineheight = rel(1.2),
+        margin = margin(t = 40, b = 20)
+      )
+    )
+
+```
+:::
+
+::: {.column width="40%"}
+![](images/seoul_starmap.png){fig-align="center" width="80%"}
+:::
+:::
 
 ## Conclusion {.column width="50%"}
 
@@ -160,11 +271,9 @@ penguins |>
 
 ## Limitations
 
--   Starmap app doesn't display any data like names and information about the constellations.
-
 -   Some starmap apps can become complex due to the abundance use of features, making the interface crowded, confusing the new users.
 
--   Sometimes due to incomplete or inaccurate data, might lead to misidentification of celestial objects or missing information about certain stars or constellations.
+-   Sometimes due to incomplete or inaccurate data, might lead to misidentification of celestial objects or missing information about certain stars or constellations. The dataset is currently actively updated, but with the passing of time, the requirement for different processed dataset can arise.
 
 # Thank you for listening! Any questions?
 

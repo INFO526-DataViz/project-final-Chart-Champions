@@ -164,29 +164,29 @@
     "objectID": "presentation.html#high-level-goal",
     "href": "presentation.html#high-level-goal",
     "title": "Constellation Maps",
-    "section": "",
-    "text": "Develop a Shiny app that generates constellation maps that utilizes interactive elements, incorporating computational and visualization techniques."
+    "section": "High-level Goal",
+    "text": "High-level Goal\nDevelop a Shiny app that generates constellation maps that utilizes interactive elements, incorporating computational and visualization techniques."
   },
   {
     "objectID": "presentation.html#goals-motivations",
     "href": "presentation.html#goals-motivations",
     "title": "Constellation Maps",
-    "section": "",
-    "text": "Increasing engagement by personalizing the experience through various elements: color usage, map location, time zone, latitude/longitude location\nDesigning with a user-friendly interface to ensure accessibility for people of all backgrounds and levels of astronomical knowledge\nProviding annotations to provide readability and educational context for a wide range of users, including astronomy beginners"
+    "section": "Goals & Motivations",
+    "text": "Goals & Motivations\n\nIncreasing engagement by personalizing the experience through various elements: color usage, map location, time zone, latitude/longitude location\nDesigning with a user-friendly interface to ensure accessibility for people of all backgrounds and levels of astronomical knowledge\nProviding annotations to provide readability and educational context for a wide range of users, including astronomy beginners"
   },
   {
     "objectID": "presentation.html#dataset",
     "href": "presentation.html#dataset",
     "title": "Constellation Maps",
-    "section": "",
-    "text": "The datasets are available in GeoJSON (*.geojson) and GeoPackage (*.gpkg) formats\nRepresents celestial objects’ positions as of the J2000 epoch\nData used:\n\nmw = Milky Way dataset\nconstellations.lines = Constellation Lines dataset\nstars.8 = Stars dataset"
+    "section": "Dataset",
+    "text": "Dataset\n\nThis dataset is a processed version of d3-celestial-plugin, an official GeoJSON library for obtaining spatial data on constellation objects.\nThe datasets are available in GeoJSON (*.geojson) and GeoPackage (*.gpkg) formats\nRepresentation of these celestial objects’ positions are according to the J2000 epoch. Which means that it is as of the Julian epoch that started on January 1, 2000, at 12:00 Terrestrial Time.\nData used:\n\nmw = Milky Way dataset\nconstellations.lines = Constellation Lines dataset\nstars.8 = Stars dataset"
   },
   {
     "objectID": "presentation.html#analysis-approach",
     "href": "presentation.html#analysis-approach",
     "title": "Constellation Maps",
-    "section": "",
-    "text": "Develop a Shiny app for personalized constellation maps with user input\nEnhance user engagement in stargazing from various locations time zones and even user bases\nPrioritize accessibility through a user-friendly interface and colorblind-friendly design\nProvide contextual annotations for users with different levels of astronomical knowledge"
+    "section": "Analysis Approach",
+    "text": "Analysis Approach\n\nDevelop a Shiny app for personalized constellation maps with user input\nEnhance user engagement in stargazing from various locations time zones and even user bases\nPrioritize accessibility through a user-friendly interface and colorblind-friendly design\nProvide contextual annotations for users with different levels of astronomical knowledge"
   },
   {
     "objectID": "presentation.html#conclusion",
@@ -200,6 +200,34 @@
     "href": "presentation.html#limitations",
     "title": "Constellation Maps",
     "section": "Limitations",
-    "text": "Limitations\n\nStarmap app doesn’t display any data like names and information about the constellations.\nSome starmap apps can become complex due to the abundance use of features, making the interface crowded, confusing the new users.\nSometimes due to incomplete or inaccurate data, might lead to misidentification of celestial objects or missing information about certain stars or constellations."
+    "text": "Limitations\n\nSome starmap apps can become complex due to the abundance use of features, making the interface crowded, confusing the new users.\nSometimes due to incomplete or inaccurate data, might lead to misidentification of celestial objects or missing information about certain stars or constellations. The dataset is currently actively updated, but with the passing of time, the requirement for different processed dataset can arise."
+  },
+  {
+    "objectID": "presentation.html#helper-functions",
+    "href": "presentation.html#helper-functions",
+    "title": "Constellation Maps",
+    "section": "Helper Functions",
+    "text": "Helper Functions\n\nWe first started by exploring the dataset objects and creating transformation functions for the data.\nFor getting the celestial map of any geolocation, there were two requirements.\n\n\n\n\nFirst to get the time zone mapped to the local time zone of the desired place. This was done by getting projections through the get_mst() function where we convert the time and then derive the rotation of the objects in the dataset with the given date and time\n\n\n\nSecond, using the derived projections, we needed to map the objects in a spherical geom. This was done using the sf package."
+  },
+  {
+    "objectID": "presentation.html#plotting-functions",
+    "href": "presentation.html#plotting-functions",
+    "title": "Constellation Maps",
+    "section": "Plotting Functions",
+    "text": "Plotting Functions\n\nEvery dataset for this project (milkyway, stars, constellations) contained sf (simple features) object that can be used directly to plot polygons on a spherical geom (s2). Here is a glimpse of one such dataset:\n\n\n\nSimple feature collection with 5 features and 1 field\nGeometry type: MULTIPOLYGON\nDimension:     XY\nBounding box:  xmin: -179.987 ymin: -74.9 xmax: 180 ymax: 66.946\nGeodetic CRS:  WGS 84\n   id                       geometry\n1 ol1 MULTIPOLYGON (((178.558 -74...\n2 ol2 MULTIPOLYGON (((-176.662 -6...\n3 ol3 MULTIPOLYGON (((-174.067 -6...\n4 ol4 MULTIPOLYGON (((-158.721 -6...\n5 ol5 MULTIPOLYGON (((161.333 -59..."
+  },
+  {
+    "objectID": "presentation.html#plotting-functions-1",
+    "href": "presentation.html#plotting-functions-1",
+    "title": "Constellation Maps",
+    "section": "Plotting Functions",
+    "text": "Plotting Functions\n\nUsing the three datasets, we we able to create location based spherical maps for any given time. The plots are shown below\n\n\nGraticulesMilkyWayStarsConstellations"
+  },
+  {
+    "objectID": "presentation.html#knitting-them-together",
+    "href": "presentation.html#knitting-them-together",
+    "title": "Constellation Maps",
+    "section": "Knitting them together",
+    "text": "Knitting them together\n\n\n\nWe plotted all the functions together, and customized the background color, the glow intensity of the constellations, and provided a pretty caption at the footer\n\n\n\nCode\n#| code-fold: true\n#| code-summary: \"Plot Function for Star Map\"\n\nggplot() +\n    # Graticules\n    geom_sf(data = grat_end, color = \"grey60\", linewidth = 0.25, alpha = 0.3) +\n    # A blurry Milky Way\n    with_blur(\n      geom_sf(\n        data = mw_end, aes(fill = fill), alpha = 0.1, color = NA,\n        show.legend = FALSE\n      ),\n      sigma = 8\n    ) +\n    scale_fill_identity() +\n    # Glowing stars\n    geom_glowpoint(\n      data = stars_end, aes(\n        alpha = br, size =\n          br, geometry = geometry\n      ),\n      color = \"white\", show.legend = FALSE, stat = \"sf_coordinates\"\n    ) +\n    scale_size_continuous(range = c(0.05, 0.75)) +\n    scale_alpha_continuous(range = c(0.1, 0.5)) +\n    # Glowing constellations\n    geom_glowpath(\n      data = const_end_lines, aes(X, Y, group = interaction(L1, L2)),\n      color = \"white\", size = 0.5, alpha =0.8, shadowsize = 0.4, shadowalpha = 0.01,\n      shadowcolor = \"white\", linejoin = \"round\", lineend = \"round\"\n    ) +\n    # Border of the sphere\n    geom_sf(data = hemisphere_sf, fill = NA, color = \"white\", linewidth = 1.25) +\n    # Caption\n    labs(caption = caption) +\n    # And end with theming\n    theme_void() +\n    theme(\n      text = element_text(colour = \"white\"),\n      panel.border = element_blank(),\n      plot.background = element_rect(fill = \"#191d29\", color = \"#191d29\"),\n      plot.margin = margin(20, 20, 20, 20),\n      plot.caption = element_text(\n        hjust = 0.5, face = \"bold\",\n        size = rel(1),\n        lineheight = rel(1.2),\n        margin = margin(t = 40, b = 20)\n      )\n    )"
   }
 ]

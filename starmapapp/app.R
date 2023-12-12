@@ -1,4 +1,5 @@
 
+
 library(shiny)
 library(ggplot2)
 library(colourpicker)
@@ -10,11 +11,18 @@ source("plot_graphs.R")
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
-
+  tags$style(
+    "h2, h4 {
+      text-align: center;
+    }"
+  ),
     # Application title
-  # div(id)
-    titlePanel("Constellation Maps"),
-    h4("Custom Stellar Plots"),
+  div(id="header-div",
+      style = "margin: 3% auto;",
+      titlePanel("Constellation Maps"),
+      h4("Custom Stellar Plots"),
+      ),
+    
 
     sidebarLayout(
         sidebarPanel(
@@ -87,7 +95,7 @@ server <- function(input, output) {
         
         glow_intensity <- input$glow_intensity
         special_message <- input$special_message
-        show_const_name <- input$show_const_name
+        show_const_name <- input$show_const_name # Pass an argument to indicate whether to hide constellation names
         
         
         rv$plot <- get_custom_celestial_map(desired_place, year_, month_, day_, hour_, min_, special_message,
