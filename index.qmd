@@ -108,27 +108,15 @@ The input places and time zones are converted from natural language to coordinat
 
 And then, we incorporate each celestial body, including the Milky Way, constellations, and stars, whose information is stored in each GeoJSON dataset. We project each celestial body into a hemisphere by using the `sf_spherical_cut` function. When we finally add graticules into the hemisphere, we're all set to visualize the sky map!
 
-<<<<<<< HEAD
 #### Graticules {style="text-align: center;"}
-=======
-#### Graticules
-
-![](images/graticules-sf-cut.png){fig-align="center" width="50%"}
->>>>>>> 81740a12a8c38fe8bbf7213691272b8f42b8e8a2
 
 ![](images/graticules-sf-cut.png){style="text-align: center;" fig-align="center" width="50%"}
 
 #### Milky way {style="text-align: center;"}
 
-<<<<<<< HEAD
 ![](images/mw-sf-cut.png){style="text-align: center;" fig-align="center" width="50%"}
 
 #### Stars {style="text-align: center;"}
-=======
-#### Stars
-
-![](images/stars-sf-cut.png){fig-align="center" width="50%"}
->>>>>>> 81740a12a8c38fe8bbf7213691272b8f42b8e8a2
 
 ![](images/stars-sf-cut.png){style="text-align: center;" fig-align="center" width="50%"}
 
@@ -197,11 +185,7 @@ ggplot() +
     )
 ```
 
-<<<<<<< HEAD
 ![](images/seoul_starmap.png){fig-align="center" style="text-align: center;" width="25%"}
-=======
-![](images/seoul_starmap.png){fig-align="center" width="200"}
->>>>>>> 81740a12a8c38fe8bbf7213691272b8f42b8e8a2
 
 The shiny app is deployed here: <https://bag6d9-visalakshi-iyer.shinyapps.io/starmapapp/>
 
@@ -214,3 +198,5 @@ Constellations, as fundamental guides in locating stars, galaxies, and celestial
 Hintz et al., 2015: https://files.eric.ed.gov/fulltext/EJ1101067.pdf
 
 Images: Unsplash Photos
+
+Frohn, O., & Hernangómez, D. (2023). Celestial Data \[Data set\]. <https://doi.org/10.5281/zenodo.7561601>
