@@ -2,10 +2,10 @@ project:
   type: website
 
 website:
-  title: Project Title
+  title: Charting Constellations
   navbar:
     right:
-      - icon: github
+      - icon: images/constellationlogo.jpg
         href: https://github.com/INFO526-DataViz/project-final-Chart-Champions/
     left:
       - text: Project
