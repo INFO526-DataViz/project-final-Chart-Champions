@@ -144,6 +144,7 @@ plot_celestial_map <- function(grat_end, const_end, mw_end, stars_end, target_cr
     celestial_map_plot <- ggplot() +
         # Graticules
         geom_sf(data = grat_end, color = "grey60", linewidth = 0.25, alpha = 0.3) +
+        geom_sf_text(data = const_end, aes(label = name), size = 5, color = "white", check_overlap = TRUE)+
         # A blurry Milky Way
         with_blur(
             geom_sf(

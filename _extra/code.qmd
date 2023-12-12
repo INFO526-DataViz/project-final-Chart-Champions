@@ -15,7 +15,7 @@ if(!require(pacman))
 pacman::p_load(knitr, formattable, tidyverse, # General packages
                lubridate, lutz, # range data and dates  
                sf, s2, nominatimlite, # Spatial manipulation
-               ggfx,ggshadow # Visualization
+               ggfx,ggshadow,ggrepel # Visualization
                )
 
 ```
@@ -352,10 +352,9 @@ const_end <- sf_spherical_cut(const,
 )
 
 
-ggplot(const_end) +
-  geom_sf() +
-  coord_sf(expand = FALSE)
-
+ggplot() +
+  geom_sf(data = const_end) +
+  geom_sf_text(data = const_end, aes(label = name), size = 3, color = "black", check_overlap = TRUE)
 
 ```
 
@@ -484,6 +483,8 @@ const_end_lines <- const_end %>%
 ggplot() +
   # Graticules
   geom_sf(data = grat_end, color = "grey60", linewidth = 0.25, alpha = 0.3) +
+  geom_sf_text(data = const_end, aes(label = name), size = 3, color = "white", check_overlap = TRUE)+
+  #geom_text(data = constellations_df, aes(x = lon, y = lat, label = name,color="white"), size = 3)+
   # A blurry Milky Way
   with_blur(
     geom_sf(
