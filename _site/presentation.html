@@ -430,7 +430,7 @@ Megan Hokama, Sai Madhuri Kandula, Visalakshi Prakash Iyer, Kiwoon Hong, Tejashw
 <section id="dataset" class="slide level2 smaller">
 <h2>Dataset</h2>
 <ul>
-<li><p>This dataset is a processed version of d3-celestial-plugin, an official GeoJSON library for obtaining spatial data on constellation objects.</p></li>
+<li><p>This dataset is a processed version of <a href="https://github.com/dieghernan/celestial_data/tree/main">d3-celestial-plugin</a>, an official GeoJSON library for obtaining spatial data on constellation objects.</p></li>
 <li><p>The datasets are available in GeoJSON (<code>*.geojson</code>) and GeoPackage (<code>*.gpkg</code>) formats</p></li>
 <li><p>Representation of these celestial objects’ positions are according to the J2000 epoch. Which means that it is as of the Julian epoch that started on January 1, 2000, at 12:00 Terrestrial Time.</p></li>
 <li><p>Data used:</p>
@@ -622,9 +622,9 @@ Geodetic CRS:  WGS 84
 <li><p>Some starmap apps can become complex due to the abundance use of features, making the interface crowded, confusing the new users.</p></li>
 <li><p>Sometimes due to incomplete or inaccurate data, might lead to misidentification of celestial objects or missing information about certain stars or constellations. The dataset is currently actively updated, but with the passing of time, the requirement for different processed dataset can arise.</p></li>
 </ul>
-</section></section>
-<section id="thank-you-for-listening-any-questions" class="title-slide slide level1 center">
-<h1>Thank you for listening! Any questions?</h1>
+</section>
+<section id="thank-you-for-listening-any-questions" class="slide level2">
+<h2>Thank you for listening! Any questions?</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images/gifstars.gif" width="348"></p>
@@ -636,7 +636,7 @@ Geodetic CRS:  WGS 84
 <div class="footer footer-default">
 <p><a href="https://info526-dataviz.github.io/project-final-Chart-Champions/">🌠 Chart Champions</a></p>
 </div>
-</section>
+</section></section>
     </div>
   </div>
 
@@ -848,44 +848,6 @@ Geodetic CRS:  WGS 84
         ]
       });
     </script>
-    
-    <script>
-      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-      // slide changes (different for each slide format).
-      (function () {
-        // dispatch for htmlwidgets
-        function fireSlideEnter() {
-          const event = window.document.createEvent("Event");
-          event.initEvent("slideenter", true, true);
-          window.document.dispatchEvent(event);
-        }
-
-        function fireSlideChanged(previousSlide, currentSlide) {
-          fireSlideEnter();
-
-          // dispatch for shiny
-          if (window.jQuery) {
-            if (previousSlide) {
-              window.jQuery(previousSlide).trigger("hidden");
-            }
-            if (currentSlide) {
-              window.jQuery(currentSlide).trigger("shown");
-            }
-          }
-        }
-
-        // hookup for slidy
-        if (window.w3c_slidy) {
-          window.w3c_slidy.add_observer(function (slide_num) {
-            // slide_num starts at position 1
-            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-          });
-        }
-
-      })();
-    </script>
-
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {
