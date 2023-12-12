@@ -99,7 +99,7 @@ pretty_lonlat <- function(x, type, accuracy = 2) {
 
 -   Increasing engagement by personalizing the experience through various elements: color usage, map location, time zone, latitude/longitude location
 
--   Aiming to increase inclusivity for people of all backgrounds and levels of astronomical knowledge by designing with a user-friendly interface to ensure accessibility with an
+-   Aiming to increase inclusivity for people of all backgrounds and levels of astronomical knowledge by designing with a user-friendly interface to ensure accessibility
 
 -   Providing annotations to provide readability and educational context for a wide range of users, including astronomy beginners
 
