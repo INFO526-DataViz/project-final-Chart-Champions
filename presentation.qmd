@@ -126,6 +126,8 @@ Develop a Shiny app that generates constellation maps that utilizes interactive 
 
 ## Dataset {.smaller}
 
+::: columns
+::: {.column width="50%"}
 -   This dataset is a processed version of [d3-celestial-plugin](https://github.com/dieghernan/celestial_data/tree/main), an official GeoJSON library for obtaining spatial data on constellation objects.
 
 -   The datasets are available in GeoJSON (`*.geojson`) and GeoPackage (`*.gpkg`) formats
@@ -139,6 +141,11 @@ Develop a Shiny app that generates constellation maps that utilizes interactive 
     -   `constellations.lines` = Constellation Lines dataset
 
     -   `stars.8` = Stars dataset
+:::
+
+::: {.column width="50%"}
+:::
+:::
 
 # Execution
 
@@ -263,6 +270,12 @@ ggplot() +
 ![](images/seoul_starmap.png){fig-align="center" width="80%"}
 :::
 :::
+
+## Demo
+
+Now, we are going to demonstrate our project in action.
+
+[Shiny App for Celestial Map](https://bag6d9-visalakshi-iyer.shinyapps.io/starmapapp/){target="_blank"}
 
 ## Conclusion {.column width="50%"}
 

@@ -179,7 +179,7 @@
     "href": "presentation.html#dataset",
     "title": "Constellation Maps",
     "section": "Dataset",
-    "text": "Dataset\n\nThis dataset is a processed version of d3-celestial-plugin, an official GeoJSON library for obtaining spatial data on constellation objects.\nThe datasets are available in GeoJSON (*.geojson) and GeoPackage (*.gpkg) formats\nRepresentation of these celestial objects’ positions are according to the J2000 epoch. Which means that it is as of the Julian epoch that started on January 1, 2000, at 12:00 Terrestrial Time.\nData used:\n\nmw = Milky Way dataset\nconstellations.lines = Constellation Lines dataset\nstars.8 = Stars dataset"
+    "text": "Dataset\n\n\n\nThis dataset is a processed version of d3-celestial-plugin, an official GeoJSON library for obtaining spatial data on constellation objects.\nThe datasets are available in GeoJSON (*.geojson) and GeoPackage (*.gpkg) formats\nRepresentation of these celestial objects’ positions are according to the J2000 epoch. Which means that it is as of the Julian epoch that started on January 1, 2000, at 12:00 Terrestrial Time.\nData used:\n\nmw = Milky Way dataset\nconstellations.lines = Constellation Lines dataset\nstars.8 = Stars dataset"
   },
   {
     "objectID": "presentation.html#analysis-approach",
@@ -243,5 +243,12 @@
     "title": "Constellation Maps",
     "section": "Thank you for listening! Any questions?",
     "text": "Thank you for listening! Any questions?\n\n\n\nCredit: BBC\n\n\n\n\n\n🌠 Chart Champions"
+  },
+  {
+    "objectID": "presentation.html#demo",
+    "href": "presentation.html#demo",
+    "title": "Constellation Maps",
+    "section": "Demo",
+    "text": "Demo\nNow, we are going to demonstrate our project in action.\nShiny App for Celestial Map"
   }
 ]
