@@ -10,6 +10,7 @@ title-slide-attributes:
 format:
   revealjs:
     theme:  ['data/customtheming.scss']
+    # theme: "beige"
     transition: slide
     background-transition: fade
     logo: images\map-logo.png
@@ -275,6 +276,6 @@ ggplot() +
 
 -   Sometimes due to incomplete or inaccurate data, might lead to misidentification of celestial objects or missing information about certain stars or constellations. The dataset is currently actively updated, but with the passing of time, the requirement for different processed dataset can arise.
 
-# Thank you for listening! Any questions?
+## Thank you for listening! Any questions?
 
 ![Credit: BBC](images/gifstars.gif){fig-align="center" width="348"}

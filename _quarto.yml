@@ -16,12 +16,12 @@ website:
         href: presentation.qmd
       - text: About
         href: about.qmd
-    logo: images\constellationlogo.jpg
-    favicon: images\constellationlogo.jpg
+    logo: images\constellationlogo.png
+    favicon: images\constellationlogo.png
 
 format:
   html:
-    theme: default
+    theme: "pulse"
     toc: true
 
 execute:
