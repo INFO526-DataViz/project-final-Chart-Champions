@@ -13,7 +13,7 @@ format:
     # theme: "beige"
     transition: slide
     background-transition: fade
-    logo: images\map-logo.png
+    logo: 'images\map-logo.png'
     footer: "[🌠 Chart Champions](https://info526-dataviz.github.io/project-final-Chart-Champions/)"
     scrollable: true
     code-fold: true
