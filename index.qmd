@@ -22,6 +22,10 @@ With these data files, we created a sky map and published an interactive Shiny a
 
 ## Approach
 
+#### Help functions
+
+To create a visualization of the sky map, there are various preparations to be made. Initially, we established several helper functions to implement the sky map based on locations and time zones. The `load_celestial()` function loads the entire dataset essential for our needs, while `pretty_lonlat()` is responsible for converting coordinates into a specific format. Also, `get_mst()` computes the Mean Sidereal Time (MST) given a specific longitude. And `sf_spherical_cut()` cuts map into spherical.
+
 ## Results
 
 ## Conclusion
