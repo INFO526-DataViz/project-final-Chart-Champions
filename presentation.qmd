@@ -10,6 +10,15 @@ title-slide-attributes:
 format:
   revealjs:
     theme:  ['data/customtheming.scss']
+    transition: slide
+    background-transition: fade
+    logo: images\sparkle.png
+    footer: "[🌠 Chart Champions](https://info526-dataviz.github.io/project-final-Chart-Champions/)"
+    scrollable: true
+    style: |
+      body {
+        font-size: 12px; /* Set your desired font size here */
+      }
   
 editor: visual
 execute:
