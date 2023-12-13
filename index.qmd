@@ -3,24 +3,11 @@ title: "🌠 Constellation Maps"
 subtitle: "INFO 526 - Project Final"
 author: "Chart Champions"
 format: html
+code-fold: true
 editor: visual
+execute: 
+  eval: false
 ---
-
-## Abstract
-
-This project aims to develop a Shiny app that generates an interactive constellation maps, leveraging computational and visualization techniques. Utilizing the datasets are available in GeoJSON (`*.geojson`) and GeoPackage (`*.gpkg`) formats, we will be using three of the available data: the milkyway, the constellation lines, and the stars. The primary objective is to prioritize accessibility and personalization by allowing users to input specific geographic locations and time, resulting in contextually relevant and visually captivating constellation maps. The significance of this project is to enhance the appeal and educational value of stargazing by tailoring the experience through diverse elements such as color schemes, map locations, time zones, and latitude/longitude inputs. Furthermore, the app will be crafted with a user-friendly interface, aiming for inclusivity across diverse backgrounds and levels of astronomical expertise.
-
-## Introduction
-
-Everyone has had the experience of wanting to know the name of the constellation currently visible in the sky. At least once, we've all heard the myths and stories of how constellations were named when we were young. Also, we might want to explore the sky in places or time zones where we have not experienced before.
-
-So, how can we observe the skies in different places and time zones? That is the main focus of this project. By utilizing geospatial data, celestial information, and a bit of astronomical knowledge, we can traverse space-time and behold the beauty of various constellations.
-
-The datasets are from [\@dieghernan](https://github.com/dieghernan/celestial_data) and consist of 63 files, including GeoJSON, GeoPackage, and CSV formats. You can These files are categorized into the Milky Way, the constellation lines, and the stars. Each file is intricately implemented, providing the framework for the sky map, coordinates, the Milky Way, constellations, and stars.
-
-With these data files, we created a sky map and published an interactive Shiny app, allowing users to input city, time, and accessible color preferences.
-
-## Approach
 
 ```{r}
 #| label: load-packages
@@ -32,7 +19,6 @@ pacman::p_load(knitr, formattable, tidyverse, # General packages
                sf, s2, nominatimlite, # Spatial manipulation
                ggfx,ggshadow,ggrepel # Visualization
                )
-
 ```
 
 ```{r}
@@ -51,9 +37,32 @@ knitr::opts_chunk$set(
   )
 ```
 
+## Abstract
+
+This project aims to develop a Shiny app that generates an interactive constellation maps, leveraging computational and visualization techniques. Utilizing the datasets are available in GeoJSON (`*.geojson`) and GeoPackage (`*.gpkg`) formats, we will be using three of the available data: the milkyway, the constellation lines, and the stars. The primary objective is to prioritize accessibility and personalization by allowing users to input specific geographic locations and time, resulting in contextually relevant and visually captivating constellation maps. The significance of this project is to enhance the appeal and educational value of stargazing by tailoring the experience through diverse elements such as color schemes, map locations, time zones, and latitude/longitude inputs. Furthermore, the app will be crafted with a user-friendly interface, aiming for inclusivity across diverse backgrounds and levels of astronomical expertise.
+
+## Introduction
+
+Everyone has had the experience of wanting to know the name of the constellation currently visible in the sky. At least once, we've all heard the myths and stories of how constellations were named when we were young. Also, we might want to explore the sky in places or time zones where we have not experienced before.
+
+So, how can we observe the skies in different places and time zones? That is the main focus of this project. By utilizing geospatial data, celestial information, and a bit of astronomical knowledge, we can traverse space-time and behold the beauty of various constellations.
+
+The datasets are from [\@dieghernan](https://github.com/dieghernan/celestial_data) and consist of 63 files, including GeoJSON, GeoPackage, and CSV formats. You can These files are categorized into the Milky Way, the constellation lines, and the stars. Each file is intricately implemented, providing the framework for the sky map, coordinates, the Milky Way, constellations, and stars.
+
+With these data files, we created a sky map and published an interactive Shiny app, allowing users to input city, time, and accessible color preferences.
+
+## Approach
+
+### Load and Explore Data
+
+Every dataset for this project (milkyway, stars, constellations) contained sf (simple features) object that can be used directly to plot polygons on a spherical geom (s2). Here is a glimpse of one such dataset:
+
 ```{r}
 #| label: load-data
-#| include: false
+#| code-fold: true
+#| code-summary: Code to Load Data
+
+
 # Load data here
 load_celestial <- function(filename,
                            url = "https://cdn.jsdelivr.net/gh/dieghernan/celestial_data@main/data/",
@@ -94,11 +103,62 @@ pretty_lonlat <- function(x, type, accuracy = 2) {
   label <- paste0(D, "\u00b0 ", M, "' ", S, '\" ', lab)
   return(label)
 }
+
+load_celestial("mw.min.geojson")
 ```
 
-#### Help functions
+#### Helper functions
 
-To create a visualization of the sky map, there are various preparations to be made. Initially, we established several helper functions to implement the sky map based on locations and time zones. The `load_celestial()` function loads the entire dataset essential for our needs, while `pretty_lonlat()` is responsible for converting coordinates into a specific format. Also, `get_mst()` computes the Mean Sidereal Time (MST) given a specific longitude. And `sf_spherical_cut()` cuts map into spherical.
+To create a visualization of the sky map, there are various preparations to be made. Initially, we established several helper functions to implement the sky map based on locations and time zones. The `load_celestial()` function loads the entire dataset essential for our needs, while `pretty_lonlat()` is responsible for converting coordinates into a specific format. Also, `get_mst()` computes the Mean Sidereal Time (MST) given a specific longitude. And `sf` and `s2` packages were used to cut map into spherical.
+
+```{r}
+#| label: calculate-mst
+#| code-fold: true
+#| code-summary: Code to get Mean Sidereal Time
+
+# Derive rotation degrees of the projection given a date and a longitude
+get_mst <- function(dt, lng) {
+  desired_date_utc <- lubridate::with_tz(dt, "UTC")
+
+
+  yr <- lubridate::year(desired_date_utc)
+  mo <- lubridate::month(desired_date_utc)
+  dy <- lubridate::day(desired_date_utc)
+  h <- lubridate::hour(desired_date_utc)
+  m <- lubridate::minute(desired_date_utc)
+  s <- lubridate::second(desired_date_utc)
+
+  if ((mo == 1) || (mo == 2)) {
+    yr <- yr - 1
+    mo <- mo + 12
+  }
+
+  # Adjust times before Gregorian Calendar
+  # See https://squarewidget.com/julian-day/
+  if (lubridate::as_date(dt) > as.Date("1582-10-14")) {
+    a <- floor(yr / 100)
+    b <- 2 - a + floor(a / 4)
+  } else {
+    b <- 0
+  }
+  c <- floor(365.25 * yr)
+  d <- floor(30.6001 * (mo + 1))
+
+  # days since J2000.0
+  jd <- b + c + d - 730550.5 + dy + (h + m / 60 + s / 3600) / 24
+  jt <- jd / 36525
+
+  # Rotation
+  mst <- 280.46061837 + 360.98564736629 * jd +
+    0.000387933 * jt^2 - jt^3 / 38710000.0 + lng
+
+  # Modulo 360 degrees
+  mst <- mst %% 360
+
+  return(mst)
+}
+
+```
 
 #### Inputs
 
@@ -132,8 +192,8 @@ We utilized the same inputs (place, time zone) in the Shiny app. Additionally, w
 
 We plotted all the functions together, and customized the background color, the glow intensity of the constellations, and provided a pretty caption at the footer
 
-```{r, echo=TRUE, eval=FALSE}
-
+```{r}
+#| label: plot-final
 #| code-fold: true
 #| code-summary: "Plot Function for Star Map"
 
@@ -187,7 +247,9 @@ ggplot() +
 
 ![](images/seoul_starmap.png){fig-align="center" style="text-align: center;" width="25%"}
 
-The shiny app is deployed here: <https://bag6d9-visalakshi-iyer.shinyapps.io/starmapapp/>
+### Deployment
+
+🔗 The shiny app is deployed here: [Shiny App for Celestial Map](https://bag6d9-visalakshi-iyer.shinyapps.io/starmapapp/){target="_blank"}
 
 ## Conclusion
 
@@ -195,8 +257,10 @@ Constellations, as fundamental guides in locating stars, galaxies, and celestial
 
 ## Citations
 
-Hintz et al., 2015: https://files.eric.ed.gov/fulltext/EJ1101067.pdf
+Hintz et al., 2015: <https://files.eric.ed.gov/fulltext/EJ1101067.pdf>
 
 Images: Unsplash Photos
 
 Frohn, O., & Hernangómez, D. (2023). Celestial Data \[Data set\]. <https://doi.org/10.5281/zenodo.7561601>
+
+[Astronomical Calculations: Sidereal Time -- James Still](https://squarewidget.com/astronomical-calculations-sidereal-time/)

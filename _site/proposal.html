@@ -220,7 +220,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <colgroup>
 <col style="width: 16%">
 <col style="width: 16%">
-<col style="width: 67%">
+<col style="width: 65%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -310,7 +310,7 @@ MULTIPOLYGON (((161.333 -59…
 <colgroup>
 <col style="width: 13%">
 <col style="width: 14%">
-<col style="width: 72%">
+<col style="width: 70%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -591,7 +591,7 @@ POINT (11.0475 -10.6096)
 <colgroup>
 <col style="width: 16%">
 <col style="width: 16%">
-<col style="width: 67%">
+<col style="width: 65%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -873,6 +873,19 @@ These datasets offer celestial visualizations based on longitude, latitude, and 
 <li><code>README.md</code> : A readme file that describes the datasets in more detail.</li>
 </ul></li>
 <li><p><code>images</code>: This folder contains image files that are used in the project, such as illustrations, diagrams, or other visual assets.</p></li>
+<li><p><code>analysis/</code>: This folder contains the analysis scripts used to generate output for the project outline.</p>
+<ul>
+<li><p>README.md: describes the steps to run and generate the results using scripts</p></li>
+<li><p>functions_celestial_objects.qmd: Helper functions to generate celestial map for any given location and given time</p></li>
+<li><p>imgs/: A folder containing the sample output of the plot generated from the code</p></li>
+</ul></li>
+<li><p><code>starmapapp/</code>: This folder contains the code for GUI built using Shiny App</p>
+<ul>
+<li><p><code>app.R</code>: This file contains the code for Shiny App UI and Server</p></li>
+<li><p><code>data_transformation.R</code>: This file contains the code to transform the dataset into relevant simple feature objects</p></li>
+<li><p><code>helper_functions.R</code>: This file contains the code to convert raw user input into celestial translation. For example converting date-time into MST lat-lon.</p></li>
+<li><p><code>plot_graphs.R</code>: This file contains the code for plotting functions</p></li>
+</ul></li>
 <li><p><code>.gitignore</code>: This file specifies which files or directories should be ignored by version control.</p></li>
 <li><p><code>README.md</code>: This file usually contains documentation or information about the project. It’s often the first thing someone reads when they visit the project repository.</p></li>
 <li><p><code>_quarto.yml</code>: This is a configuration file.</p></li>
