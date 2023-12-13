@@ -249,7 +249,7 @@ ggplot() +
 
 ### Deployment
 
-🔗 The shiny app is deployed here: [Shiny App for Celestial Map](https://bag6d9-visalakshi-iyer.shinyapps.io/starmapapp/){target="_blank"}
+🔗 The shiny app is deployed here: [Shiny App for Celestial Map](https://bag6d9-visalakshi-iyer.shinyapps.io/starmapapp/)
 
 ## Conclusion
 

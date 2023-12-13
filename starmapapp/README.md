@@ -10,7 +10,7 @@ So, how can we observe the skies in different places and time zones? That is the
 
 ## Deployment
 
-🔗 The GUI made with the script in the `starmapapp/` folder has been deployed on this link: ([Shiny App for Celestial Map](https://bag6d9-visalakshi-iyer.shinyapps.io/starmapapp/){target="_blank"})
+🔗 The GUI made with the script in the `starmapapp/` folder has been deployed on this link: ([Shiny App for Celestial Map](https://bag6d9-visalakshi-iyer.shinyapps.io/starmapapp/))
 
 ## File Description
 
