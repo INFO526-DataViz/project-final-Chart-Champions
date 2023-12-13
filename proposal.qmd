@@ -85,10 +85,13 @@ stars <- load_celestial("stars.8.min.geojson")
 
 ### Milky Way
 
++-------------+-------------+-----------------------------------------------------+
 | Column Name | Data Type   | Description                                         |
-|-------------|-------------|-----------------------------------------------------|
++=============+=============+=====================================================+
 | ID          | String      | Milky Way outlines in 5 brightness steps (ol1-ol5). |
++-------------+-------------+-----------------------------------------------------+
 | Geometry    | Line Object | geometry lines for milky way                        |
++-------------+-------------+-----------------------------------------------------+
 
 ```{r}
 
@@ -97,14 +100,21 @@ mw  |> formattable()
 
 ### Stars
 
++-------------+--------------+----------------------------------------------------------------------+
 | Column Name | Data Type    | Description                                                          |
-|-------------|--------------|----------------------------------------------------------------------|
++=============+==============+======================================================================+
 | ID          | Integer      | Short designator                                                     |
++-------------+--------------+----------------------------------------------------------------------+
 | Mag         | Double       | Apparent magnitude, 999 if n.a.                                      |
++-------------+--------------+----------------------------------------------------------------------+
 | BV          | Float        | b-v color index.                                                     |
++-------------+--------------+----------------------------------------------------------------------+
 | BR          | Float        | Relative brightness to magnitude 0, computed as $100^{-1 * mag / 5}$ |
++-------------+--------------+----------------------------------------------------------------------+
 | Name        | String       | Proper star name                                                     |
++-------------+--------------+----------------------------------------------------------------------+
 | Geometry    | Point Object | around 40k stars point objects                                       |
++-------------+--------------+----------------------------------------------------------------------+
 
 ```{r, echo = FALSE}
 
@@ -114,12 +124,17 @@ stars |> filter(!is.na(name)) |> head(10) |> formattable()
 
 ### Constellation lines
 
++-------------+-------------+------------------------------------------------------+
 | Column Name | Data Type   | Description                                          |
-|-------------|-------------|------------------------------------------------------|
++=============+=============+======================================================+
 | Geometry    | Line Object | 89 constellation line objects                        |
++-------------+-------------+------------------------------------------------------+
 | ID          | String      | 3-letter designator                                  |
++-------------+-------------+------------------------------------------------------+
 | Rank        | Integer     | 1-3 for differential name display by size/brightness |
++-------------+-------------+------------------------------------------------------+
 | Name        | String      | full IAU name                                        |
++-------------+-------------+------------------------------------------------------+
 
 ```{r, echo=FALSE}
 
@@ -184,6 +199,24 @@ These datasets offer celestial visualizations based on longitude, latitude, and 
     -   `README.md` : A readme file that describes the datasets in more detail.
 
 -   `images`: This folder contains image files that are used in the project, such as illustrations, diagrams, or other visual assets.
+
+-   `analysis/`: This folder contains the analysis scripts used to generate output for the project outline.
+
+    -   README.md: describes the steps to run and generate the results using scripts
+
+    -   functions_celestial_objects.qmd: Helper functions to generate celestial map for any given location and given time
+
+    -   imgs/: A folder containing the sample output of the plot generated from the code
+
+-   `starmapapp/`: This folder contains the code for GUI built using Shiny App
+
+    -   `app.R`: This file contains the code for Shiny App UI and Server
+
+    -   `data_transformation.R`: This file contains the code to transform the dataset into relevant simple feature objects
+
+    -   `helper_functions.R`: This file contains the code to convert raw user input into celestial translation. For example converting date-time into MST lat-lon.
+
+    -   `plot_graphs.R`: This file contains the code for plotting functions
 
 -   `.gitignore`: This file specifies which files or directories should be ignored by version control.
 

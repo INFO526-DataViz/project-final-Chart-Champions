@@ -1,17 +1,22 @@
+---
+editor: 
+  markdown: 
+    wrap: 72
+---
+
 # Data Formats
 
-Data is provided in GeoJSON (`*.geojson`) and GeoPackage (`*.gpkg`) format.
-Additionally, for GeoJSON formats a minified version (`*.min.geojson`) is also
-provided.
-
-All data complies with the GeoJSON format (provided in
-[EPSG:4326](https://epsg.io/4326), bounded to $[-180, -90, 180, 90]$ and
-geometries valid as per [ST_IsValid](https://postgis.net/docs/ST_IsValid.html)
-on GEOS **3.9.3**).
+This dataset is a processed version of
+[d3-celestial-plugin](https://github.com/dieghernan/celestial_data/tree/main),
+an official GeoJSON library for obtaining spatial data on constellation
+objects. Data is provided in GeoJSON (`*.geojson`) and GeoPackage
+(`*.gpkg`) format. Additionally, for GeoJSON formats a minified version
+(`*.min.geojson`) is also provided.
 
 All data provided at J2000 epoch, positions converted from 0...24h right
-ascension to -180...180 degrees longitude as per GeoJSON requirements, so
-0...12h becomes 0...180 degrees, and 12...24h becomes -180...0 degrees.
+ascension to -180...180 degrees longitude as per GeoJSON requirements,
+so 0...12h becomes 0...180 degrees, and 12...24h becomes -180...0
+degrees.
 
 # Distribution
 
@@ -33,7 +38,8 @@ https://cdn.jsdelivr.net/gh/dieghernan/celestial_data@main/data/mw.min.geojson
 
 ## Asterisms
 
-`asterisms.<data format>` (`MULTILINESTRING`) with 65 objects the following attributes:
+`asterisms.<data format>` (`MULTILINESTRING`) with 65 objects the
+following attributes:
 
 -   **id**: Name without spaces
 
@@ -48,7 +54,8 @@ https://cdn.jsdelivr.net/gh/dieghernan/celestial_data@main/data/mw.min.geojson
 ## Constellations
 
 `constellations.<data format>` (`POINT`) with 89 objects. Additionally a
-`constellations.csv` file with the data (no coordinates) is also provided:
+`constellations.csv` file with the data (no coordinates) is also
+provided:
 
 -   **id**: 3-letter designator
 
@@ -62,45 +69,50 @@ https://cdn.jsdelivr.net/gh/dieghernan/celestial_data@main/data/mw.min.geojson
 
 -   **en**: English name ... and names in 18 further languages
 
--   **display_ra**, **display_dec**, **display_scale**: for single constellation
-    display
+-   **display_ra**, **display_dec**, **display_scale**: for single
+    constellation display
 
 ### Traditional Chinese constellations
 
-`constellations.cn.<data format>` (`POINT`) with 312 objects. Additionally a
-`constellations.cn.csv` file with the data (no coordinates) is also provided:
+`constellations.cn.<data format>` (`POINT`) with 312 objects.
+Additionally a `constellations.cn.csv` file with the data (no
+coordinates) is also provided:
 
 -   **id:** numerical id
 -   **name**: Chinese name
 -   **en**: English translation
 -   **pinyin**: pinyin transcription
 -   **desig**: also Chinese name, for compatibility
--   **rank**: so far only 1; differential name display by size/brightness
--   **display_ra**, **display_dec**, **display_scale**: for single constellation
-    display
+-   **rank**: so far only 1; differential name display by
+    size/brightness
+-   **display_ra**, **display_dec**, **display_scale**: for single
+    constellation display
 
 ## Constellation boundaries
 
-`constellations.borders.<data format>` (`MULTILINESTRING`) with 257 objects.
+`constellations.borders.<data format>` (`MULTILINESTRING`) with 257
+objects.
 
--   **ids**: String with format "3-letter designator A, 3-letter designator B"
-    identifying the constellations surrounding the border.
+-   **ids**: String with format "3-letter designator A, 3-letter
+    designator B" identifying the constellations surrounding the border.
 
-`constellations.bounds.<data format>` (`MULTIPOLYGON`) with 89 objects. See
-**Constellation lines** for field descriptions.
+`constellations.bounds.<data format>` (`MULTIPOLYGON`) with 89 objects.
+See **Constellation lines** for field descriptions.
 
 ### Traditional Chinese constellations
 
-`constellations.borders.cn.<data format>` (`LINESTRING`) with 84 objects.
+`constellations.borders.cn.<data format>` (`LINESTRING`) with 84
+objects.
 
 -   **ids**: border id.
 
-`constellations.bounds.cn.<data format>` (`POLYGON`) with 28 objects. See
-**Constellation lines** for field descriptions.
+`constellations.bounds.cn.<data format>` (`POLYGON`) with 28 objects.
+See **Constellation lines** for field descriptions.
 
 ## Constellation lines
 
-`constellations.lines.<data format>` (`MULTILINESTRING`) with 89 objects.
+`constellations.lines.<data format>` (`MULTILINESTRING`) with 89
+objects.
 
 -   **id**: 3-letter designator
 
@@ -111,16 +123,17 @@ https://cdn.jsdelivr.net/gh/dieghernan/celestial_data@main/data/mw.min.geojson
 ### Traditional Chinese constellations
 
 `constellations.lines.cn.<data format>` (`MULTILINESTRING`) with 255
-objects[^readme-1]:
+objects[^1]:
 
-[^readme-1]: Some constellations have been removed from the original dataset
+[^1]: Some constellations have been removed from the original dataset
     (<https://github.com/ofrohn/d3-celestial/blob/master/data/constellations.lines.cn.json>)
-    since the `MULTILINESTRING` object consisted only on a single point, that
-    does not conform with the GeoJSON standard (`POINT` as `MULTILINESTRING` are
-    not valid).
+    since the `MULTILINESTRING` object consisted only on a single point,
+    that does not conform with the GeoJSON standard (`POINT` as
+    `MULTILINESTRING` are not valid).
 
 -   **id:** numerical id
--   **rank**: so far only 1; differential name display by size/brightness
+-   **rank**: so far only 1; differential name display by
+    size/brightness
 -   **name**: Chinese name
 -   **en**: English translation
 
@@ -150,8 +163,8 @@ Deep Space Objects
 
 Several files:
 
--   `dsos.6.<data format>`, `dsos.14.<data format>`, `dsos.20.<data format>`:
-    the number indicates limit magnitude.
+-   `dsos.6.<data format>`, `dsos.14.<data format>`,
+    `dsos.20.<data format>`: the number indicates limit magnitude.
 
 -   `dsos.bright.<data format>`: hand selected DSOs.
 
@@ -165,12 +178,13 @@ All objects are `POINT`:
 
 -   **desig**: Designator
 
--   **type**: Object type: gg *(galaxy cluster)*, g: *(galaxy)*, s: *(spiral
-    galaxy)*, s0: *(lenticular gal.)*, sd: *(dwarf spheroidal gal.)*, i:
-    *(irregular gal.)*, e: *(elliptical gal.)*, oc: *(open cluster)*, gc:
-    *(globular cluster)*, dn: *(dark nebula)*, bn: *(bright nebula)*, sfr:
-    *(star forming region)*, rn: *(reflection nebula)*, en: *(emission nebula)*,
-    pn: *(planetary nebula)*, snr: *(supernova remnant)*.
+-   **type**: Object type: gg *(galaxy cluster)*, g: *(galaxy)*, s:
+    *(spiral galaxy)*, s0: *(lenticular gal.)*, sd: *(dwarf spheroidal
+    gal.)*, i: *(irregular gal.)*, e: *(elliptical gal.)*, oc: *(open
+    cluster)*, gc: *(globular cluster)*, dn: *(dark nebula)*, bn:
+    *(bright nebula)*, sfr: *(star forming region)*, rn: *(reflection
+    nebula)*, en: *(emission nebula)*, pn: *(planetary nebula)*, snr:
+    *(supernova remnant)*.
 
 -   **morph**: Morphology classification depending on type
 
@@ -180,27 +194,29 @@ All objects are `POINT`:
 
 -   **bv**: Blue minus visual magnitude color inder (b-v)
 
--   **br**: Relative brightness to magnitude 0, computed as $100^{-1 * mag / 5}$
+-   **br**: Relative brightness to magnitude 0, computed as
+    $100^{-1 * mag / 5}$
 
 -   **name**: Proper name
 
 Additional fields on `lg.<data format>`:
 
--   **sub**: Sub group membership: `MW|M31|N3109|LG` (Milky Way, Andromeda, NGC
-    3109, gen. LG)
+-   **sub**: Sub group membership: `MW|M31|N3109|LG` (Milky Way,
+    Andromeda, NGC 3109, gen. LG)
 
--   **pop**: MW populations `OH|YH|BD` (Old halo, young halo, bulge & disk), M31
-    populations `M31|GP` (gen. M31, great plane)
+-   **pop**: MW populations `OH|YH|BD` (Old halo, young halo, bulge &
+    disk), M31 populations `M31|GP` (gen. M31, great plane)
 
--   **str**: Tidal streams `Mag|Sgr|CMa|FLS` (Magellanic Stream, Sagittarius
-    Stream, Canis Major/Monoceros Stream, Fornax-Leo-Sculptor Great Circle)
+-   **str**: Tidal streams `Mag|Sgr|CMa|FLS` (Magellanic Stream,
+    Sagittarius Stream, Canis Major/Monoceros Stream,
+    Fornax-Leo-Sculptor Great Circle)
 
 ## Stars
 
 ### Starnames
 
-`starnames.csv`: Magnitude independent, all stars with a name/designation other
-than HIP/HD
+`starnames.csv`: Magnitude independent, all stars with a
+name/designation other than HIP/HD
 
 -   **id**: Hipparcos number
 -   **name**: , Proper name and names in 17 further languages
@@ -224,8 +240,8 @@ than HIP/HD
 
 ### Stars
 
-`stars.6.<data format>`, `stars.8.<data format>`, `stars.14.<data format>`: the
-number indicates limit magnitude:
+`stars.6.<data format>`, `stars.8.<data format>`,
+`stars.14.<data format>`: the number indicates limit magnitude:
 
 -   **id**: Short designator
 
@@ -233,7 +249,8 @@ number indicates limit magnitude:
 
 -   **bv**: b-v color index.
 
--   **br**: Relative brightness to magnitude 0, computed as $100^{-1 * mag / 5}$
+-   **br**: Relative brightness to magnitude 0, computed as
+    $100^{-1 * mag / 5}$
 
 -   **name**: Proper name
 
@@ -242,4 +259,3 @@ number indicates limit magnitude:
 `mw.<data format>` with 5 rows:
 
 -   **id**: Milky Way outlines in 5 brightness steps (ol1-ol5).
-
